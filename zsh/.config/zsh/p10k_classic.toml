@@ -1,0 +1,124 @@
+version = 3
+
+[upgrade]
+  source = 'cdn'
+  interval = '168h'
+  auto = false
+  notice = false
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'left'
+
+  [[blocks.segments]]
+    template = ' {{ if .WSL }}WSL at {{ end }}{{.Icon}} <p:split></>'
+    foreground = '#ffffff'
+    background = 'p:bg'
+    type = 'os'
+    style = 'plain'
+
+  [[blocks.segments]]
+    template = '  '
+    foreground = 'p:cyan'
+    background = 'p:bg'
+    type = 'root'
+    style = 'plain'
+
+  [[blocks.segments]]
+    type = 'custom'
+    style = 'plain'
+    foreground = 'p:cyan'
+    background = 'p:bg'
+    template = ' {{ .Output }} '
+
+    [blocks.segments.properties]
+      shell = 'bash'
+
+  [[blocks.segments]]
+    template = '''{{ if eq .PWD "~" }}   {{ else }}  {{ end }}{{.Path}} '''
+    foreground = '31'
+    background = 'p:bg'
+    type = 'path'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      style = 'full'
+      edge_format = "<39><b>%s</b></>"
+
+  [[blocks.segments]]
+#template = '<#dddddd> </>   {{ .HEAD }} '
+    foreground = '#00ff00'
+    background = 'p:bg'
+    background_templates = [
+      "{{ if or (.Working.Changed) (.Staging.Changed) }}#FFEB3B{{ end }}",
+      "{{ if and (gt .Ahead 0) (gt .Behind 0) }}#FFCC80{{ end }}",
+      "{{ if gt .Ahead 0 }}#B388FF{{ end }}",
+      "{{ if gt .Behind 0 }}#B388FB{{ end }}"
+    ]
+    template = "<p:split> </>{{ .UpstreamIcon }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }}"
+    type = 'git'
+    style = 'plain'
+
+  [[blocks.segments]]
+    template = ''
+    foreground = 'p:bg'
+    background = 'transparent'
+    type = 'text'
+    style = 'plain'
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'right'
+
+  [[blocks.segments]]
+    type = "executiontime"
+    style = "diamond"
+    foreground = "#fefefe"
+    background = "p:bg"
+    template = " {{ .FormattedMs }}  "
+    trailing_diamond = ''
+    leading_diamond = ''
+
+    [blocks.segments.properties]
+      threshold = 500
+      style = "austin"
+      always_enabled = false
+
+  [[blocks.segments]]
+    template = ' {{ .CurrentDate | date .Format }}  '
+    foreground = 'p:cyan'
+    background = 'p:bg'
+    type = 'time'
+    style = 'diamond'
+    leading_diamond = ''
+
+    [blocks.segments.properties]
+      time_format = '15:04:05'
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'left'
+  newline = true
+
+  [[blocks.segments]]
+    template = '❯ '
+    foreground = '#00ff00'
+    type = 'status'
+    style = 'plain'
+    foreground_templates = ['{{ if gt .Code 0 }}red{{ end }}']
+
+    [blocks.segments.properties]
+      always_enabled = true
+
+[transient_prompt]
+  foreground_templates = [
+    "{{if gt .Code 0}}red{{end}}",
+    "{{if eq .Code 0}}#00ff00{{end}}",
+  ]
+  background = 'transparent'
+  template = '❯ '
+
+[palette]
+  bg = "236"
+  cyan = "31"
+  split = "#bbbbbb"

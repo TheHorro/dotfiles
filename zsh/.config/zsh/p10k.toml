@@ -1,0 +1,97 @@
+version = 3
+
+[upgrade]
+  source = 'cdn'
+  interval = '168h'
+  auto = false
+  notice = false
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'left'
+
+  [[blocks.segments]]
+    leading_diamond = ''
+    trailing_diamond = ''
+    template = ' {{ if .WSL }}WSL at {{ end }}{{.Icon}} '
+    foreground = '#000000'
+    background = 'transparent'
+    type = 'os'
+    style = 'diamond'
+
+  [[blocks.segments]]
+    template = '  '
+    foreground = '#ffffff'
+    powerline_symbol = ''
+    background = '#000000'
+    type = 'root'
+    style = 'powerline'
+
+    [blocks.segments.properties]
+      style = 'full'
+
+  [[blocks.segments]]
+    template = ' {{ .Path }} '
+    foreground = '#ffffff'
+    powerline_symbol = ''
+    background = '#0000ff'
+    type = 'path'
+    style = 'powerline'
+
+    [blocks.segments.properties]
+      style = 'full'
+
+  [[blocks.segments]]
+    template = ' {{ .HEAD }} '
+    foreground = '#000000'
+    powerline_symbol = ''
+    background = '#D4E157'
+    type = 'git'
+    style = 'powerline'
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'right'
+
+  [[blocks.segments]]
+    leading_diamond = ''
+    template = ' {{ if .Error }}{{ .Error }}{{ else }}{{ if .Venv }}{{ .Venv }} {{ end }}{{ .Full }}{{ end }} <transparent></>'
+    foreground = '#000000'
+    background = '#D4E157'
+    type = 'python'
+    style = 'diamond'
+
+  [[blocks.segments]]
+    leading_diamond = ''
+    template = ' {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }} <transparent></>'
+    foreground = '#ffffff'
+    background = '#7FD5EA'
+    type = 'go'
+    style = 'diamond'
+
+  [[blocks.segments]]
+    leading_diamond = ''
+    trailing_diamond = ''
+    template = ' {{ .CurrentDate | date .Format }} '
+    foreground = '#000000'
+    background = '#ffffff'
+    type = 'time'
+    style = 'diamond'
+
+    [blocks.segments.properties]
+      time_format = '15:04:05'
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'left'
+  newline = true
+
+  [[blocks.segments]]
+    template = '❯ '
+    foreground = '#D4E157'
+    type = 'status'
+    style = 'plain'
+    foreground_templates = ['{{ if gt .Code 0 }}#FF5252{{ end }}']
+
+    [blocks.segments.properties]
+      always_enabled = true
