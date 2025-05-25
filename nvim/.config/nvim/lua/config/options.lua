@@ -1,21 +1,45 @@
-vim.cmd("set expandtab")
-vim.cmd("set tabstop=2")
-vim.cmd("set shiftwidth=0")
-vim.cmd("set softtabstop=0")
-vim.cmd("set number")
-vim.cmd("set relativenumber")
-vim.api.nvim_set_option("clipboard", "unnamed")
+vim.cmd("let g:netrw_banner = 0")
 
-vim.g.mapleader = " "
---vim.cmd("set mouse=a")
---vim.cmd("syntax enable")
---vim.cmd("set showcmd")
---vim.cmd("set encoding=utf-8")
---vim.cmd("set showmatch")
+vim.opt.nu = true
+vim.opt.relativenumber = true
 
---vim.cmd("set autoindent")
---vim.cmd("set smarttab")
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = true
+vim.opt.autoindent = true
+vim.opt.smartindent = true
+vim.opt.wrap = false
 
---vim.cmd.colorscheme("carbonfox")
--- Lua initialization file
--- vim.cmd [[colorscheme moonfly]]
+vim.opt.swapfile = false
+vim.opt.backup = false
+vim.opt.undofile = true
+
+vim.opt.incsearch = true
+vim.opt.inccommand = "split"
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+
+vim.opt.termguicolors = true
+vim.opt.background = "dark"
+vim.opt.scrolloff = 8
+vim.opt.signcolumn = "yes"
+
+vim.opt.backspace = { "start", "eol", "indent" }
+
+vim.opt.splitright = true
+vim.opt.splitbelow = true
+
+vim.opt.isfname:append("@-@")
+vim.opt.updatetime = 50
+vim.opt.colorcolumn = "100"
+
+-- clipboard
+vim.opt.clipboard:append("unnamedplus") --use system clipboard as default
+vim.opt.hlsearch = true
+
+-- for easy mouse resizing, just incase
+vim.opt.mouse = "a"
+
+-- gets rid of line with white spaces
+vim.g.editorconfig = true
