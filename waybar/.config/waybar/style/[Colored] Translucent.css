@@ -2,10 +2,10 @@
 /* Translucent */
 
 @define-color critical #ff0000; /* critical color */
-@define-color warning #f3f809;  /* warning color */
-@define-color fgcolor #ffffff;  /* foreground color */
-@define-color bgcolor #303030;  /* background color */
-@define-color bgcolor #222436;  /* background color */
+@define-color warning #f3f809; /* warning color */
+@define-color fgcolor #ffffff; /* foreground color */
+@define-color bgcolor #303030; /* background color */
+@define-color bgcolor #222436; /* background color */
 @define-color alert   #df3320;
 
 @define-color accent1 #ff7a93;
@@ -16,19 +16,21 @@
 @define-color accent6 #0db9d7;
 
 * {
-font-family: "JetBrainsMono Nerd Font";
-font-weight: bold;
-min-height: 0;
-/* set font-size to 100% if font scaling is set to 1.00 using nwg-look */
-font-size: 97%;
-font-feature-settings: '"zero", "ss01", "ss02", "ss03", "ss04", "ss05", "cv31"';
+    font-family: "JetBrainsMono Nerd Font";
+    font-weight: bold;
+    /* set font-size to 100% if font scaling is set to 1.00 using nwg-look */
+    font-size: 100%;
+    font-feature-settings: '"zero", "ss01", "ss02", "ss03", "ss04", "ss05", "cv31"';
+    /* height: 20px; */
+    /* min-height: 20px; */
+    /* max-height: 20px; */
 }
 
 window#waybar {
-    background-color: rgba(0,0,0,0.3);
+    background-color: rgba(0, 0, 0, 0.3);
     color: #ffffff;
     transition-property: background-color;
-    transition-duration: .5s;
+    transition-duration: 0.5s;
     border-radius: 10px;
 }
 
@@ -50,11 +52,11 @@ tooltip {
     background-color: transparent;
     color: #ffffff;
     box-shadow: none;
-	text-shadow: none;
+    text-shadow: none;
     padding: 4px;
     border-radius: 9px;
     animation: gradient_f 20s ease-in infinite;
-    transition: all 0.5s cubic-bezier(.55,-0.68,.48,1.682);
+    transition: all 0.5s cubic-bezier(0.55, -0.68, 0.48, 1.682);
 }
 
 #taskbar button.active,
@@ -64,17 +66,17 @@ tooltip {
     padding-left: 8px;
     padding-right: 8px;
     animation: gradient_f 20s ease-in infinite;
-    transition: all 0.3s cubic-bezier(.55,-0.68,.48,1.682);
+    transition: all 0.3s cubic-bezier(0.55, -0.68, 0.48, 1.682);
 }
 
 #taskbar button:hover,
 #workspaces button:hover {
     background: rgba(0, 0, 0, 0.2);
-	color: @accent3;
+    color: @accent3;
     padding-left: 2px;
     padding-right: 2px;
     animation: gradient_f 20s ease-in infinite;
-    transition: all 0.3s cubic-bezier(.55,-0.68,.48,1.682);
+    transition: all 0.3s cubic-bezier(0.55, -0.68, 0.48, 1.682);
 }
 
 #workspaces button.focused {
@@ -88,7 +90,7 @@ tooltip {
 }
 
 #mode {
-    background-color: #64727D;
+    background-color: #64727d;
     border-bottom: 3px solid #ffffff;
 }
 
@@ -141,17 +143,17 @@ tooltip {
 #custom-weather.clearNight,
 #custom-weather.cloudyFoggyDay,
 #custom-weather.cloudyFoggyNight,
-#custom-weather.default, 
+#custom-weather.default,
 #custom-weather.rainyDay,
 #custom-weather.rainyNight,
 #custom-weather.severe,
 #custom-weather.showyIcyDay,
 #custom-weather.snowyIcyNight,
 #custom-weather.sunnyDay {
-	padding-top: 4px;
-	padding-bottom: 4px;
-	padding-right: 6px;
-	padding-left: 6px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-right: 6px;
+    padding-left: 6px;
 }
 
 /* If workspaces is the leftmost module, omit left margin */
@@ -188,19 +190,19 @@ tooltip {
 
 #battery.critical:not(.charging) {
     color: @critical;
-	animation-name: blink;
-	animation-duration: 3.0s;
-	animation-timing-function: steps(12);
-	animation-iteration-count: infinite;
-	animation-direction: alternate;
+    animation-name: blink;
+    animation-duration: 3s;
+    animation-timing-function: steps(12);
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
 }
 
 label:focus {
     background-color: #000000;
 }
 
-#custom-menu{
-    color: #FFFFFF;
+#custom-menu {
+    color: #ffffff;
     /*padding: 3px;*/
 }
 
@@ -244,7 +246,7 @@ label:focus {
     color: @accent2;
 }
 
-#pluseaudio-source-muted{
+#pluseaudio-source-muted {
     color: #a0a0a0;
 }
 
@@ -288,14 +290,14 @@ label:focus {
 
 #custom-hypridle,
 #idle_inhibitor {
-	color: #f9e2af;
+    color: #f9e2af;
     /*background-color: #2d3436;*/
 }
 
 /*-----Indicators----*/
 #custom-hypridle.notactive,
 #idle_inhibitor.activated {
-	color: #39FF14;
+    color: #39ff14;
 }
 
 #mpd {
@@ -325,23 +327,23 @@ label:focus {
 
 #backlight-slider slider,
 #pulseaudio-slider slider {
-	min-width: 0px;
-	min-height: 0px;
-	opacity: 0;
-	background-image: none;
-	border: none;
-	box-shadow: none;
+    min-width: 0px;
+    min-height: 0px;
+    opacity: 0;
+    background-image: none;
+    border: none;
+    box-shadow: none;
 }
 
 #backlight-slider trough,
 #pulseaudio-slider trough {
-	min-width: 80px;
-	min-height: 5px;
-	border-radius: 5px;
+    min-width: 80px;
+    min-height: 5px;
+    border-radius: 5px;
 }
 
 #backlight-slider highlight,
 #pulseaudio-slider highlight {
-	min-height: 10px;
-	border-radius: 5px;
+    min-height: 10px;
+    border-radius: 5px;
 }
