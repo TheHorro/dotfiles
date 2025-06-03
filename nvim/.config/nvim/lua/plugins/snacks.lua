@@ -3,6 +3,7 @@ return {
 	{
 		"folke/snacks.nvim",
 		priority = 1000,
+		enabled = not vim.g.vscode,
 		lazy = false,
 		-- NOTE: Options
 		opts = {

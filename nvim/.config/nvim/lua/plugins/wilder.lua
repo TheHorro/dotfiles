@@ -1,5 +1,6 @@
 return {
 	"gelguy/wilder.nvim",
+	enabled = not vim.g.vscode,
 	-- "nvim-telescope/telescope.nvim",
 	dependencies = {
 		"nvim-tree/nvim-web-devicons",
