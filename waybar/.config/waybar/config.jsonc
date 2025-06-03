@@ -1,0 +1,48 @@
+[{
+    // config for monitor 1
+    "include": [
+        "$HOME/.config/waybar/options.jsonc",
+        "$HOME/.config/waybar/Modules.jsonc",
+        "$HOME/.config/waybar/ModulesCustom.jsonc",
+        "$HOME/.config/waybar/ModulesGroups.jsonc"
+    ], 
+    "output": "DP-2",
+    "modules-left": [
+        "pulseaudio",
+        "custom/separator#dot-line", 
+        "tray",
+	],
+    "modules-center": [
+		"custom/swaync",
+	    "custom/separator#dot-line",
+	    "hyprland/workspaces#pacman",
+        "custom/separator#dot-line",
+        "mpris",
+	], 
+    "modules-right": [
+        "clock",
+    ],
+},
+{
+    // config for monitor 3
+    "include": [
+        "$HOME/.config/waybar/options.jsonc",
+        "$HOME/.config/waybar/Modules.jsonc",
+        "$HOME/.config/waybar/ModulesCustom.jsonc",
+        "$HOME/.config/waybar/ModulesGroups.jsonc"
+    ],  
+    "output": "DP-3",
+    "modules-left": [
+        "cpu",
+		"memory",
+		"temperature",
+		"disk"
+	],
+    "modules-center": [
+        "hyprland/workspaces#pacman"
+	], 
+    "modules-right": [
+       "clock"
+    ],
+
+}]

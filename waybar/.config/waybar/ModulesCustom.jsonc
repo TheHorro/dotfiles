@@ -5,18 +5,6 @@
 /* Custom Modules like weather browser, tty, file manager at the beginning */
 
 {
-"custom/weather": {
-	"format": "{}",
-	"format-alt": "{alt}: {}",
-	"format-alt-click": "click",
-	"interval": 3600,
-	"return-type": "json",
-	"exec": "$HOME/.config/hypr/UserScripts/Weather.py",
-	//"exec": "$HOME/.config/hypr/UserScripts/Weather.sh",
-	//"exec-if": "ping wttr.in -c1",
-	"tooltip": true,
-},
-
 "custom/file_manager": {
 	"format": " ",
 	"on-click": "xdg-open . &",
@@ -62,13 +50,6 @@
 	"tooltip-format": "Left Click: Quick Tips\nRight Click: Keybinds",
 },
 
-"custom/dot_update": {
-	"format": " 󰁈 ",
-	"on-click": "$HOME/.config/hypr/scripts/KooLsDotsUpdate.sh",
-	"tooltip": true,
-	"tooltip-format": "Check KooL Dots update\nIf available",
-},
-
 // Hypridle inhibitor
 "custom/hypridle": {
 	"format": "󱫗 ",
@@ -79,22 +60,6 @@
 	"exec": "$HOME/.config/hypr/scripts/Hypridle.sh status",
 	"on-click": "$HOME/.config/hypr/scripts/Hypridle.sh toggle",
 	"on-click-right": "hyprlock"
-},
-
-"custom/keyboard": {
-	"exec": "cat $HOME/.cache/kb_layout",
-	"interval": 1,
-	"format": " {}",
-	"on-click": "$HOME/.config/hypr/scripts/SwitchKeyboardLayout.sh",
-},
-
-"custom/light_dark": {
-	"format": "󰔎 ",
-	"on-click": "$HOME/.config/hypr/scripts/DarkLight.sh",
-	"on-click-right": "$HOME/.config/hypr/scripts/WaybarStyles.sh",
-	"on-click-middle": "$HOME/.config/hypr/UserScripts/WallpaperSelect.sh",
-	"tooltip": true,
-	"tooltip-format": "Left Click: Switch Dark-Light Themes\nMiddle Click: Wallpaper Menu\nRight Click: Waybar Styles Menu",
 },
 
 "custom/lock": {
@@ -112,6 +77,7 @@
 	"tooltip": true,
 	"tooltip-format": "Left Click: Rofi Menu\nMiddle Click: Wallpaper Menu\nRight Click: Waybar Layout Menu",
 },
+
 // This is a custom cava visualizer
 "custom/cava_mviz": {
 	"exec": "$HOME/.config/hypr/scripts/WaybarCava.sh",
@@ -175,6 +141,7 @@
 	"on-click-right": "swaync-client -d -sw",
 	"escape": true,
 },
+
 // NOTE:! This is mainly for Arch and Arch Based Distros  depend: pacman-contrib
 // Other Distro dont have notifications but can use to check for update for any other distro
 "custom/updater": {

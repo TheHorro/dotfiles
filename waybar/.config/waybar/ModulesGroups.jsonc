@@ -25,7 +25,6 @@
 	"orientation": "horizontal",
 	"modules": [
 		"cpu",
-		"power-profiles-daemon",
 		"memory",
 		"temperature",
 		"disk",
@@ -67,33 +66,6 @@
 	]
 },
 
-"group/connections": {
-	"orientation": "inherit",
-	"drawer": {
-		"transition-duration": 500,
-		"children-class": "bluetooth",
-		"transition-left-to-right": true
-        },
-	"modules": [
-		"network",
-		"bluetooth",
-	]
-},
-
-"group/status": {
-	"orientation": "inherit",
-	"drawer": {
-		"transition-duration": 500,
-		"children-class": "custom/power",
-		"transition-left-to-right": false
-        },
-	"modules": [
-		"custom/power",
-		"custom/lock",
-		"keyboard-state",
-		"custom/keyboard",
-	]
-},
 "group/notify": {
 	"orientation": "inherit",
 	"drawer": {
@@ -118,21 +90,6 @@
         "custom/power",
         "custom/quit",
         "custom/lock",
-        "custom/reboot"
-      ]
-},
-// groups for vertical
-"group/power#vert": {
-     "orientation": "inherit",
-     "drawer": {
-        "transition-duration": 300,
-        "children-class": "not-memory",
-        "transition-left-to-right": false
-       },
-     "modules": [
-        "custom/power",
-        "custom/lock",
-        "custom/logout",
         "custom/reboot"
       ]
 },

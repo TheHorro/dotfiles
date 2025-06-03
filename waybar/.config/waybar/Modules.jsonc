@@ -1,10 +1,22 @@
-//* ---- 💫 https://github.com/JaKooLit 💫 ---- *//
-/* Waybar Modules */
-
-/* NOTE: hyprland-workspaces, Custom Modules, Custom Vertical & Groups on a separate files */
-
 {
-
+"hyprland/workspaces#pacman": {
+	"active-only": true,
+	"all-outputs": false,
+	"on-click": "activate",
+	"on-scroll-up": "hyprctl dispatch workspace e+1",
+	"on-scroll-down": "hyprctl dispatch workspace e-1",
+	"show-special": false,
+    "persistent-workspaces": {
+        "DP-2" : [1, 2, 3, 4, 5],
+        "DP-3" : [11, 12, 13, 14, 15] 
+    },
+	"format": "{icon}",
+	"format-icons": {
+            "active": "<span font='12'>󰮯</span>",
+            "empty": "<span font='8'></span>",
+            "default": "󰊠",
+	},
+},
 "temperature": {
 	"interval": 10,
 	"tooltip": true,
@@ -19,73 +31,11 @@
 	"format-icons": [
 		"󰈸"
 	],
-	"on-click-right": "$HOME/.config/hypr/scripts/WaybarScripts.sh --nvtop"
-},
-
-"backlight": {
-	"interval": 2,
-	"align": 0,
-	"rotate": 0,
-	//"format": "{icon} {percent}%",
-	"format-icons": [
-		" ",
-		" ",
-		" ",
-		"󰃝 ",
-		"󰃞 ",
-		"󰃟 ",
-		"󰃠 "
-	],
-	"format": "{icon}",
-	//"format-icons": ["","","","","","","","","","","","","","",""],
-	"tooltip-format": "backlight {percent}%",
-	"icon-size": 10,
-	"on-click": "",
-	"on-click-middle": "",
-	"on-click-right": "",
-	"on-update": "",
-	"on-scroll-up": "$HOME/.config/hypr/scripts/Brightness.sh --inc",
-	"on-scroll-down": "$HOME/.config/hypr/scripts/Brightness.sh --dec",
-	"smooth-scrolling-threshold": 1,
-},
-
-"backlight#2": {
-  "device": "intel_backlight",
-  "format": "{icon} {percent}%",
-  "format-icons": ["", ""]
-},
-
-"battery": {
-	//"interval": 5,
-	"align": 0,
-	"rotate": 0,
-	//"bat": "BAT1",
-	//"adapter": "ACAD",
-	"full-at": 100,
-	"design-capacity": false,
-	"states": {
-		"good": 95,
-		"warning": 30,
-		"critical": 15
-	},
-	"format": "{icon} {capacity}%",
-	"format-charging": " {capacity}%",
-	"format-plugged": "󱘖 {capacity}%",
-	"format-alt-click": "click",
-	"format-full": "{icon} Full",
-	"format-alt": "{icon} {time}",
-	"format-icons": [
-		"󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"
-	],
-	"format-time": "{H}h {M}min",
-	"tooltip": true,
-	"tooltip-format": "{timeTo} {power}w",
-	"on-click-middle": "$HOME/.config/hypr/scripts/ChangeBlur.sh",
-	"on-click-right": "$HOME/.config/hypr/scripts/Wlogout.sh",
+	//"on-click-right": "$HOME/.config/hypr/scripts/WaybarScripts.sh --nvtop"
 },
 
 "bluetooth": {
-	"format": " ",
+	"format": "  ",
 	"format-disabled": "󰂳",
 	"format-connected": "󰂱 {num_connections}",
 	"tooltip-format": " {device_alias}",
@@ -97,12 +47,11 @@
 
 "clock": {
 	"interval": 1,
-    //"format": " {:%I:%M %p}", // AM PM format
     "format": " {:%H:%M:%S}", // 24H
-	"format-alt": " {:%H:%M   %Y, %d %B, %A}",
+	"format-alt": " {:%H:%M:%S   %Y, %d %B, %A}",
 	"tooltip-format": "<tt><small>{calendar}</small></tt>",
 	"calendar": {
-		"mode": "year",
+		"mode": "today",
 		"mode-mon-col": 3,
 		"weeks-pos": "right",
 		"on-scroll": 1,
@@ -124,81 +73,18 @@
 	"on-scroll-down": "shift_down"
 },
 
-"clock#2": {
-    //"format": " {:%I:%M %p}", // AM PM format
-    "format": "  {:%H:%M}", // 24H
-    "format-alt": "{:%A  |  %H:%M  |  %e %B}",
-    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
-},
-
-"clock#3": {
-    //"format": "{:%I:%M %p - %d/%b}", //for AM/PM
-    "format": "{:%H:%M - %d/%b}", // 24H
-	"tooltip": false
-},
-
-"clock#4": {
-	"interval": 60,
-    //"format": "{:%B | %a %d, %Y | %I:%M %p}", // AM PM format
-    "format": "{:%B | %a %d, %Y | %H:%M}", // 24H
-	"format-alt": "{:%a %b %d, %G}",
-	"tooltip-format": "<big>{:%B %Y}</big>\n<tt><small>{calendar}</small></tt>",
-},
-
-"clock#5": {
-    //"format": "{:%A, %I:%M %P}", // AM PM format
-    "format": "{:%a %d | %H:%M}", // 24H
-	"format-alt": "{:%A, %d %B, %Y (%R)}",
-	"tooltip-format": "<big>{:%B %Y}</big>\n<tt><small>{calendar}</small></tt>",
-},
-
 "cpu": {
 	"format": "{usage}% 󰍛",
 	"interval": 1,
 	"min-length": 5,
-	"format-alt-click": "click",
-	"format-alt": "{icon0}{icon1}{icon2}{icon3} {usage:>2}% 󰍛",
-	"format-icons": [
-		"▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"
-	],
 	"on-click-right": "gnome-system-monitor",
 },
 
 "disk": {
 	"interval": 30,
-	//"format": "󰋊",
 	"path": "/",
-	//"format-alt-click": "click",
 	"format": "{percentage_used}% 󰋊",
-	//"tooltip": true,
 	"tooltip-format": "{used} used out of {total} on {path} ({percentage_used}%)",
-},
-
-"hyprland/language": {
-	"format": "Lang: {}",
-	"format-en": "US",
-	"format-tr": "Korea",
-	"keyboard-name": "at-translated-set-2-keyboard",
-	"on-click": "hyprctl switchxkblayout $SET_KB next"
-},
-
-"hyprland/submap": {
-	"format": "<span style=\"italic\">  {}</span>", // Icon: expand-arrows-alt
-	"tooltip": false,
-},
-
-"hyprland/window": {
-	"format": "{}",
-	"max-length": 25,
-	"separate-outputs": true,
-	"offscreen-css": true,
-	"offscreen-css-text": "(inactive)",
-	"rewrite": {
-		"(.*) — Mozilla Firefox": " $1",
-		"(.*) - fish": "> [$1]",
-		"(.*) - zsh": "> [$1]",
-		"(.*) - $term": "> [$1]",
-	},
 },
 
 "idle_inhibitor": {
@@ -210,19 +96,6 @@
 		"activated": " ",
 		"deactivated": " ",
 	}
-},
-
-"keyboard-state": {
-	//"numlock": true,
-	"capslock": true,
-	"format": {
-		"numlock": "N {icon}",
-		"capslock": "󰪛 {icon}",
-	},
-	"format-icons": {
-		"locked": "",
-		"unlocked": ""
-	},
 },
 
 "memory": {
@@ -237,8 +110,8 @@
 
 "mpris": {
 	"interval": 10,
-	"format": "{player_icon} ",
-	"format-paused": "{status_icon} <i>{dynamic}</i>",
+	"format": " {player_icon} ",
+	"format-paused": "{status_icon}",
 	"on-click-middle": "playerctl play-pause",
 	"on-click": "playerctl previous",
 	"on-click-right": "playerctl next",
@@ -302,20 +175,8 @@
 	]
 },
 
-"power-profiles-daemon": {
-  "format": "{icon} ",
-  "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
-  "tooltip": true,
-  "format-icons": {
-    "default": "",
-    "performance": "",
-    "balanced": "",
-    "power-saver": ""
-  }
-},
-
 "pulseaudio": {
-	"format": "{icon} {volume}%",
+	"format": " {icon} {volume}% ",
 	"format-bluetooth": "{icon} 󰂰 {volume}%",
 	"format-muted": "󰖁",
 	"format-icons": {
