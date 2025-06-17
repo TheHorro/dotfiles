@@ -1,52 +1,12 @@
-# This is the configuration file for Ghostty.
-#
-# This template file has been automatically created at the following
-# path since Ghostty couldn't find any existing config files on your system:
-#
-#   /home/Horro/.config/ghostty/config
-#
-# The template does not set any default options, since Ghostty ships
-# with sensible defaults for all options. Users should only need to set
-# options that they want to change from the default.
-#
-# Run `ghostty +show-config --default --docs` to view a list of
-# all available config options and their default values.
-#
-# Additionally, each config option is also explained in detail
-# on Ghostty's website, at https://ghostty.org/docs/config.
+# initial-command = zsh -c 'tm startup; zsh'
+shell-integration = zsh
 
-# Config syntax crash course
-# ==========================
-# # The config file consists of simple key-value pairs,
-# # separated by equals signs.
-# font-family = Iosevka
-# window-padding-x = 2
-#
-# # Spacing around the equals sign does not matter.
-# # All of these are identical:
-# key=value
-# key= value
-# key =value
-# key = value
-#
-# # Any line beginning with a # is a comment. It's not possible to put
-# # a comment after a config option, since it would be interpreted as a
-# # part of the value. For example, this will have a value of "#123abc":
-# background = #123abc
-#
-# # Empty values are used to reset config keys to default.
-# key =
-#
-# # Some config options have unique syntaxes for their value,
-# # which is explained in the docs for that config option.
-# # Just for example:
-# resize-overlay-duration = 4s 200ms
 theme = NightLion v1
 background = #000000
 background-opacity = 0.65
 background-blur-radius = 20
 
-font-family = JetBrainsMonoNL Nerd Font 
+font-family = CaskaydiaCove Nerd Font 
 font-size = 12
 cursor-style = bar
 cursor-style-blink = false
@@ -58,8 +18,8 @@ mouse-hide-while-typing = true
 
 confirm-close-surface = false
 window-decoration = true
-window-padding-x = 10
-window-padding-y = 10
+window-padding-x = 0
+window-padding-y = 0
 window-padding-balance = true
 
 auto-update = check
@@ -67,45 +27,50 @@ auto-update-channel = stable
 
 # extras
 shell-integration-features = no-cursor 
-# copy-on-select = clipboard
 
-# Custom Keybinds & Config (super represents cmd key on mac)
-# For Simple Keybinds
-# keybind = super+r=reload_config 
-keybind = super+i=inspector:toggle
-keybind = super+b>,=toggle_quick_terminal
+# keybinds
 
-# Similar Tmux but with Ghostty
-# (ctrl b for tmux -> cmb b for ghostty)
-keybind = super+b>r=reload_config
-keybind = super+b>x=close_surface
-# this only works if you have `macos-titlebar-style = tabs or native or transparent`
-# else it behaves like new window
-keybind = super+b>c=new_tab 
-keybind = super+b>n=new_window
-
-# tab nav
-keybind = super+b>1=goto_tab:1
-keybind = super+b>2=goto_tab:2
-keybind = super+b>3=goto_tab:3
-keybind = super+b>4=goto_tab:4
-keybind = super+b>5=goto_tab:5
-keybind = super+b>6=goto_tab:6
-keybind = super+b>7=goto_tab:7
-keybind = super+b>8=goto_tab:8
-keybind = super+b>9=goto_tab:9
-
-# splitting
-keybind = super+b>\=new_split:right
-keybind = super+b>-=new_split:down
-keybind = super+b>e=equalize_splits
-
-# split nav (setting this to control will not work if tmux already uses it)
-keybind = super+b>h=goto_split:left
-keybind = super+b>j=goto_split:bottom
-keybind = super+b>k=goto_split:top
-keybind = super+b>l=goto_split:right
-
-#Shaders
-# custom-shader = shaders/bettercrt.glsl
-# custom-shader = shaders/retro-terminal.glsl
+# remove base keybinds, handled by tmux
+keybind = ctrl+shift+n=unbind
+keybind = ctrl+enter=unbind
+keybind = ctrl+shift+q=unbind
+keybind = ctrl+shift+t=unbind
+keybind = ctrl+shift+w=unbind
+keybind = ctrl+tab=unbind
+keybind = ctrl+shift+tab=unbind
+keybind = alt+1=unbind
+keybind = alt+2=unbind
+keybind = alt+3=unbind
+keybind = alt+4=unbind
+keybind = alt+5=unbind
+keybind = alt+6=unbind
+keybind = alt+7=unbind
+keybind = alt+8=unbind
+keybind = alt+9=unbind
+keybind = alt+0=unbind
+keybind = ctrl+,=unbind
+keybind = ctrl+shift+o=unbind
+keybind = ctrl+shift+e=unbind
+keybind = ctrl+shift+enter=unbind
+keybind = ctrl+shift+i=unbind
+keybind = ctrl+shift+j=unbind
+keybind = ctrl+shift+alt+j=unbind
+keybind = super+ctrl+shift+plus=unbind
+keybind = super+ctrl+shift+up=unbind
+keybind = super+ctrl+shift+down=unbind
+keybind = super+ctrl+shift+right=unbind
+keybind = super+ctrl+shift+left=unbind
+keybind = super+ctrl+left_bracket=unbind
+keybind = super+ctrl+right_bracket=unbind
+keybind = ctrl+alt+up=unbind
+keybind = ctrl+alt+down=unbind
+keybind = ctrl+alt+left=unbind
+keybind = ctrl+alt+right=unbind
+keybind = shift+page_up=unbind
+keybind = shift+page_down=unbind
+keybind = ctrl+shift+right=unbind
+keybind = ctrl+shift+left=unbind
+keybind = ctrl+page_up=unbind
+keybind = ctrl+page_down=unbind
+keybind = shift+insert=unbind
+keybind = alt+f4=unbind
