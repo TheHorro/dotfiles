@@ -11,14 +11,14 @@
         "pulseaudio",
         "custom/separator#dot-line", 
         "tray",
-	],
+    ],
     "modules-center": [
-		"custom/swaync",
-	    "custom/separator#dot-line",
-	    "hyprland/workspaces#pacman",
+        "custom/swaync",
+        "custom/separator#dot-line",
+        "hyprland/workspaces#pacman",
         "custom/separator#dot-line",
         "mpris",
-	], 
+    ], 
     "modules-right": [
         "clock",
     ],
@@ -34,15 +34,15 @@
     "output": "DP-3",
     "modules-left": [
         "cpu",
-		"memory",
-		"temperature",
-		"disk"
-	],
+        "memory",
+        "temperature",
+        "disk"
+    ],
     "modules-center": [
         "hyprland/workspaces#pacman"
-	], 
+    ], 
     "modules-right": [
-       "clock"
+        "clock"
     ],
 
 }]
