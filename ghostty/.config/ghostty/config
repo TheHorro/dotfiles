@@ -1,7 +1,9 @@
 # initial-command = zsh -c 'tm startup; zsh'
 shell-integration = zsh
 
-theme = NightLion v1
+# theme = Apple System Colors
+theme = Builtin Dark
+# theme = Dark Pastel
 background = #000000
 background-opacity = 0.65
 background-blur-radius = 20
