@@ -5,51 +5,6 @@
 /* Custom Modules like weather browser, tty, file manager at the beginning */
 
 {
-"custom/file_manager": {
-	"format": " ",
-	"on-click": "xdg-open . &",
-	"tooltip": true,
-	"tooltip-format": "File Manager",
-},
-
-"custom/tty": {
-	"format": " ",
-	"on-click": "$HOME/.config/hypr/scripts/WaybarScripts.sh --term",
-	"tooltip": true,
-	"tooltip-format": "Launch Terminal",
-},
-
-"custom/browser": {
-	"format": " ",
-	"on-click": "xdg-open https://",
-	"tooltip": true,
-	"tooltip-format": "Launch Browser",
-},
-
-"custom/settings": {
-	"format": " ",
-	"on-click": "$HOME/.config/hypr/scripts/Kool_Quick_Settings.sh",
-	"tooltip": true,
-	"tooltip-format": "Launch KooL Hyprland Settings Menu",
-},
-
-"custom/cycle_wall": {
-	"format": " ",
-	"on-click": "$HOME/.config/hypr/UserScripts/WallpaperSelect.sh",
-	"on-click-right": "$HOME/.config/hypr/UserScripts/WallpaperRandom.sh",
-	"on-click-middle": "$HOME/.config/hypr/scripts/WaybarStyles.sh",
-	"tooltip": true,
-	"tooltip-format": "Left Click: Wallpaper Menu\nMiddle Click: Random wallpaper\nRight Click: Waybar Styles Menu",
-},
-
-"custom/hint": {
-	"format": "󰺁 HINT!",
-	"on-click": "$HOME/.config/hypr/scripts/KeyHints.sh",
-	"on-click-right": "$HOME/.config/hypr/scripts/KeyBinds.sh",
-	"tooltip": true,
-	"tooltip-format": "Left Click: Quick Tips\nRight Click: Keybinds",
-},
-
 // Hypridle inhibitor
 "custom/hypridle": {
 	"format": "󱫗 ",
@@ -61,14 +16,6 @@
 	"on-click": "$HOME/.config/hypr/scripts/Hypridle.sh toggle",
 	"on-click-right": "hyprlock"
 },
-
-"custom/lock": {
-	"format": "󰌾",
-	"on-click": "$HOME/.config/hypr/scripts/LockScreen.sh",
-	"tooltip": true,
-	"tooltip-format": "󰷛 Screen Lock",
-},
-
 "custom/menu": {
 	"format": "  ",
 	"on-click": "pkill rofi || rofi -show drun -modi run,drun,filebrowser,window",
@@ -76,12 +23,6 @@
 	"on-click-right": "$HOME/.config/hypr/scripts/WaybarLayout.sh",
 	"tooltip": true,
 	"tooltip-format": "Left Click: Rofi Menu\nMiddle Click: Wallpaper Menu\nRight Click: Waybar Layout Menu",
-},
-
-// This is a custom cava visualizer
-"custom/cava_mviz": {
-	"exec": "$HOME/.config/hypr/scripts/WaybarCava.sh",
-	"format": "{}"
 },
 
 "custom/playerctl": {
@@ -97,14 +38,14 @@
 	"on-scroll-down": "$HOME/.config/hypr/scripts/Volume.sh --dec",
 	"smooth-scrolling-threshold": 1,
 },
-    
-"custom/power": {
-	"format": " ⏻ ",
-	"on-click": "$HOME/.config/hypr/scripts/Wlogout.sh",
-	"on-click-right": "$HOME/.config/hypr/scripts/ChangeBlur.sh",
-	"tooltip": true,
-	"tooltip-format": "Left Click: Logout Menu\nRight Click: Change Blur",
-},
+
+// "custom/power": {
+// 	"format": " ⏻ ",
+// 	"on-click": "$HOME/.config/hypr/scripts/Wlogout.sh",
+// 	"on-click-right": "$HOME/.config/hypr/scripts/ChangeBlur.sh",
+// 	"tooltip": true,
+// 	"tooltip-format": "Left Click: Logout Menu\nRight Click: Change Blur",
+// },
 
 "custom/reboot": {
     "format": "󰜉",

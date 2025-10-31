@@ -10,11 +10,11 @@
         "DP-2" : [1, 2, 3, 4, 5],
         "DP-3" : [11, 12, 13, 14, 15] 
     },
-	"format": "{icon}",
+	"format": "{icon} {name}",
 	"format-icons": {
-            "active": "<span font='12'>󰮯</span>",
-            "empty": "<span font='8'></span>",
-            "default": "󰊠",
+        "active": "󰮯",
+        "empty": "<span font='8'></span>",
+        "default": "󰊠",
 	},
 },
 "temperature": {
@@ -44,27 +44,14 @@
 	"tooltip": true,
 	"on-click": "blueman-manager",
 },
-
 "clock": {
 	"interval": 1,
-    "format": " {:%H:%M:%S}", // 24H
-	"format-alt": " {:%H:%M:%S   %Y, %d %B, %A}",
-	"tooltip-format": "<tt><small>{calendar}</small></tt>",
-	"calendar": {
-		"mode": "today",
-		"mode-mon-col": 3,
-		"weeks-pos": "right",
-		"on-scroll": 1,
-		"format": {
-			"months": "<span color='#ffead3'><b>{}</b></span>",
-			"days": "<span color='#ecc6d9'><b>{}</b></span>",
-			"weeks": "<span color='#99ffdd'><b>W{}</b></span>",
-			"weekdays": "<span color='#ffcc66'><b>{}</b></span>",
-			"today": "<span color='#ff6699'><b><u>{}</u></b></span>"
-		}
-	}
+    // "format": " {:L%A %H:%M:%S}",
+    // "format": " {:%H:%M:%S}", // 24H
+	"format": " {:%H:%M:%S   %Y, %d %B, %A}",
+    "tooltip": false,
+	
 },
-
 "actions": {
 	"on-click-right": "mode",
 	"on-click-forward": "tz_up",
@@ -176,9 +163,9 @@
 },
 
 "pulseaudio": {
-	"format": " {icon} {volume}% ",
+	"format": "{icon} {volume:>3}%",
 	"format-bluetooth": "{icon} 󰂰 {volume}%",
-	"format-muted": "󰖁",
+	"format-muted": "󰖁 ",
 	"format-icons": {
 		"headphone": "",
 		"hands-free": "",
@@ -200,69 +187,49 @@
 	"on-scroll-down": "$HOME/.config/hypr/scripts/Volume.sh --dec",
 	"tooltip-format": "{icon} {desc} | {volume}%",
 	"smooth-scrolling-threshold": 1,
-},
-
-"pulseaudio#1": {
-  "format": "{icon} {volume}%",
-  "format-bluetooth": "{icon} {volume}%",
-  "format-bluetooth-muted": " {icon}",
-  "format-muted": "󰸈",
-  "format-icons": {
-      "headphone": "",
-      "hands-free": "",
-      "headset": "",
-      "phone": "",
-      "portable": "",
-      "car": "",
-      "default": ["", "", ""]
-    },
-  "on-click": "pamixer --toggle-mute",
-  "on-click-right": "pavucontrol -t 3",
-  "tooltip": true,
-  "tooltip-format": "{icon} {desc} | {volume}%",
+	"min-length": 6,
+	"max-length": 6,
+    "align": 0,
 },
 
 "pulseaudio#microphone": {
 	"format": "{format_source}",
-	"format-source": " {volume}%",
-	"format-source-muted": "",
+	"format-source": " {volume:>3}%",
+	"format-source-muted": "󰍭 {volume:>3}%",
 	"on-click": "$HOME/.config/hypr/scripts/Volume.sh --toggle-mic",
 	"on-click-right": "pavucontrol -t 4",
 	"on-scroll-up": "$HOME/.config/hypr/scripts/Volume.sh --mic-inc",
 	"on-scroll-down": "$HOME/.config/hypr/scripts/Volume.sh --mic-dec",
 	"tooltip-format": "{source_desc} | {source_volume}%",
 	"scroll-step": 5,
+	"min-length": 6,
+	"max-length": 6,
+    "align": 0,
 },
 
+"custom/power": {
+	"format": " ⏻ ",
+	"on-click": "$HOME/.config/hypr/scripts/Wlogout.sh",
+	"on-click-right": "$HOME/.config/hypr/scripts/ChangeBlur.sh",
+	"tooltip": true,
+	"tooltip-format": "Left Click: Logout Menu\nRight Click: Change Blur",
+},
 "tray": {
-	"icon-size": 20,
+	"icon-size": 18,
 	"spacing": 4,
 },
 
-"wireplumber": {
-	"format": "{icon} {volume} %",
-	"format-muted": " Mute",
-	"on-click": "$HOME/.config/hypr/scripts/Volume.sh --toggle",
-	"on-click-right": "pavucontrol -t 3",
-	"on-scroll-up": "$HOME/.config/hypr/scripts/Volume.sh --inc",
-	"on-scroll-down": "$HOME/.config/hypr/scripts/Volume.sh --dec",
-	"format-icons": [
-		"", "", "󰕾", ""
-	],
+"group/tray-expander": {
+    "orientation": "inherit",
+    "drawer": {
+        "transition-duration": 600,
+        "children-class": "tray-group-item"
+    },
+    "modules": ["custom/expand-icon", "tray"]
 },
 
-"wlr/taskbar": {
-	"format": "{icon} {name}",
-	"icon-size": 16,
-	"all-outputs": false,
-	"tooltip-format": "{title}",
-	"on-click": "activate",
-	"on-click-middle": "close",
-	"ignore-list": [
-		"wofi",
-		"rofi",
-		"kitty",
-    "kitty-dropterm"
-		],
+"custom/expand-icon": {
+    "format": " ",
+    "tooltip": false
 },
 }

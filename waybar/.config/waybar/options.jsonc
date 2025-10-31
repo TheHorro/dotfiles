@@ -7,8 +7,14 @@
     "spacing": 3,
     "fixed-center": true,
     "ipc": true,
-    "margin-top": 1,
-    "margin-left": 2,
-    "margin-right": 2,
-    "height": 42,
+    "margin-top": 0,
+    "margin-left": 0,
+    "margin-right": 0,
+    "height": 20,
+    "include": [
+        "$HOME/.config/waybar/Modules.jsonc",
+        "$HOME/.config/waybar/ModulesCustom.jsonc",
+        "$HOME/.config/waybar/ModulesGroups.jsonc"
+    ],
+
 }

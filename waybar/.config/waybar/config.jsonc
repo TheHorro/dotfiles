@@ -1,48 +1,53 @@
 [{
-    // config for monitor 1
+    // config for monitor DP-2
+    "output": "DP-2",
     "include": [
         "$HOME/.config/waybar/options.jsonc",
-        "$HOME/.config/waybar/Modules.jsonc",
-        "$HOME/.config/waybar/ModulesCustom.jsonc",
-        "$HOME/.config/waybar/ModulesGroups.jsonc"
-    ], 
-    "output": "DP-2",
-    "modules-left": [
-        "pulseaudio",
-        "custom/separator#dot-line", 
-        "tray",
     ],
-    "modules-center": [
-        "custom/swaync",
-        "custom/separator#dot-line",
+    "modules-left": [
         "hyprland/workspaces#pacman",
         "custom/separator#dot-line",
-        "mpris",
-    ], 
-    "modules-right": [
+        "pulseaudio",
+        "pulseaudio#microphone",
+        "custom/separator#dot-line",
+        "custom/swaync",
+        "custom/separator#dot-line",
+        "group/tray-expander",
+    ],
+    "modules-center": [
         "clock",
+    ],
+    "modules-right": [
+        "mpris",
+        "custom/separator#dot-line",
+        "bluetooth",
+        "custom/separator#dot-line",
+        "network#speed",
+        "custom/separator#dot-line",
+        "cpu",
+        "custom/separator#dot-line",
+        "memory",
+        "custom/separator#dot-line",
+        "temperature",
+        "custom/separator#dot-line",
+        "disk"
     ],
 },
 {
-    // config for monitor 3
+    // config for monitor DP-3
+    "output": "DP-3",
     "include": [
         "$HOME/.config/waybar/options.jsonc",
-        "$HOME/.config/waybar/Modules.jsonc",
-        "$HOME/.config/waybar/ModulesCustom.jsonc",
-        "$HOME/.config/waybar/ModulesGroups.jsonc"
-    ],  
-    "output": "DP-3",
+    ],
     "modules-left": [
-        "cpu",
-        "memory",
-        "temperature",
-        "disk"
+        "hyprland/workspaces#pacman",
     ],
     "modules-center": [
-        "hyprland/workspaces#pacman"
-    ], 
-    "modules-right": [
-        "clock"
+        "clock",
     ],
-
+    "modules-right": [
+        // "custom/power"
+        "custom/power"
+        // "custom/separator#dot-line",
+    ],
 }]

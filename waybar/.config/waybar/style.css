@@ -1,6 +1,3 @@
-/* ---- 💫 https://github.com/JaKooLit 💫 ---- */
-/* Translucent */
-
 @define-color critical #ff0000; /* critical color */
 @define-color warning #f3f809; /* warning color */
 @define-color fgcolor #ffffff; /* foreground color */
@@ -16,10 +13,10 @@
 @define-color accent6 #0db9d7;
 
 * {
-    font-family: "JetBrainsMono Nerd Font";
-    font-weight: bold;
+    font-family: "CaskaydiaCove Nerd Font";
+    /* font-weight: bold; */
     /* set font-size to 100% if font scaling is set to 1.00 using nwg-look */
-    font-size: 100%;
+    /* font-size: 100%; */
     font-feature-settings: '"zero", "ss01", "ss02", "ss03", "ss04", "ss05", "cv31"';
     /* height: 20px; */
     /* min-height: 20px; */
@@ -31,7 +28,8 @@ window#waybar {
     color: #ffffff;
     transition-property: background-color;
     transition-duration: 0.5s;
-    border-radius: 10px;
+    border-radius: 0px;
+    padding: 0px 200px 0px 200px; /* top right bottom left */
 }
 
 window#waybar.hidden {
@@ -40,9 +38,9 @@ window#waybar.hidden {
 
 tooltip {
     background: #1e1e2e;
-    opacity: 0.6;
+    /* opacity: 0; */
     border-radius: 10px;
-    border-width: 2px;
+    border-width: 10px;
     border-style: solid;
     border-color: #11111b;
 }
@@ -63,8 +61,8 @@ tooltip {
 #workspaces button.active {
     background-color: transparent;
     color: @accent1;
-    padding-left: 8px;
-    padding-right: 8px;
+    padding-left: 4px;
+    padding-right: 4px;
     animation: gradient_f 20s ease-in infinite;
     transition: all 0.3s cubic-bezier(0.55, -0.68, 0.48, 1.682);
 }
@@ -73,8 +71,8 @@ tooltip {
 #workspaces button:hover {
     background: rgba(0, 0, 0, 0.2);
     color: @accent3;
-    padding-left: 2px;
-    padding-right: 2px;
+    padding-left: 4px;
+    padding-right: 4px;
     animation: gradient_f 20s ease-in infinite;
     transition: all 0.3s cubic-bezier(0.55, -0.68, 0.48, 1.682);
 }
@@ -107,6 +105,7 @@ tooltip {
 #mode,
 #mpris,
 #network,
+#power,
 #power-profiles-daemon,
 #pulseaudio,
 #pulseaudio-slider,
@@ -157,15 +156,15 @@ tooltip {
 }
 
 /* If workspaces is the leftmost module, omit left margin */
-.modules-left > widget:first-child > #workspaces {
-}
+/* .modules-left > widget:first-child > #workspaces { */
+/* } */
 
 /* If workspaces is the rightmost module, omit right margin */
-.modules-right > widget:last-child > #workspaces {
-}
+/* .modules-right > widget:last-child > #workspaces { */
+/* } */
 
 #clock {
-    color: @fgcolor;
+    /* color: @fgcolor; */
 }
 
 #custom-updater {
@@ -208,11 +207,11 @@ label:focus {
 
 #custom-keyboard,
 #cpu {
-    color: @accent1;
+    /* color: @accent1; */
 }
 
 #memory {
-    color: @accent3;
+    /* color: @accent3; */
 }
 
 #backlight {
@@ -224,59 +223,61 @@ label:focus {
 }
 
 #network {
-    color: @accent3;
+    /* color: @accent3; */
 }
 
 #network.disconnected {
-    color: @alert;
+    /* color: @alert; */
 }
 
 #pulseaudio {
-    color: @fgcolor;
+    /* color: @fgcolor; */
 }
 
 #pulseaudio-muted {
-    color: @fgcolor;
+    /* color: @fgcolor; */
 }
 #wireplumber {
-    color: @accent4;
+    /* color: @accent4; */
 }
 
 #wireplumber-muted {
-    color: @accent2;
+    /* color: @accent2; */
 }
 
 #pluseaudio-source-muted {
-    color: #a0a0a0;
+    /* color: #a0a0a0; */
 }
 
+#power,
 #custom-power {
     color: #cc3436;
 }
 
 #disk {
-    color: @accent5;
+    /* color: @accent5; */
 }
+#power_profile,
 #custom-power_profile {
-    color: @accent3;
+    /* color: @accent3; */
 }
 #custom-media {
-    background-color: #66cc99;
-    color: #2a5c45;
-    min-width: 100px;
+    /* background-color: #66cc99; */
+    /* color: #2a5c45; */
+    /* min-width: 100px; */
 }
 
 #custom-weather {
-    color: #66cc99;
+    /* color: #66cc99; */
 }
 
 #custom-lock {
-    color: #ffa000;
+    /* color: #ffa000; */
 }
 
 #keyboard-state,
 #temperature {
-    color: @accent6;
+    /* color: @accent6; */
     /* background-color: #f0932b; */
 }
 
@@ -305,45 +306,45 @@ label:focus {
 }
 
 #mpd.disconnected {
-    background-color: #f53c3c;
+    /* background-color: #f53c3c; */
 }
 
 #mpd.stopped {
-    background-color: #90b1b1;
+    /* background-color: #90b1b1; */
 }
 
 #mpd.paused {
-    background-color: #51a37a;
+    /* background-color: #51a37a; */
 }
 
 #custom-language {
-    color: @accent5;
-    min-width: 16px;
+    /* color: @accent5; */
+    /* min-width: 16px; */
 }
 
 #custom-separator {
-    color: #606060;
+    /* color: #606060; */
 }
 
 #backlight-slider slider,
 #pulseaudio-slider slider {
-    min-width: 0px;
-    min-height: 0px;
-    opacity: 0;
-    background-image: none;
-    border: none;
-    box-shadow: none;
+    /* min-width: 0px; */
+    /* min-height: 0px; */
+    /* opacity: 0; */
+    /* background-image: none; */
+    /* border: none; */
+    /* box-shadow: none; */
 }
 
 #backlight-slider trough,
 #pulseaudio-slider trough {
-    min-width: 80px;
-    min-height: 5px;
-    border-radius: 5px;
+    /* min-width: 80px; */
+    /* min-height: 5px; */
+    /* border-radius: 5px; */
 }
 
 #backlight-slider highlight,
 #pulseaudio-slider highlight {
-    min-height: 10px;
-    border-radius: 5px;
+    /* min-height: 10px; */
+    /* border-radius: 5px; */
 }
