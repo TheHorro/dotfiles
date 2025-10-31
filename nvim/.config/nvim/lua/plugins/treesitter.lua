@@ -2,6 +2,7 @@ return {
 	{
 		"nvim-treesitter/nvim-treesitter",
 		enabled = not vim.g.vscode,
+		lazy = false,
 		event = { "BufReadPre", "BufNewFile" },
 		build = ":TSUpdate",
 		config = function()
@@ -36,6 +37,8 @@ return {
 					"c",
 					"java",
 					"rust",
+					"latex",
+					"bibtex",
 				},
 				incremental_selection = {
 					enable = true,

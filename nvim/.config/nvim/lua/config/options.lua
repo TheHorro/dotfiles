@@ -43,3 +43,14 @@ vim.opt.mouse = "a"
 
 -- gets rid of line with white spaces
 vim.g.editorconfig = true
+
+-- linewrapping for markdown and latex
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "markdown", "tex" },
+	callback = function()
+		vim.opt_local.wrap = true
+		vim.opt_local.linebreak = true
+		vim.opt_local.breakindent = true
+		vim.opt_local.showbreak = "↳ "
+	end,
+})
