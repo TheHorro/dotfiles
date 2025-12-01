@@ -1,4 +1,3 @@
--- bootstrap lazy.nvim, LazyVim and your plugins
-require("config")
-require("lazyVi")
-require("current-theme")
+require("core")
+require("plugins")
+vim.cmd("colorscheme rose-pine")
