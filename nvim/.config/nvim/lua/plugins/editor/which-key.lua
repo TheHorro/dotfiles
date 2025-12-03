@@ -385,13 +385,11 @@ return {
     })
 
     -- ============================================================================
-    -- <leader>x - TEXT GROUP
+    -- <leader>x - TROUBLE GROUP
     -- ============================================================================
 
     wk.add({
       { "<leader>x", group = "trouble", icon = "󰤌", mode = { "n", "v" } },
-      { "<leader>xa", desc = "align", icon = "󰉞", mode = { "n", "v" } },
-      { "<leader>xA", desc = "align with preview", icon = "󰉞", mode = { "n", "v" } },
       { "<leader>xd", desc = "document diagnostics", icon = "󰦓" },
       { "<leader>xs", desc = "split/join toggle", icon = "󰤋", mode = { "n", "v" } },
       { "<leader>xq", desc = "quickfix list", icon="", mode = {"n", "v"}},
@@ -399,6 +397,17 @@ return {
       { "<leader>xt", desc = "todos", icon="", mode = {"n", "v"}},
       { "<leader>xw", desc = "workspace diagnostics" , icon = "󰦓" },
     })
+    -- ============================================================================
+    -- <leader>T - TEXT group
+    -- ============================================================================
+
+    wk.add({
+      { "<leader>T", group = "Text", icon = "󰤌", mode = { "n", "v" } },
+      { "<leader>Ta", desc = "align", icon = "󰉞", mode = { "n", "v" } },
+      { "<leader>TA", desc = "align with preview", icon = "󰉞", mode = { "n", "v" } },
+      { "<leader>Tf", desc = "ALE fix", icon = "󰉞", mode = { "n", "v" } },
+    })
+
 
     -- ============================================================================
     -- <leader>y - YANK GROUP

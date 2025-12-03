@@ -10,7 +10,7 @@
 -- The utilities are exposed both as module functions and vim commands.
 -----------------------------------------------------------
 
-local notify = require('custom.util.notifications')
+local notify = require('util.notifications')
 
 local M = {}
 

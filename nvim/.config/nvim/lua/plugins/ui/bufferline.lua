@@ -7,7 +7,7 @@ return {
   init = function()
     -- Hide the tabline completely at startup
     vim.opt.showtabline = 0
-    
+
     -- Create an autocmd that will only show tabline when we have more than 1 buffer
     vim.api.nvim_create_autocmd("BufAdd", {
       callback = function()
@@ -32,7 +32,7 @@ return {
         show_close_icon = false,
       }
     })
-    
+
     -- Set up autocmd for quickfix windows immediately
     vim.api.nvim_create_autocmd("FileType", {
       pattern = "qf",
@@ -41,7 +41,6 @@ return {
         vim.opt_local.bufhidden = "wipe"
       end,
     })
-    
     -- Enhanced tabline visibility management
     -- Define function and register autocmds BEFORE defer_fn to catch session restore
     -- This eliminates timing race condition during session loading
@@ -96,15 +95,26 @@ return {
           mode = "buffers",
           style_preset = bufferline.style_preset.default,
           numbers = "none",
-          separator_style = "slant",
+          separator_style = "thin",
+          -- Bufferline behavior
           close_command = "bdelete! %d",
           right_mouse_command = "bdelete! %d",
-          diagnostics = false,
-          -- left_trunc_marker = ' ',
-          --  right_trunc_marker = ' ',
+          middle_mouse_command = nil,
+          indicator = {style = "icon", icon = "▎" },
+          modified_icon = "●",
+          close_icon = "",
+          left_trunc_marker = ' ',
+          right_trunc_marker = ' ',
+          max_name_length = 30,
+          max_prefix_length = 15,
+          tab_size = 21,
+          diagnostics = "nvim_lsp",
           diagnostics_update_in_insert = false,
-          show_tab_indicators = false,
+          show_buffer_icons = true,
+          show_buffer_close_icons = true,
           show_close_icon = false,
+          show_tab_indicators = true,
+
           sort_by = function(buffer_a, buffer_b)
             -- add custom logic
             local modified_a = vim.fn.getftime(buffer_a.path)
@@ -124,7 +134,7 @@ return {
           },
           hover = {
             enabled = true,
-            delay = 30,
+            delay = 200,
             reveal = { 'close' }
           },
         },
