@@ -76,6 +76,7 @@ alias c='clear'
 alias ..='cd ..'
 alias ...='cd ..;cd ..'
 alias md='mkdir -p'
+alias ip='ip --color'
 
 # Shell integrations
 eval "$(fzf --zsh)"
