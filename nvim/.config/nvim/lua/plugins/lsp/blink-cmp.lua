@@ -75,7 +75,7 @@ return {
         ['<C-e>'] = { 'hide', 'fallback' },
         ['<CR>'] = { 'accept', 'fallback' },
         -- Tab: Navigate snippets or accept completion
-        ['<Tab>'] = { 
+        ['<Tab>'] = {
           'snippet_forward',      -- First try to jump in snippet
           'select_and_accept',    -- Then select & accept completion
           'fallback'              -- Finally fallback to normal Tab

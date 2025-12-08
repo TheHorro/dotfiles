@@ -53,8 +53,9 @@ vim.opt.isfname:append("@-@")
 
 -- General appearance and UI
 local options = {
-  nu = true,
+  number = true,
   relativenumber = true,
+  numberwidth = 2,      -- Set width of number column
   tabstop = 2,
   softtabstop = 2,
   shiftwidth = 2,
@@ -76,18 +77,16 @@ local options = {
   backspace = { "start", "eol", "indent" },
   splitright = true,
   splitbelow = true,
-  updatetime = 50,
+  updatetime = 300,
   colorcolumn = "100",  -- Column for line length limit
   hlsearch = true,      -- Highlight search results
   mouse = "a",          -- Enable mouse support
-  timeoutlen = 100,     -- Time to wait for a mapped sequence to complete (in ms)
+  timeoutlen = 300,     -- Time to wait for a mapped sequence to complete (in ms)
   writebackup = false,  -- Don't create backups of files being edited
   laststatus = 3,       -- Global status line
   fileencoding = "utf-8", -- File encoding
   guifont = "monospace:h17", -- Font used in GUI apps
   conceallevel = 0,     -- Show `` in markdown
-  number = true,        -- Show line numbers
-  numberwidth = 2,      -- Set width of number column
   fillchars = "eob: ",  -- Don't show tildes on empty lines
   cursorline = true,    -- Highlight current line
   showbreak = "  ",     -- Indentation for wrapped lines
@@ -100,14 +99,21 @@ local options = {
   breakindent = true,   -- Enable line wrapping indentation
   linebreak = true,     -- Don't split words when wrapping
   spell = true,         -- Enable spell check
-  spelllang = { 'en_us', 'de_de' }, -- Use US English dictionary
-  clipboard = "unnamedplus", -- System clipboard access
+  -- download spl & sug files from here:
+  -- https://ftp.uk.vim.org/pub/vim/runtime/spell/
+  spelllang = { 'en_us', 'de_de' }, -- Use US English & German dictionary
   mousescroll = "ver:2,hor:4", -- Scroll speed for mouse
   virtualedit = "block", -- Virtual block cursor mode
   autoread = true,      -- Auto-reload files when changed externally
   foldenable = true,    -- Enable folding by default
   foldmethod = "manual", -- Folding method (manual)
-  foldlevel = 99,       -- Open all folds by default
+  -- Performance optimizations
+  lazyredraw = true,        -- Reduce redraw frequency
+  synmaxcol = 200,         -- Limit syntax highlighting for better performance
+  redrawtime = 1500,       -- Limit redraw time for better performance
+  history = 500,           -- Limit history size
+  jumpoptions = "stack",   -- Optimize jump list
+  shada = "!,'100,<50,s10,h",  -- Optimize shada (session) storage foldlevel = 99,       -- Open all folds by default
 }
 
 -- Apply all options
@@ -123,10 +129,10 @@ vim.api.nvim_create_autocmd({"FileType"}, {
   end
 })
 
--- Persistent folding state (using custom.util)
+-- Persistent folding state (using util)
 local ok, utils = pcall(require, "util")
 if not ok then
-  vim.notify("Failed to load custom.util module", vim.log.levels.WARN)
+  vim.notify("Failed to load util module", vim.log.levels.WARN)
 end
 
 -- Load folding state when entering any buffer
@@ -170,11 +176,4 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- Performance optimizations
-vim.opt.lazyredraw = true        -- Reduce redraw frequency
-vim.opt.updatetime = 300        -- Increase CursorHold time to reduce CPU usage
-vim.opt.synmaxcol = 200         -- Limit syntax highlighting for better performance
-vim.opt.redrawtime = 1500       -- Limit redraw time for better performance
-vim.opt.history = 500           -- Limit history size
-vim.opt.jumpoptions = "stack"   -- Optimize jump list
-vim.opt.shada = "!,'100,<50,s10,h"  -- Optimize shada (session) storage
+

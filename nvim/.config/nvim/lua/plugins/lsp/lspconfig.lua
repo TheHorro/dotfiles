@@ -18,7 +18,7 @@ return {
       Info  = "",
     }
     vim.diagnostic.config({
-      virtual_text = true,
+      virtual_text = false,
       signs = {
         active = true,
         values = {
@@ -37,7 +37,7 @@ return {
     -- on_attach
     ---------------------------------------------------------------------------
     local on_attach = function(client, bufnr)
-      -- add keymaps here if needed
+      -- add key maps here if needed
     end
 
     ---------------------------------------------------------------------------
@@ -54,12 +54,16 @@ return {
     ---------------------------------------------------------------------------
 
     -- lua_ls
+    -- installes by AUR: `yay -S lua-language-server` as Mason has version issues of libs bc of Arch
     lspcfg.lua_ls = vim.tbl_deep_extend("force", {
       cmd = { "lua-language-server" },
       settings = {
         Lua = {
           runtime = { version = "LuaJIT" },
-          diagnostics = { globals = { "vim", "require", "pcall" } },
+          diagnostics = {
+            globals = { "vim", "require", "pcall" },
+            ignoredPatterns = { "Unused local"},
+          },
           workspace = {
             checkThirdParty = false,
             library = {
@@ -88,6 +92,9 @@ return {
         texlab = {
           build = { onSave = true },
           chktex = { onEdit = false, onOpenAndSave = false },
+          diagnostics = {
+            ignoredPatterns = { "Unused label"},
+          },
           diagnosticsDelay = 300,
         },
       },
@@ -96,17 +103,13 @@ return {
     }
 
     -- LTeX
-    lspcfg.ltex_ls = {
-      cmd = {
-        "java",
-        "-Djdk.xml.totalEntitySizeLimit=0",
-        "-jar",
-        vim.fn.expand(
-          "~/.local/share/nvim/mason/packages/ltex-ls/ltex-ls-16.0.0/lib/ltex-ls-16.0.0.jar"
-        ),
-      },
+    lspcfg.ltex_ls_plus = {
+      cmd = { "ltex-ls-plus" },
       settings = {
-        ltex = { language = "en-US" },
+        ltex = {
+          language = "de-DE",
+          additionalRules = { languageModel = "~/.local/share/ngram/" },
+        }
       },
       on_attach = on_attach,
       capabilities = capabilities,
@@ -120,9 +123,9 @@ return {
       python   = "pyright",
       tex      = "texlab",
       latex    = "texlab",
-      markdown = "ltex_ls",
-      plaintex = "ltex_ls",
-      bib      = "ltex_ls",
+      plaintex = "texlab",
+      markdown = "ltex_ls_plus",
+      bib      = "ltex_ls_plus",
     }
 
     ---------------------------------------------------------------------------

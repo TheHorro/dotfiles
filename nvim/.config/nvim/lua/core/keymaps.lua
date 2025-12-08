@@ -130,32 +130,6 @@ end
 ---------------------------------
 -- GLOBAL KEYBOARD MAPPINGS   --
 ---------------------------------
-keymap({"n", "x"}, "gc", function() 
-  return require("vim._comment").operator()
-end, {expr = true, desc = "Comment current line"})
--- keymap("x", "gc", "gc", {}, "Linewise block comment")
-
-
-keymap("n", "gcc", function()
-  return require("vim._comment").operator_line()
-end, { expr = true, desc = "Toggle comment on current line" })
-
--- Extra helpers similar to vim‑commentary / mini.comment. [web:1]
-keymap("n", "gco", function()
-  -- Comment a new line below and enter insert mode
-  return require("vim._comment").insert_below()
-end, { expr = true, desc = "Add comment on line below" })
-
-keymap("n", "gcO", function()
-  -- Comment a new line above and enter insert mode
-  return require("vim._comment").insert_above()
-end, { expr = true, desc = "Add comment on line above" })
-
-keymap("n", "gcA", function()
-  -- Append comment at end of current line and enter insert mode
-  return require("vim._comment").append_end_of_line()
-end, { expr = true, desc = "Add comment at end of line" })
-
 -- Disable potentially problematic default mappings
 map("n", "<C-z>", "<nop>", {}, "Disable suspend")
 
@@ -207,7 +181,7 @@ map("n", "<A-l>", ":vertical resize +2<CR>", {}, "Increase width")
 local buffer_utils_loaded = false
 
 -- Attempt to load advanced buffer utilities
-local ok, buffer_utils = pcall(require, "custom.util.buffer")
+local ok, buffer_utils = pcall(require, "util.buffer")
 if ok and buffer_utils and buffer_utils.goto_buffer then
   buffer_utils_loaded = true
 

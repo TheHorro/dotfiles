@@ -46,33 +46,33 @@ function M.tbl_extend(t1, t2)
   if not t2 then
     return t1
   end
-  
+
   local result = {}
   for k, v in pairs(t1 or {}) do
     result[k] = v
   end
-  
+
   for k, v in pairs(t2 or {}) do
     result[k] = v
   end
-  
+
   return result
 end
 
 -- Load all utility modules with proper error handling
 function M._load_submodules()
   local modules = {
-    -- "buffer",
+    "buffer",
     -- "fold",
     -- "url",
-    -- "diagnostics",
+    "diagnostics",
     -- "misc",
     -- "optimize",
     "notifications"
   }
-  
+
   local loaded = {}
-  
+
   for _, module_name in ipairs(modules) do
     local ok, module = pcall(require, "util." .. module_name)
     if ok and type(module) == "table" then
@@ -85,17 +85,17 @@ function M._load_submodules()
       vim.notify("Failed to load utility module: " .. module_name, vim.log.levels.WARN)
     end
   end
-  
+
   return loaded
 end
 
 -- Setup module - called during initialization
 function M.setup()
   -- Removed notification to reduce startup messages
-  
+
   -- Load all submodules
   local submodules = M._load_submodules()
-  
+
   -- Create aliases for commonly used functions for easier access
   for module_name, module in pairs(submodules) do
     for func_name, func in pairs(module) do
@@ -107,16 +107,16 @@ function M.setup()
       end
     end
   end
-  
+
   -- Set up backward compatibility for core.functions
   if not _G.LoadFoldingState and submodules.fold then
     _G.LoadFoldingState = submodules.fold.load_folding_state
   end
-  
+
   if not _G.SetupUrlMappings and submodules.url then
     _G.SetupUrlMappings = submodules.url.setup_url_mappings
   end
-  
+
   return true
 end
 

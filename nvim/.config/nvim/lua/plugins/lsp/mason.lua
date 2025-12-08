@@ -36,7 +36,7 @@ return {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
     event = "VeryLazy",
     dependencies = { "mason.nvim" },
-    config = function() 
+    config = function()
       require("mason-tool-installer").setup({
         ensure_installed = {
           -- "stylua",  -- lua formatter (using system version instead)
@@ -46,9 +46,9 @@ return {
         },
         -- Install tools when needed, not at startup
         auto_update = false,
-        run_on_start = false, 
+        run_on_start = false,
       })
-      
+
       -- Create command to manually trigger installation
       vim.api.nvim_create_user_command("MasonToolsInstall", function()
         require("mason-tool-installer").run_on_start = true

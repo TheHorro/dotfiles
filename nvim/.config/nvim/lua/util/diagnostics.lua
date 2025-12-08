@@ -11,7 +11,7 @@
 -----------------------------------------------------------
 
 local M = {}
-local notify = require('custom.util.notifications')
+local notify = require('util.notifications')
 
 -- Function to show all linter errors in a floating window
 function M.show_all_errors()
@@ -72,7 +72,7 @@ function M.show_all_errors()
   vim.api.nvim_buf_set_keymap(buf, "n", "q", ":q<CR>", { noremap = true, silent = true })
   vim.api.nvim_buf_set_keymap(buf, "n", "<Esc>", ":q<CR>", { noremap = true, silent = true })
   vim.api.nvim_buf_set_keymap(buf, "n", "<CR>",
-    [[<cmd>lua require('custom.util.diagnostics').jump_to_error()<CR>]],
+    [[<cmd>lua require('util.diagnostics').jump_to_error()<CR>]],
     { noremap = true, silent = true })
   vim.api.nvim_buf_set_keymap(buf, "n", "j", "j", { noremap = true, silent = true })
   vim.api.nvim_buf_set_keymap(buf, "n", "k", "k", { noremap = true, silent = true })
@@ -84,7 +84,8 @@ function M.jump_to_error()
   local line_num = tonumber(line:match("(%d+):"))
   if line_num then
     vim.cmd("q")                -- Close the floating window
-    vim.api.nvim_win_set_cursor(0, { line_num, 0 }) -- Move to line
+    local col = tonumber(line:match("%d+:(%d+)")) or 0
+    vim.api.nvim_win_set_cursor(0, { line_num, col - 1 }) -- Move to line
     vim.cmd("normal! zz")       -- Center the view
     vim.diagnostic.open_float() -- Show the diagnostic at current position
   end
@@ -97,21 +98,21 @@ function M.add_jupyter_cell_with_closing()
     notify.editor('NotebookNavigator plugin not found', notify.categories.ERROR)
     return
   end
-  
+
   -- Get the current buffer
   local bufnr = vim.api.nvim_get_current_buf()
   local bufname = vim.api.nvim_buf_get_name(bufnr)
-  
+
   -- Only for ipynb files
   if bufname:match("%.ipynb$") then
     -- Get cursor position
     local pos = vim.api.nvim_win_get_cursor(0)
     local row = pos[1]
-    
+
     -- Insert Python markdown cell
-    vim.api.nvim_buf_set_lines(bufnr, row, row, false, 
+    vim.api.nvim_buf_set_lines(bufnr, row, row, false,
       { "```python", "", "```" })
-    
+
     -- Move cursor to the empty line between markers
     vim.api.nvim_win_set_cursor(0, { row + 2, 0 })
   else
@@ -127,7 +128,7 @@ function M.copy_diagnostics_to_clipboard()
     notify.editor('No diagnostics found', notify.categories.STATUS)
     return
   end
-  
+
   local lines = {}
   for _, diagnostic in ipairs(diagnostics) do
     local severity = diagnostic.severity
@@ -141,7 +142,7 @@ function M.copy_diagnostics_to_clipboard()
       diagnostic.message)
     table.insert(lines, line)
   end
-  
+
   local formatted = table.concat(lines, "\n")
   vim.fn.setreg('+', formatted)
   notify.editor('Diagnostics copied to clipboard', notify.categories.USER_ACTION, { count = #diagnostics })
@@ -153,7 +154,7 @@ function M.setup()
   _G.CopyDiagnosticsToClipboard = function()
     M.copy_diagnostics_to_clipboard()
   end
-  
+
   return true
 end
 

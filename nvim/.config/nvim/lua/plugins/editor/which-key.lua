@@ -25,7 +25,7 @@ TOP-LEVEL MAPPINGS (<leader>)                   | DESCRIPTION
 <leader>w - Write all files                     | Save all open files
 
 [Additional documentation continues as before...]
-]]
+]] --
 
 -- Import notification module for TTS toggle functionality
 local notify = require('util.notifications')
@@ -34,7 +34,7 @@ return {
   "folke/which-key.nvim",
   event = "VeryLazy",
   dependencies = {
-    'echasnovski/mini.nvim',
+    -- 'echasnovski/mini.nvim',
   },
   opts = {
     preset = "classic",
@@ -269,10 +269,10 @@ return {
         local clients = vim.lsp.get_clients({ bufnr = 0 })
         if #clients > 0 then
           vim.cmd('LspStop')
-          require('custom.util.notifications').lsp('LSP stopped', require('custom.util.notifications').categories.USER_ACTION)
+          require('util.notifications').lsp('LSP stopped', require('util.notifications').categories.USER_ACTION)
         else
           vim.cmd('LspStart')
-          require('custom.util.notifications').lsp('LSP started', require('custom.util.notifications').categories.USER_ACTION)
+          require('util.notifications').lsp('LSP started', require('util.notifications').categories.USER_ACTION)
         end
       end, desc = "toggle lsp", icon = "󰔡" },
       { "<leader>iy", "<cmd>lua CopyDiagnosticsToClipboard()<CR>", desc = "copy diagnostics", icon = "󰆏" },
