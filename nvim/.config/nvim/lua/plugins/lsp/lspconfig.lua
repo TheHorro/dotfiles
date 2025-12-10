@@ -103,12 +103,13 @@ return {
     }
 
     -- LTeX
-    lspcfg.ltex_ls_plus = {
+    lspcfg.ltex_plus = {
       cmd = { "ltex-ls-plus" },
       settings = {
         ltex = {
           language = "de-DE",
-          additionalRules = { languageModel = "~/.local/share/ngram/" },
+          enabled = { "markdown", "latex", "tex" },
+          -- additionalRules = { languageModel = "~/.local/share/ngram/" },
         }
       },
       on_attach = on_attach,
@@ -124,8 +125,8 @@ return {
       tex      = "texlab",
       latex    = "texlab",
       plaintex = "texlab",
-      markdown = "ltex_ls_plus",
-      bib      = "ltex_ls_plus",
+      markdown = "ltex_plus",
+      bib      = "ltex_plus",
     }
 
     ---------------------------------------------------------------------------
