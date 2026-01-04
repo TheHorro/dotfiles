@@ -1,4 +1,5 @@
 require("core")
 require("plugins")
 -- vim.cmd("colorscheme nightfox")
-vim.cmd("colorscheme tokyonight")
+vim.cmd("colorscheme carbonfox")
+-- vim.cmd("colorscheme tokyonight")

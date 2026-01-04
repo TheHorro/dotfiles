@@ -78,7 +78,7 @@ local options = {
   splitright = true,
   splitbelow = true,
   updatetime = 300,
-  colorcolumn = "100",  -- Column for line length limit
+  -- colorcolumn = "100",  -- Column for line length limit
   hlsearch = true,      -- Highlight search results
   mouse = "a",          -- Enable mouse support
   timeoutlen = 300,     -- Time to wait for a mapped sequence to complete (in ms)
@@ -98,7 +98,7 @@ local options = {
   mousemoveevent = true, -- Enable mousemove events
   breakindent = true,   -- Enable line wrapping indentation
   linebreak = true,     -- Don't split words when wrapping
-  spell = true,         -- Enable spell check
+  spell = false,         -- Enable spell check
   -- download spl & sug files from here:
   -- https://ftp.uk.vim.org/pub/vim/runtime/spell/
   spelllang = { 'en_us', 'de_de' }, -- Use US English & German dictionary
@@ -173,7 +173,9 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.linebreak = true
     vim.opt_local.breakindent = true
     vim.opt_local.showbreak = "↳ "
+    -- Fix: Allow syntax highlighting on very long visual lines
+    vim.opt_local.synmaxcol = 0   -- 0 means "no limit"
+    -- Fix syntax highlighting on long/wrapped lines
+    vim.cmd("syntax sync minlines=2000")
   end,
 })
-
-

@@ -20,7 +20,7 @@ return {
 
     vim.api.nvim_set_keymap('n', '<leader>Tf', ':ALEFix<CR>', {})
     -- Enable built-in spell checking for English and German
-    vim.o.spell = true
+    vim.o.spell = false
     vim.o.spelllang = 'en_us,de'
     ------------------------------------------------------------
     -- Optional: Automatic language detection for spell

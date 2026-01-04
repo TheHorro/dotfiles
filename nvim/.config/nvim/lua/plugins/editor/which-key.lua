@@ -351,15 +351,15 @@ return {
     -- ============================================================================
     -- <leader>s - SURROUND GROUP
     -- ============================================================================
-
-    wk.add({
-      { "<leader>s", group = "surround", icon = "󰅪", mode = { "n", "v" } },
-      { "<leader>sc", "<Plug>(nvim-surround-change)", desc = "change", icon = "󰏫" },
-      { "<leader>sd", "<Plug>(nvim-surround-delete)", desc = "delete", icon = "󰚌" },
-      { "<leader>ss", "<Plug>(nvim-surround-normal)", desc = "surround", icon = "󰅪", mode = "n" },
-      { "<leader>ss", "<Plug>(nvim-surround-visual)", desc = "surround selection", icon = "󰅪", mode = "v" },
-    })
-
+    --
+    -- wk.add({
+    --   { "<leader>s", group = "surround", icon = "󰅪", mode = { "n", "v" } },
+    --   { "<leader>sc", "<Plug>(nvim-surround-change)", desc = "change", icon = "󰏫" },
+    --   { "<leader>sd", "<Plug>(nvim-surround-delete)", desc = "delete", icon = "󰚌" },
+    --   { "<leader>ss", "<Plug>(nvim-surround-normal)", desc = "surround", icon = "󰅪", mode = "n" },
+    --   { "<leader>ss", "<Plug>(nvim-surround-visual)", desc = "surround selection", icon = "󰅪", mode = "v" },
+    -- })
+    --
     -- ============================================================================
     -- <leader>S - SESSIONS GROUP
     -- ============================================================================

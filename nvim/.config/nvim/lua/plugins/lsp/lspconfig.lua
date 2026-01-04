@@ -56,6 +56,7 @@ return {
     -- lua_ls
     -- installes by AUR: `yay -S lua-language-server` as Mason has version issues of libs bc of Arch
     lspcfg.lua_ls = vim.tbl_deep_extend("force", {
+      autostart = false,
       cmd = { "lua-language-server" },
       settings = {
         Lua = {
@@ -80,6 +81,7 @@ return {
 
     -- pyright
     lspcfg.pyright = {
+      autostart = false,
       cmd = { "pyright-langserver", "--stdio" },
       on_attach = on_attach,
       capabilities = capabilities,
@@ -87,6 +89,7 @@ return {
 
     -- texlab
     lspcfg.texlab = {
+      autostart = false,
       cmd = { "texlab" },
       settings = {
         texlab = {
@@ -104,30 +107,32 @@ return {
 
     -- LTeX
     lspcfg.ltex_plus = {
+      autostart = false,
       cmd = { "ltex-ls-plus" },
+      capabilities = capabilities,
       settings = {
         ltex = {
           language = "de-DE",
-          enabled = { "markdown", "latex", "tex" },
-          -- additionalRules = { languageModel = "~/.local/share/ngram/" },
+          enabled = { "markdown", "latex", "tex", "bib" },
         }
       },
       on_attach = on_attach,
-      capabilities = capabilities,
     }
 
     ---------------------------------------------------------------------------
     -- FileType → LSP autostart map
     ---------------------------------------------------------------------------
     local ft_map = {
-      lua      = "lua_ls",
-      python   = "pyright",
-      tex      = "texlab",
-      latex    = "texlab",
-      plaintex = "texlab",
-      markdown = "ltex_plus",
-      bib      = "ltex_plus",
+      lua      = {"lua_ls"},
+      python   = {"pyright"},
+      tex      = {"texlab", "ltex_plus"},
+      latex    = {"texlab", "ltex_plus"},
+      plaintex = {"texlab", "ltex_plus"},
+      markdown = {"ltex_plus"},
+      bib      = {"ltex_plus"},
     }
+
+    vim.lsp.enable({ "lua_ls", "pyright", "texlab", "ltex_plus" })
 
     ---------------------------------------------------------------------------
     -- Block stylua from starting as a language server
@@ -135,29 +140,39 @@ return {
     vim.api.nvim_create_autocmd("LspAttach", {
       callback = function(args)
         local client = vim.lsp.get_client_by_id(args.data.client_id)
-        if client and client.name == "stylua" then
+        if not client then return end
+
+        if client.name == "stylua" then
           vim.lsp.stop_client(client.id)
+        elseif client.name == "ltex_plus" then
+          require("ltex_extra").setup {
+            path = vim.fn.stdpath("config") .. "/ltex",
+            load_langs = { "de-DE" },
+            server_name = "ltex_plus",
+          }
         end
       end,
     })
+
 
     ---------------------------------------------------------------------------
     -- Autostart LSP with new API (vim.lsp.start)
     ---------------------------------------------------------------------------
-    vim.api.nvim_create_autocmd("FileType", {
-      pattern = vim.tbl_keys(ft_map),
-      callback = function(ev)
-        local server_name = ft_map[ev.match]
-        local cfg = lspcfg[server_name]
-
-        if not cfg then
-          vim.notify("Missing LSP config: " .. server_name, vim.log.levels.ERROR)
-          return
-        end
-
-        -- Start server for this buffer if not already attached
-        vim.lsp.start(cfg, { bufnr = ev.buf })
-      end,
-    })
+    -- vim.api.nvim_create_autocmd("FileType", {
+    --   pattern = vim.tbl_keys(ft_map),
+    --   callback = function(ev)
+    --     local servers = ft_map[ev.match]
+    --     if not servers then return end
+    --
+    --     for _, server_name in ipairs(servers) do
+    --       local cfg = lspcfg[server_name]
+    --       if cfg then
+    --         vim.lsp.start(cfg, { bufnr = ev.buf })
+    --       else
+    --         vim.notify("Missing LSP config: " .. server_name, vim.log.levels.ERROR)
+    --       end
+    --     end
+    --   end,
+    -- })
   end,
 }

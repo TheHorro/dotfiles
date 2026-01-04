@@ -24,12 +24,53 @@ return {
       })
     end,
   },
-
   {
     "EdenEast/nightfox.nvim",
     name = "nightfox",
     priority = 1000,
-    config = function() end,
+    config = function()
+      local transparent = true
+      local bg = "#011628"
+      local bg_dark = "#011423"
+      local bg_highlight = "#143652"
+      local bg_search = "#0A64AC"
+      local bg_visual = "#275378"
+      local fg = "#CBE0F0"
+      local fg_dark = "#B4D0E9"
+      local fg_gutter = "#627E97"
+      local border = "#547998"
+
+      require("nightfox").setup({
+        options = {
+          transparent = transparent,
+          styles = {
+            -- comments = "NONE",
+            -- keywords = "NONE",
+            sidebars = transparent and "transparent" or "dark",
+            floats = transparent and "transparent" or "dark",
+          },
+        },
+        palettes = {
+          carbonfox = {
+            bg = transparent and "NONE" or bg,
+            -- bg_dark = transparent and "NONE" or bg_dark,
+            -- bg_float = transparent and "NONE" or bg_dark,
+            -- bg_highlight = bg_highlight,
+            -- bg_popup = bg_dark,
+            -- bg_search = bg_search,
+            -- bg_sidebar = transparent and "NONE" or bg_dark,
+            -- bg_statusline = transparent and "NONE" or bg_dark,
+            -- bg_visual = bg_visual,
+            -- border = border,
+            fg = fg,
+            -- fg_dark = fg_dark,
+            -- fg_float = fg,
+            -- fg_gutter = fg_gutter,
+            -- fg_sidebar = fg_dark,
+          },
+        },
+      })
+    end,
   },
   {
     "bluz71/vim-moonfly-colors",
