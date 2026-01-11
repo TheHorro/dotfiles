@@ -109,14 +109,34 @@ return {
     lspcfg.ltex_plus = {
       autostart = false,
       cmd = { "ltex-ls-plus" },
+      filetypes = { "bib", "gitcommit", "markdown", "org", "plaintex", "rst", "rnoweb", "tex", "pandoc", "quarto", "rmd" },
+      root_dir = vim.fs.root(0, { ".git", ".ltex", "main.tex" }),
       capabilities = capabilities,
       settings = {
         ltex = {
           language = "de-DE",
-          enabled = { "markdown", "latex", "tex", "bib" },
+          -- enabled = { "markdown", "latex", "tex", "bib" },
         }
       },
-      on_attach = on_attach,
+      -- on_attach = on_attach,
+      on_init = function (client)
+        vim.schedule(function ()
+          require("ltex_extra").setup({
+            load_langs = { "de-DE" },
+            path = vim.fn.getcwd() .. "/.ltex", -- Absolute path ensures it finds it
+            server_name = "ltex_plus",
+          })
+        end)
+      end,
+      on_attach = function(client, bufnr)
+        local ltex_ok, ltex_extra = pcall(require, "ltex_extra")
+        if ltex_ok then
+          ltex_extra.setup {
+            load_langs = { "de-DE" },
+            path = vim.fn.getcwd() .. "/.ltex",
+          }
+        end
+      end,
     }
 
     ---------------------------------------------------------------------------
@@ -144,12 +164,12 @@ return {
 
         if client.name == "stylua" then
           vim.lsp.stop_client(client.id)
-        elseif client.name == "ltex_plus" then
-          require("ltex_extra").setup {
-            path = vim.fn.stdpath("config") .. "/ltex",
-            load_langs = { "de-DE" },
-            server_name = "ltex_plus",
-          }
+        -- elseif client.name == "ltex_plus" then
+          -- require("ltex_extra").setup {
+          --   load_langs = { "de-DE" },
+          --   path = vim.fn.getcwd() .. "/.ltex",
+          --   server_name = "ltex_plus",
+          -- }
         end
       end,
     })

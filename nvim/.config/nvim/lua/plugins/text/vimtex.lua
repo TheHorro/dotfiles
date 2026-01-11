@@ -13,20 +13,22 @@ return {
     vim.g.vimtex_compiler_latexmk = {
       backend = "nvim",
       background = 1,
-      build_dir = "out",
-      out_dir = "out",
+      -- build_dir = "out",
+      -- out_dir = "",
       callback = 1,
       continuous = 1,
-      executable = "latexmk",
+      -- executable = "latexmk",
       -- hooks = {},
       options = {
-        '-xelatex',                                -- Use XeLaTeX engine
+        -- '-xelatex',                                -- Use XeLaTeX engine
         '-interaction=nonstopmode',                -- Don't stop on errors
         '-file-line-error',                        -- Better error messages
         '-synctex=1',                              -- Enable SyncTeX
         '-shell-escape', -- Often needed for minted or tikz packages
         -- '-verbose',
-        '-outdir=out'
+        -- '-outdir=out'
+        -- '-emulate-aux-dir',
+        -- '-auxdir=out',
       },
     }
 
@@ -36,7 +38,7 @@ return {
     }
 
     -- Viewer Settings
-    vim.g.vimtex_view_method = 'zathura'            -- Sioyek PDF viewer for academic documents
+    vim.g.vimtex_view_method = 'zathura_simple'            -- Sioyek PDF viewer for academic documents
     -- Note: Not setting vimtex_view_sioyek_options allows VimTeX to handle window management
     -- It will open new windows when needed but reuse for the same document
     vim.g.vimtex_context_pdf_viewer = 'okular'     -- External PDF viewer for the Vimtex menu
