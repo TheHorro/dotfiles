@@ -42,6 +42,7 @@ local function safe_require(module)
 end
 
 -- Load modules
+local ale_module = safe_require("plugins.text.ale")
 local vimtex_module = safe_require("plugins.text.vimtex")
 local ltex_extra_module = safe_require("plugins.text.ltex_extra")
 -- local lean_module = safe_require("plugins.text.lean")
@@ -59,6 +60,7 @@ local function add_if_valid(spec)
 end
 
 -- Add only valid plugin specs
+add_if_valid(ale_module)
 add_if_valid(vimtex_module)
 add_if_valid(ltex_extra_module)
 -- add_if_valid(lean_module)

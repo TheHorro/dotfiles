@@ -31,7 +31,8 @@ local neo_tree_module = safe_require("plugins.ui.neo-tree")
 local web_devicons_module = safe_require("plugins.ui.nvim-web-devicons")
 local sessions_module = safe_require("plugins.ui.sessions")
 local incline_module = safe_require("plugins.ui.incline")
-local wilder_module = safe_require("plugins.ui.wilder")
+local smear_module = safe_require("plugins.ui.smear-cursor")
+local todo_module = safe_require("plugins.ui.todo-comments")
 
 -- Return plugin specs
 return {
@@ -42,6 +43,7 @@ return {
   web_devicons_module,
   sessions_module,
   incline_module,
-  wilder_module
+  smear_module,
+  todo_module,
 }
  

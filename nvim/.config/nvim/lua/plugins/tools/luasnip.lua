@@ -89,5 +89,24 @@ return {
         print(vim.inspect(info))
       end, {})
     end
-  }
+  },
+  {
+    "iurimateus/luasnip-latex-snippets.nvim",
+    -- Load only for tex files to keep startup fast
+    ft = "tex",
+    dependencies = { "L3MON4D3/LuaSnip", "lervag/vimtex" },
+    config = function()
+      require('luasnip-latex-snippets').setup({
+        use_treesitter = true, -- Use Treesitter for math detection (alternative to VimTeX)
+        allow_on_markdown = true, -- If you want LaTeX snippets in .md files too
+      })
+
+      -- IMPORTANT: You MUST enable autosnippets in LuaSnip's own config
+      require("luasnip").config.setup({ 
+        enable_autosnippets = true,
+        -- Optional: keeps your cursor in the snippet if you jump out and back in
+        history = true,
+      })
+    end,
+  },
 }

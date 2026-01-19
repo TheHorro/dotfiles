@@ -9,11 +9,15 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+vim.loader.enable()
+
+
 -- Load plugins
 require("lazy").setup({
-  { import = "plugins.editor" },
-  { import = "plugins.ui" },
-  { import = "plugins.tools"},
-  { import = "plugins.lsp" },
-  { import = "plugins.text" },
-})
+    { import = "plugins.editor" },
+    { import = "plugins.ui" },
+    { import = "plugins.tools"},
+    { import = "plugins.lsp" },
+    { import = "plugins.text" },
+ }
+)

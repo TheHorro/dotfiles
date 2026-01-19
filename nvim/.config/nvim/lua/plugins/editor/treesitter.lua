@@ -1,8 +1,12 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
-    event = { "BufReadPost", "BufNewFile" }, -- Load when a buffer is read, not before
+    -- event = { "BufReadPost", "BufNewFile" }, -- Load when a buffer is read, not before
+    version = "v0.9.3",
+    tag = "v0.9.3",
     build = ":TSUpdate",
+    lazy = false,
+    priority = 1000,
     config = function()
       -- Remove any existing problematic parsers that cause ABI version conflicts
       local problematic_parsers = { "latex", "tex", "bibtex", "plaintex", "context" }
@@ -11,21 +15,21 @@ return {
         if vim.fn.filereadable(parser_path) == 1 then
           vim.fn.delete(parser_path)
         end
-        
+
         -- Also remove any source directories in multiple locations
         local source_paths = {
           vim.fn.stdpath("data") .. "/tree-sitter-" .. parser,
           vim.fn.expand("~/.local/share/nvim/tree-sitter-" .. parser),
           vim.fn.stdpath("data") .. "/lazy/nvim-treesitter/tree-sitter-" .. parser,
         }
-        
+
         for _, source_path in ipairs(source_paths) do
           if vim.fn.isdirectory(source_path) == 1 then
             vim.fn.delete(source_path, "rf")
           end
         end
       end
-      
+
       -- Override LaTeX parser configs to prevent installation
       vim.defer_fn(function()
         pcall(function()
@@ -38,8 +42,8 @@ return {
           end
         end)
       end, 50)
-      
-      
+
+
       -- Load only essential modules initially
       require("nvim-treesitter.configs").setup({
         -- Only enable minimal highlighting at startup
@@ -73,7 +77,7 @@ return {
 
           -- Enable indentation with safety checks
           indent = { enable = true, disable = { "latex" } },
-          
+
           -- Add sync settings to prevent parser state issues
           sync_install = false, -- Don't install parsers synchronously
           modules = {}, -- Required by nvim-treesitter
@@ -186,24 +190,30 @@ return {
   {
     "JoosepAlviste/nvim-ts-context-commentstring",
     lazy = true,
-    event = { "BufReadPost", "BufNewFile" },
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
-    config = function()
-      require("ts_context_commentstring").setup({})
-    end,
+    opts = {},
+    -- event = { "BufReadPost", "BufNewFile" },
+    -- dependencies = { "nvim-treesitter/nvim-treesitter" },
+    -- config = function()
+    --   require("ts_context_commentstring").setup({})
+    -- end,
   },
 
   {
     "windwp/nvim-ts-autotag",
     lazy = true,
     ft = { "html", "xml", "jsx", "tsx", "vue", "svelte", "php", "markdown" },
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
-    config = function()
-      require("nvim-treesitter.configs").setup({
-        autotag = {
-          enable = true,
-        },
-      })
-    end,
+    opts = {
+      enable_close = true,
+      enable_rename = true,
+      enable_close_on_slash = true,
+    },
+    -- dependencies = { "nvim-treesitter/nvim-treesitter" },
+    -- config = function()
+    --   require("nvim-treesitter.configs").setup({
+    --     autotag = {
+    --       enable = true,
+    --     },
+    --   })
+    -- end,
   }
 }
