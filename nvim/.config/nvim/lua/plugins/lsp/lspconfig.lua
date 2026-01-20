@@ -115,7 +115,10 @@ return {
       settings = {
         ltex = {
           language = "de-DE",
-          -- enabled = { "markdown", "latex", "tex", "bib" },
+          enabled = { "markdown", "latex", "tex", "bib" },
+          -- ltex_ls_plus = {
+          --   args = { "--jvm-args", "-Xms128m", "-Xmx512m" }
+          -- }
         }
       },
       -- on_attach = on_attach,
@@ -173,26 +176,5 @@ return {
         end
       end,
     })
-
-
-    ---------------------------------------------------------------------------
-    -- Autostart LSP with new API (vim.lsp.start)
-    ---------------------------------------------------------------------------
-    -- vim.api.nvim_create_autocmd("FileType", {
-    --   pattern = vim.tbl_keys(ft_map),
-    --   callback = function(ev)
-    --     local servers = ft_map[ev.match]
-    --     if not servers then return end
-    --
-    --     for _, server_name in ipairs(servers) do
-    --       local cfg = lspcfg[server_name]
-    --       if cfg then
-    --         vim.lsp.start(cfg, { bufnr = ev.buf })
-    --       else
-    --         vim.notify("Missing LSP config: " .. server_name, vim.log.levels.ERROR)
-    --       end
-    --     end
-    --   end,
-    -- })
   end,
 }

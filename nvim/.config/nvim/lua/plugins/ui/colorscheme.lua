@@ -1,30 +1,6 @@
 -- GRUVBOX
 return {
   {
-    "ellisonleao/gruvbox.nvim",
-    priority = 1000, -- make sure to load this before all the other start plugins
-    config = function()
-      require("gruvbox").setup({
-        overrides = {
-          SignColumn = { bg = "#282828" },
-          NvimTreeCutHL = { fg = "#fb4934", bg = "#282828" },
-          NvimTreeCopiedHL = { fg = "#b8bb26", bg = "#282828" },
-          DiagnosticSignError = { fg = "#fb4934", bg = "#282828" },
-          DiagnosticSignWarn = { fg = "#fabd2f", bg = "#282828" },
-          DiagnosticSignHint = { fg = "#8ec07c", bg = "#282828" },
-          DiagnosticSignInfo = { fg = "#d3869b", bg = "#282828" },
-          DiffText = { fg = "#ebdbb2", bg = "#3c3836" },
-          DiffAdd = { fg = "#ebdbb2", bg = "#32361a" },
-          -- Markdown comment highlighting (muted)
-          htmlComment = { fg = "#928374", italic = true },
-          htmlCommentPart = { fg = "#928374", italic = true },
-          markdownHtmlComment = { fg = "#928374", italic = true },
-          RenderMarkdownHtmlComment = { fg = "#928374", italic = true },
-        },
-      })
-    end,
-  },
-  {
     "EdenEast/nightfox.nvim",
     name = "nightfox",
     priority = 1000,
@@ -44,7 +20,7 @@ return {
         options = {
           transparent = transparent,
           styles = {
-            -- comments = "NONE",
+            comments = "NONE",
             -- keywords = "NONE",
             sidebars = transparent and "transparent" or "dark",
             floats = transparent and "transparent" or "dark",
@@ -52,8 +28,13 @@ return {
         },
         palettes = {
           carbonfox = {
-            bg = transparent and "NONE" or bg,
-            -- bg_dark = transparent and "NONE" or bg_dark,
+            -- bg0 = transparent and "NONE" or bg,
+            -- bg0 = "#FF0000",
+            -- bg1 = "#FF0000",
+            -- bg2 = "#FF0000",
+            -- bg3 = "#FF0000",
+            -- bg4 = "#FF0000",
+            -- bg1 = transparent and "NONE" or bg_dark,
             -- bg_float = transparent and "NONE" or bg_dark,
             -- bg_highlight = bg_highlight,
             -- bg_popup = bg_dark,
@@ -62,12 +43,47 @@ return {
             -- bg_statusline = transparent and "NONE" or bg_dark,
             -- bg_visual = bg_visual,
             -- border = border,
-            fg = fg,
-            -- fg_dark = fg_dark,
-            -- fg_float = fg,
-            -- fg_gutter = fg_gutter,
-            -- fg_sidebar = fg_dark,
+            -- fg0 = "#FF0000",
+            -- fg1 = fg_dark,
+            -- fg2 = fg,
+            -- fg3 = fg_gutter,
+            -- fg4 = fg_dark,
+            bg0 = "#101010",
+            bg1 = "#181818",
+            bg2 = "#202020",
+            fg0 = "#0000FF",
+            -- fg1 = "#CCCCCC",
+            sel0 = "#3e4a5b", -- Popup bg, visual selection bg
+            sel1 = "#4f6074", -- Popup sel bg, search bg
           },
+        },
+        specs = {
+          carbonfox = {
+          },
+        },
+      })
+    end,
+  },
+  {
+    "ellisonleao/gruvbox.nvim",
+    priority = 1000, -- make sure to load this before all the other start plugins
+    config = function()
+      require("gruvbox").setup({
+        overrides = {
+          SignColumn = { bg = "#282828" },
+          NvimTreeCutHL = { fg = "#fb4934", bg = "#282828" },
+          NvimTreeCopiedHL = { fg = "#b8bb26", bg = "#282828" },
+          DiagnosticSignError = { fg = "#fb4934", bg = "#282828" },
+          DiagnosticSignWarn = { fg = "#fabd2f", bg = "#282828" },
+          DiagnosticSignHint = { fg = "#8ec07c", bg = "#282828" },
+          DiagnosticSignInfo = { fg = "#d3869b", bg = "#282828" },
+          DiffText = { fg = "#ebdbb2", bg = "#3c3836" },
+          DiffAdd = { fg = "#ebdbb2", bg = "#32361a" },
+          -- Markdown comment highlighting (muted)
+          htmlComment = { fg = "#928374", italic = true },
+          htmlCommentPart = { fg = "#928374", italic = true },
+          markdownHtmlComment = { fg = "#928374", italic = true },
+          RenderMarkdownHtmlComment = { fg = "#928374", italic = true },
         },
       })
     end,
