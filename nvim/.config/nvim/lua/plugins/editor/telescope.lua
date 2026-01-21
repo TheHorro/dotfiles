@@ -117,31 +117,30 @@ return {
         },
       },
     })
-    
     -- Load extensions
     telescope.load_extension("fzf")
     telescope.load_extension("yank_history")
     telescope.load_extension("bibtex")
     telescope.load_extension("ui-select")
     telescope.load_extension("themes")
-    
+
     -- Override vim.ui.select for confirmations to use smaller cursor theme
     local original_select = vim.ui.select
     vim.ui.select = function(items, opts, on_choice)
       opts = opts or {}
-      
+
       -- Use small cursor theme for confirmations
       if opts.kind == "confirmation" or opts.kind == "file_deletion" then
         local pickers = require("telescope.pickers")
         local finders = require("telescope.finders")
         local conf = require("telescope.config").values
-        local actions = require("telescope.actions")
+        -- local actions = require("telescope.actions")
         local action_state = require("telescope.actions.state")
         local themes = require("telescope.themes")
-        
+
         -- Use different themes based on the kind
         local theme_config
-        
+
         if opts.kind == "file_deletion" then
           -- Center the dialog for file deletions (<leader>ak) using dropdown theme
           theme_config = themes.get_dropdown({
@@ -163,7 +162,7 @@ return {
             previewer = false,
           })
         end
-        
+
         local picker = pickers.new(theme_config, {
           prompt_title = opts.prompt or "",
           finder = finders.new_table({
@@ -192,7 +191,7 @@ return {
             return true
           end,
         })
-        
+
         picker:find()
       else
         -- Use original (telescope dropdown) for everything else

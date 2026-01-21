@@ -1,70 +1,59 @@
--- GRUVBOX
 return {
   {
     "EdenEast/nightfox.nvim",
-    name = "nightfox",
+    -- name = "nightfox",
     priority = 1000,
     config = function()
       local transparent = true
-      local bg = "#011628"
-      local bg_dark = "#011423"
-      local bg_highlight = "#143652"
-      local bg_search = "#0A64AC"
-      local bg_visual = "#275378"
-      local fg = "#CBE0F0"
-      local fg_dark = "#B4D0E9"
-      local fg_gutter = "#627E97"
-      local border = "#547998"
-
       require("nightfox").setup({
         options = {
           transparent = transparent,
+          dim_inactive = false,
           styles = {
             comments = "NONE",
-            -- keywords = "NONE",
+            keywords = "NONE",
             sidebars = transparent and "transparent" or "dark",
             floats = transparent and "transparent" or "dark",
           },
         },
         palettes = {
           carbonfox = {
-            -- bg0 = transparent and "NONE" or bg,
-            -- bg0 = "#FF0000",
-            -- bg1 = "#FF0000",
-            -- bg2 = "#FF0000",
-            -- bg3 = "#FF0000",
-            -- bg4 = "#FF0000",
-            -- bg1 = transparent and "NONE" or bg_dark,
-            -- bg_float = transparent and "NONE" or bg_dark,
-            -- bg_highlight = bg_highlight,
-            -- bg_popup = bg_dark,
-            -- bg_search = bg_search,
-            -- bg_sidebar = transparent and "NONE" or bg_dark,
-            -- bg_statusline = transparent and "NONE" or bg_dark,
-            -- bg_visual = bg_visual,
-            -- border = border,
-            -- fg0 = "#FF0000",
-            -- fg1 = fg_dark,
-            -- fg2 = fg,
-            -- fg3 = fg_gutter,
-            -- fg4 = fg_dark,
-            bg0 = "#101010",
-            bg1 = "#181818",
-            bg2 = "#202020",
-            fg0 = "#0000FF",
-            -- fg1 = "#CCCCCC",
-            sel0 = "#3e4a5b", -- Popup bg, visual selection bg
-            sel1 = "#4f6074", -- Popup sel bg, search bg
+            bg1 = "#000000",
+            -- bg2 = "#000000",
+            -- bg3 = "#000000",
+            -- bg4 = "#000000",
+            fg0 = "#aaaaaa",
+            fg1 = "#aaaaaa",
+            fg2 = "#ffffff",
+            fg3 = "#ffffff",
+            fg4 = "#ffffff",
+            sel0 = "#333333",
+            sel1 = "#666666",
           },
         },
         specs = {
           carbonfox = {
+            syntax = {
+              keyword = "#79dac8",
+              func    = "#4287ff",
+              string  = "#00aa00",
+              number  = "#ff8800",
+            },
+          },
+        },
+        groups = {
+          carbonfox = {
+            NormalFloat = { bg = "NONE" },
+            FloatBorder = { fg = "palette.blue", bg = "NONE" },
+            CursorLine = { bg = "#2a2b2f" },
+            Pmenu = { bg = "NONE", fg = "palette.fg1" },
           },
         },
       })
     end,
   },
   {
+    -- GRUVBOX
     "ellisonleao/gruvbox.nvim",
     priority = 1000, -- make sure to load this before all the other start plugins
     config = function()
@@ -86,15 +75,6 @@ return {
           RenderMarkdownHtmlComment = { fg = "#928374", italic = true },
         },
       })
-    end,
-  },
-  {
-    "bluz71/vim-moonfly-colors",
-    name = "moonfly",
-    lazy = false,
-    priority = 1000,
-    config = function()
-      -- vim.cmd([[colorscheme moonfly]])
     end,
   },
   {

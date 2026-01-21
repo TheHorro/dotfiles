@@ -265,143 +265,143 @@ return {
       },
     })
 
-    -- Set up width tracking via VimResized autocmd
-    vim.api.nvim_create_autocmd("VimResized", {
-      group = vim.api.nvim_create_augroup("NeoTreeWidthTracking", { clear = true }),
-      callback = function()
-        width_manager.track_width_change()
-      end,
-      desc = "Track Neo-tree width changes",
-    })
+    -- -- Set up width tracking via VimResized autocmd
+    -- vim.api.nvim_create_autocmd("VimResized", {
+    --   group = vim.api.nvim_create_augroup("NeoTreeWidthTracking", { clear = true }),
+    --   callback = function()
+    --     width_manager.track_width_change()
+    --   end,
+    --   desc = "Track Neo-tree width changes",
+    -- })
 
     -- Color scheme integration (matching original nvim-tree colors)
-    vim.api.nvim_create_autocmd("ColorScheme", {
-      group = vim.api.nvim_create_augroup("NeoTreeColors", { clear = true }),
-      callback = function()
-        -- Directory colors (soft light purple like nvim-tree)
-        -- local dir_color = "#b294bb"
-        local dir_color = "#4287f5"
-
-        -- Directory and folder highlights
-        vim.api.nvim_set_hl(0, "NeoTreeDirectoryName", { fg = dir_color, bold = true })
-        vim.api.nvim_set_hl(0, "NeoTreeDirectoryIcon", { fg = dir_color })
-        vim.api.nvim_set_hl(0, "NeoTreeRootName", { fg = dir_color, bold = true, italic = true })
-        vim.api.nvim_set_hl(0, "NeoTreeFolderIcon", { fg = dir_color })
-        vim.api.nvim_set_hl(0, "NeoTreeFolderName", { fg = dir_color, bold = true })
-
-        -- Modified file indicator (orange like nvim-tree)
-        vim.api.nvim_set_hl(0, "NeoTreeModified", { fg = "#e78a4e", bold = true })
-
-        -- Git colors matching GitSigns
-        local git_colors = _G.GitColors or {
-          add = "#4fa6ed",
-          change = "#e78a4e",
-          delete = "#fb4934"
-        }
-
-        vim.api.nvim_set_hl(0, "NeoTreeGitAdded", { fg = git_colors.add, bold = true })
-        vim.api.nvim_set_hl(0, "NeoTreeGitModified", { fg = git_colors.change, bold = true })
-        vim.api.nvim_set_hl(0, "NeoTreeGitDeleted", { fg = git_colors.delete, bold = true })
-        vim.api.nvim_set_hl(0, "NeoTreeGitStaged", { fg = git_colors.add, bold = true })
-        vim.api.nvim_set_hl(0, "NeoTreeGitUnstaged", { fg = git_colors.change, bold = true })
-        vim.api.nvim_set_hl(0, "NeoTreeGitUntracked", { fg = git_colors.add, bold = true })
-        vim.api.nvim_set_hl(0, "NeoTreeGitIgnored", { fg = "#666666", italic = true })
-        vim.api.nvim_set_hl(0, "NeoTreeGitConflict", { fg = git_colors.delete, bold = true })
-
-        -- File icons
-        vim.api.nvim_set_hl(0, "NeoTreeFileIcon", { fg = "#a89984" })
-
-        -- Modern popup and floating window styling
-        vim.api.nvim_set_hl(0, "NeoTreeFloatBorder", {
-          fg = "#7c6f64",
-          bg = "NONE",
-          bold = false
-        })
-        vim.api.nvim_set_hl(0, "NeoTreeFloatTitle", {
-          fg = dir_color,
-          bg = "NONE",
-          bold = true
-        })
-
-        -- Enhanced tree styling
-        vim.api.nvim_set_hl(0, "NeoTreeIndentMarker", { fg = "#504945" })
-        vim.api.nvim_set_hl(0, "NeoTreeFileName", { fg = "#d5c4a1" })
-        vim.api.nvim_set_hl(0, "NeoTreeFileNameOpened", { fg = "#ebdbb2", bold = true })
-
-        -- Header background matching bufferline
-        local function get_highlight_bg(group)
-          local hl = vim.api.nvim_get_hl(0, { name = group })
-          return hl and hl.bg
-        end
-
-        local bg_groups = {
-          "BufferLineFill",
-          "BufferlineBackground",
-          "TabLineFill",
-          "StatusLine",
-          "Normal",
-        }
-
-        local bg_color
-        for _, group in ipairs(bg_groups) do
-          bg_color = get_highlight_bg(group)
-          if bg_color then break end
-        end
-
-        if bg_color then
-          local hex_bg_color
-          if type(bg_color) == "number" then
-            hex_bg_color = string.format("#%06x", bg_color)
-          else
-            hex_bg_color = bg_color
-          end
-
-          -- Set header background to match bufferline
-          vim.api.nvim_set_hl(0, "NeoTreeTitleBar", {
-            fg = dir_color,
-            bg = hex_bg_color,
-            bold = true
-          })
-        end
-      end,
-    })
+    -- vim.api.nvim_create_autocmd("ColorScheme", {
+    --   group = vim.api.nvim_create_augroup("NeoTreeColors", { clear = true }),
+    --   callback = function()
+    --     -- Directory colors (soft light purple like nvim-tree)
+    --     local dir_color = "#b294bb"
+    --     -- local dir_color = "#4287f5"
+    --
+    --     -- Directory and folder highlights
+    --     vim.api.nvim_set_hl(0, "NeoTreeDirectoryName", { fg = dir_color, bold = true })
+    --     vim.api.nvim_set_hl(0, "NeoTreeDirectoryIcon", { fg = dir_color })
+    --     vim.api.nvim_set_hl(0, "NeoTreeRootName", { fg = dir_color, bold = true, italic = true })
+    --     vim.api.nvim_set_hl(0, "NeoTreeFolderIcon", { fg = dir_color })
+    --     vim.api.nvim_set_hl(0, "NeoTreeFolderName", { fg = dir_color, bold = true })
+    --
+    --     -- Modified file indicator (orange like nvim-tree)
+    --     vim.api.nvim_set_hl(0, "NeoTreeModified", { fg = "#e78a4e", bold = true })
+    --
+    --     -- Git colors matching GitSigns
+    --     local git_colors = _G.GitColors or {
+    --       add = "#4fa6ed",
+    --       change = "#e78a4e",
+    --       delete = "#fb4934"
+    --     }
+    --
+    --     vim.api.nvim_set_hl(0, "NeoTreeGitAdded", { fg = git_colors.add, bold = true })
+    --     vim.api.nvim_set_hl(0, "NeoTreeGitModified", { fg = git_colors.change, bold = true })
+    --     vim.api.nvim_set_hl(0, "NeoTreeGitDeleted", { fg = git_colors.delete, bold = true })
+    --     vim.api.nvim_set_hl(0, "NeoTreeGitStaged", { fg = git_colors.add, bold = true })
+    --     vim.api.nvim_set_hl(0, "NeoTreeGitUnstaged", { fg = git_colors.change, bold = true })
+    --     vim.api.nvim_set_hl(0, "NeoTreeGitUntracked", { fg = git_colors.add, bold = true })
+    --     vim.api.nvim_set_hl(0, "NeoTreeGitIgnored", { fg = "#666666", italic = true })
+    --     vim.api.nvim_set_hl(0, "NeoTreeGitConflict", { fg = git_colors.delete, bold = true })
+    --
+    --     -- File icons
+    --     vim.api.nvim_set_hl(0, "NeoTreeFileIcon", { fg = "#a89984" })
+    --
+    --     -- Modern popup and floating window styling
+    --     vim.api.nvim_set_hl(0, "NeoTreeFloatBorder", {
+    --       fg = "#7c6f64",
+    --       bg = "NONE",
+    --       bold = false
+    --     })
+    --     vim.api.nvim_set_hl(0, "NeoTreeFloatTitle", {
+    --       fg = dir_color,
+    --       bg = "NONE",
+    --       bold = true
+    --     })
+    --
+    --     -- Enhanced tree styling
+    --     vim.api.nvim_set_hl(0, "NeoTreeIndentMarker", { fg = "#504945" })
+    --     vim.api.nvim_set_hl(0, "NeoTreeFileName", { fg = "#d5c4a1" })
+    --     vim.api.nvim_set_hl(0, "NeoTreeFileNameOpened", { fg = "#ebdbb2", bold = true })
+    --
+    --     -- Header background matching bufferline
+    --     local function get_highlight_bg(group)
+    --       local hl = vim.api.nvim_get_hl(0, { name = group })
+    --       return hl and hl.bg
+    --     end
+    --
+    --     local bg_groups = {
+    --       "BufferLineFill",
+    --       "BufferlineBackground",
+    --       "TabLineFill",
+    --       "StatusLine",
+    --       "Normal",
+    --     }
+    --
+    --     local bg_color
+    --     for _, group in ipairs(bg_groups) do
+    --       bg_color = get_highlight_bg(group)
+    --       if bg_color then break end
+    --     end
+    --
+    --     if bg_color then
+    --       local hex_bg_color
+    --       if type(bg_color) == "number" then
+    --         hex_bg_color = string.format("#%06x", bg_color)
+    --       else
+    --         hex_bg_color = bg_color
+    --       end
+    --
+    --       -- Set header background to match bufferline
+    --       vim.api.nvim_set_hl(0, "NeoTreeTitleBar", {
+    --         fg = dir_color,
+    --         bg = hex_bg_color,
+    --         bold = true
+    --       })
+    --     end
+    --   end,
+    -- })
 
     -- Apply colors immediately and on VimEnter
-    vim.schedule(function()
-      vim.cmd("doautocmd ColorScheme")
-    end)
-
-    vim.defer_fn(function()
-      vim.cmd("doautocmd ColorScheme")
-    end, 100)
-
-    vim.api.nvim_create_autocmd("VimEnter", {
-      callback = function()
-        vim.cmd("doautocmd ColorScheme")
-      end,
-      once = true,
-    })
-
-    -- Create user commands for Neo-tree with width management and original root restoration
-    vim.api.nvim_create_user_command('NeoTreeCustomToggle', function()
-      if original_root then
-        require("neo-tree.command").execute({ action = "toggle", dir = original_root })
-      else
-        require("neo-tree.command").execute({ action = "toggle" })
-      end
-    end, { desc = "Toggle Neo-tree with width persistence and original root restoration" })
-
-    vim.api.nvim_create_user_command('NeoTreeCustomOpen', function()
-      if original_root then
-        require("neo-tree.command").execute({ action = "show", dir = original_root })
-      else
-        require("neo-tree.command").execute({ action = "show" })
-      end
-    end, { desc = "Open Neo-tree with width persistence and original root restoration" })
-
-    vim.api.nvim_create_user_command('NeoTreeCustomClose', function()
-      width_manager.track_width_change()
-      require("neo-tree.command").execute({ action = "close" })
-    end, { desc = "Close Neo-tree with width persistence" })
+  --   vim.schedule(function()
+  --     vim.cmd("doautocmd ColorScheme")
+  --   end)
+  --
+  --   vim.defer_fn(function()
+  --     vim.cmd("doautocmd ColorScheme")
+  --   end, 100)
+  --
+  --   vim.api.nvim_create_autocmd("VimEnter", {
+  --     callback = function()
+  --       vim.cmd("doautocmd ColorScheme")
+  --     end,
+  --     once = true,
+  --   })
+  --
+  --   -- Create user commands for Neo-tree with width management and original root restoration
+  --   vim.api.nvim_create_user_command('NeoTreeCustomToggle', function()
+  --     if original_root then
+  --       require("neo-tree.command").execute({ action = "toggle", dir = original_root })
+  --     else
+  --       require("neo-tree.command").execute({ action = "toggle" })
+  --     end
+  --   end, { desc = "Toggle Neo-tree with width persistence and original root restoration" })
+  --
+  --   vim.api.nvim_create_user_command('NeoTreeCustomOpen', function()
+  --     if original_root then
+  --       require("neo-tree.command").execute({ action = "show", dir = original_root })
+  --     else
+  --       require("neo-tree.command").execute({ action = "show" })
+  --     end
+  --   end, { desc = "Open Neo-tree with width persistence and original root restoration" })
+  --
+  --   vim.api.nvim_create_user_command('NeoTreeCustomClose', function()
+  --     width_manager.track_width_change()
+  --     require("neo-tree.command").execute({ action = "close" })
+  --   end, { desc = "Close Neo-tree with width persistence" })
   end,
 }
