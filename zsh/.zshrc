@@ -1,10 +1,3 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-# fi
-
 # Set the directory we want to store zinit and plugins
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
@@ -17,15 +10,11 @@ fi
 # Source/Load zinit
 source "${ZINIT_HOME}/zinit.zsh"
 
-# Add in Powerlevel10k
-# zinit ice depth=1; zinit light romkatv/powerlevel10k
-
 # Add in zsh plugins
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 zinit light Aloxaf/fzf-tab
-zinit ice depth=1; zinit light jeffreytse/zsh-vi-mode
 
 # Add in snippets
 zinit snippet OMZL::git.zsh
@@ -78,11 +67,15 @@ alias ...='cd ..;cd ..'
 alias md='mkdir -p'
 alias ip='ip --color'
 
+ZVM_LINE_INIT_WIDGET="zle-line-init"
+
 # Shell integrations
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
 eval "$(starship init zsh)"
 
+zinit ice depth=1; zinit light jeffreytse/zsh-vi-mode
+ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
 
 # attach if tmux session exists
 if [ -z "$TMUX" ]; then
@@ -95,57 +88,3 @@ if [ -z "$TMUX" ]; then
     fi
 fi
 
-# transient prompt
-precmd_functions=(zvm_init "${(@)precmd_functions:#zvm_init}")
-precmd_functions+=(set-long-prompt)
-zvm_after_init_commands+=("zle -N zle-line-finish; zle-line-finish() { set-short-prompt }")
-
-set-long-prompt() {
-    PROMPT=$(starship prompt)
-    RPROMPT=""
-}
-
-export COLUMNS=$(($COLUMNS + ($COLUMNS*0.1)))
-set-short-prompt() {
-    if [[ $PROMPT != '%# ' ]]; then
-        PROMPT="$(STARSHIP_KEYMAP=${KEYMAP:-viins} starship module character)"
-    fi
-    RPROMPT=$'%{\e[999C%}\e[8D%F{8}%*%f ' # remove if you don't want right prompt
-    zle .reset-prompt 2>/dev/null # hide the errors on ctrl+c
-}
-
-zle-keymap-select() {
-    set-short-prompt
-}
-zle -N zle-keymap-select
-
-zle-line-finish() { set-short-prompt }
-zle -N zle-line-finish
-
-trap 'set-short-prompt; return 130' INT
-
-# try to fix vi mode indication (not working 100%)
-zvm_after_init_commands+=('
-  function zle-keymap-select() {
-    if [[ ${KEYMAP} == vicmd ]] ||
-       [[ $1 = "block" ]]; then
-      echo -ne "\e[1 q"
-      STARSHIP_KEYMAP=vicmd
-    elif [[ ${KEYMAP} == main ]] ||
-         [[ ${KEYMAP} == viins ]] ||
-         [[ ${KEYMAP} = "" ]] ||
-         [[ $1 = "beam" ]]; then
-      echo -ne "\e[5 q"
-      STARSHIP_KEYMAP=viins
-    fi
-    zle reset-prompt
-  }
-  zle -N zle-keymap-select
-
-  # Ensure vi mode is set
-  zle-line-init() {
-    zle -K viins
-    echo -ne "\e[5 q"
-  }
-  zle -N zle-line-init
-')
