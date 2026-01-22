@@ -17,9 +17,21 @@ return {
   config = function()
     local telescope = require("telescope")
     local actions = require("telescope.actions")
+    local colors = require("nightfox.palette").load("carbonfox")
 
     telescope.setup({
       defaults = {
+        -- selection_caret = "󰁔 ",
+        -- entry_prefix = "  ",
+        -- initial_mode = "insert",
+        -- selection_strategy = "reset",
+        -- sorting_strategy = "ascending",
+        -- layout_config = {
+        --   horizontal = {
+        --     prompt_position = "top",
+        --     preview_width = 0.55,
+        --   },
+        -- },
         path_display = { "truncate " },
         mappings = {
           i = {
@@ -198,5 +210,18 @@ return {
         original_select(items, opts, on_choice)
       end
     end
+    local hi = vim.api.nvim_set_hl
+    hi(0, "TelescopeNormal", { bg = "none" })
+    hi(0, "TelescopeBorder", { fg = colors.blue.base, bg = "none" })
+    hi(0, "TelescopeCounter", { fg = colors.fg1, bg = "none" })
+    hi(0, "TelescopePromptPrefix", { fg = colors.fg1, bg = "none" })
+    hi(0, "TelescopePromptNormal", { fg = colors.fg1, bg = "none" })
+    hi(0, "TelescopePromptBorder", { fg = colors.fg1, bg = "none" })
+    hi(0, "TelescopePromptTitle", { fg = colors.fg1, bg = "none", bold = true })
+    hi(0, "TelescopePreviewBorder", { fg = colors.fg1, bg = "none" })
+    hi(0, "TelescopePreviewTitle", { fg = colors.fg1, bg = "none" })
+    hi(0, "TelescopeResultsBorder", { fg = colors.fg1, bg = "none" })
+    hi(0, "TelescopeResultsTitle", { fg = colors.fg1, bg = "none" })
+    hi(0, "TelescopeSelection", { bg = colors.bg3, bold = true }) -- Slightly visible selection bar
   end,
 }
