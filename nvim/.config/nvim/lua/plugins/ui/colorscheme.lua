@@ -4,7 +4,7 @@ return {
     -- name = "nightfox",
     priority = 1000,
     config = function()
-      local transparent = false
+      local transparent = true
       require("nightfox").setup({
         options = {
           transparent = transparent,

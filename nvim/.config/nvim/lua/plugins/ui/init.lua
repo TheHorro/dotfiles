@@ -30,7 +30,7 @@ local bufferline_module = safe_require("plugins.ui.bufferline")
 local neo_tree_module = safe_require("plugins.ui.neo-tree")
 local web_devicons_module = safe_require("plugins.ui.nvim-web-devicons")
 local sessions_module = safe_require("plugins.ui.sessions")
-local incline_module = safe_require("plugins.ui.incline")
+-- local incline_module = safe_require("plugins.ui.incline")
 local smear_module = safe_require("plugins.ui.smear-cursor")
 local todo_module = safe_require("plugins.ui.todo-comments")
 local indent_module = safe_require("plugins.ui.indent-blankline")
@@ -44,7 +44,7 @@ return {
   neo_tree_module,
   web_devicons_module,
   sessions_module,
-  incline_module,
+  -- incline_module,
   smear_module,
   todo_module,
   indent_module,

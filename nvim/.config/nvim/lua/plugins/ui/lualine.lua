@@ -37,7 +37,7 @@ return {
 		-- 		b = { fg = colors.color2, bg = colors.color3 },
 		-- 	},
 		-- }
-		--
+
 		local mode = {
 			"mode",
 			fmt = function(str)
@@ -46,7 +46,7 @@ return {
 				return " " .. str
 			end,
 		}
-		--
+
     require("lualine").setup({
       options = {
         icons_enabled = true,
@@ -65,8 +65,12 @@ return {
       },
       sections = {
         lualine_a = { mode },
-        lualine_b = { 
-          "branch", 
+        lualine_b = {
+          {
+            "branch",
+            icon = "",
+            colored = true,
+          },
           {
             "diff",
             colored = true,
@@ -74,7 +78,7 @@ return {
               added = { fg = "#45ff45" },
               removed = { fg = "#ff2b2b" },
             }
-          }, 
+          },
           "diagnostics"
         },
         lualine_c = {
