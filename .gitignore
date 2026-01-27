@@ -4,3 +4,5 @@
 /nvim4
 /nvim5
 sessions*
+/tmux/.config/tmux/.tmux
+/nvim/.config/nvim/lazy-lock*
