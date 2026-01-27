@@ -33,7 +33,7 @@ local sessions_module = safe_require("plugins.ui.sessions")
 -- local incline_module = safe_require("plugins.ui.incline")
 local smear_module = safe_require("plugins.ui.smear-cursor")
 local todo_module = safe_require("plugins.ui.todo-comments")
-local indent_module = safe_require("plugins.ui.indent-blankline")
+-- local indent_module = safe_require("plugins.ui.indent-blankline")
 local colorize_module = safe_require("plugins.ui.colorize")
 
 -- Return plugin specs
@@ -47,7 +47,7 @@ return {
   -- incline_module,
   smear_module,
   todo_module,
-  indent_module,
+  -- indent_module,
   colorize_module,
 }
  

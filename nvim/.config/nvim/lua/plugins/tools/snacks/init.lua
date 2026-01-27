@@ -2,7 +2,7 @@ return {
   "folke/snacks.nvim",
   priority = 1000,
   lazy = false,
-  -- ---@type snacks.Config
+  ---@type snacks.Config
   opts = {
     styles = {
       blame_lines = {
@@ -15,32 +15,75 @@ return {
       }
     },
     bigfile = {
-      enabled = false,
+      enabled = true,
       notify = true,
-      size = 100 * 1024,   -- 100 KB
+      size = 100 * 1024, -- 100 KB
     },
     bufdelete = { enabled = true },
     dashboard = {
       enabled = true,
+      -- Ensure these files exist or this will throw an error
       preset = require("plugins.tools.snacks.dashboard").preset,
       sections = require("plugins.tools.snacks.dashboard").sections,
     },
     git = { enabled = true },
     gitbrowse = { enabled = true },
+    image = {
+      enabled = true,
+      formats = { "png", "jpg", "jpeg", "gif", "bmp", "webp", "tiff", "heic", "avif", "mp4", "mov", "avi", "mkv", "webm", "pdf", "icns" },
+      force_render = false,
+      doc = {
+        enabled = true,
+        inline = false,
+        float = true,
+        max_width = 80,
+        max_height = 40,
+        render_patterns = {
+          latex = {
+            "\\\\includegraphics%s*%[[^%]]*%]%s*{([^}]*)}",
+            "\\\\includegraphics%s*{([^}]*)}",
+          },
+        },
+        conceal = function(lang, type)
+          return type == "math"
+        end,
+      },
+      icons = { math = "󰪚 ", chart = "󰄧 ", image = " " },
+      math = {
+        enabled = true,
+        typst = {
+          tpl = [[
+            #set page(width: auto, height: auto, margin: (x: 2pt, y: 2pt))
+            #show math.equation.where(block: false): set text(top-edge: "bounds", bottom-edge: "bounds")
+            #set text(size: 12pt, fill: rgb("${color}"))
+            ${header}
+            ${content}]],
+        },
+      },
+    },
     indent = {
       enabled = true,
       priority = 1,
-      char = "|",
+      char = "│",
       only_scope = false,
       only_current = false,
       animate = { enabled = false },
+      exclude = {
+        filetypes = {
+          "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy", "mason", "notify", "toggleterm",
+        },
+      },
+      indent = {
+        hl = {
+          "SnacksIndent1", "SnacksIndent2", "SnacksIndent3", "SnacksIndent4",
+          "SnacksIndent5", "SnacksIndent6", "SnacksIndent7", "SnacksIndent8",
+        },
+      },
       scope = {
-        enabled = true, -- enable highlighting the current scope
+        enabled = true,
         priority = 200,
-        char = "│",
-        underline = false, -- underline the start of the scope
-        only_current = false, -- only show scope in the current window
-        hl = "GruvboxGray", ---@type string|string[] hl group for scopes
+        underline = true,
+        hl = "SnacksIndentScope",
       },
     },
     input = {
@@ -49,126 +92,46 @@ return {
       position = "float",
       border = "rounded",
       title_pos = "center",
-      icon_hl = 'SnacksInputIcon',
-      icon_pos = 'left',
-      prompt_pos = 'title',
       win = { style = 'input' },
       expand = true,
     },
-    lazygit = {
-      enabled = true
-    },
+    lazygit = { enabled = true },
     notifier = {
       enabled = true,
       timeout = 4000,
-      width = { min = 40, max = 0.4 },
-      height = { min = 1, max = 0.6 },
-      margin = { top = 0, right = 1, bottom = 0 },
-      padding = true,
-      sort = { 'level', 'added' },
       level = vim.log.levels.TRACE,
-      -- icons = {
-      --     debug = icons.ui.Bug,
-      --     error = icons.diagnostics.Error,
-      --     info = icons.diagnostics.Information,
-      --     trace = icons.ui.Bookmark,
-      --     warn = icons.diagnostics.Warning,
-      -- },
       style = 'compact',
       top_down = true,
-      date_format = '%R',
-      more_format = ' ↓ %d lines ',
-      refresh = 50,
     },
     notify = { enabled = true },
-    profiler = { enabled = false },
     quickfile = { enabled = true },
     rename = { enabled = true },
-    scope = {
-      enabled = true,
-      keys = {
-        textobject = {
-          ii = {
-            min_size = 2,         -- minimum size of the scope
-            edge = false,         -- inner scope
-            cursor = false,
-            treesitter = { blocks = { enabled = false } },
-            desc = 'inner scope',
-          },
-          ai = {
-            cursor = false,
-            min_size = 2,         -- minimum size of the scope
-            treesitter = { blocks = { enabled = false } },
-            desc = 'full scope',
-          },
-        },
-        -- jump = {
-        --   ['[a'] = {
-        --     min_size = 1,         -- allow single line scopes
-        --     bottom = false,
-        --     cursor = false,
-        --     edge = true,
-        --     treesitter = { blocks = { enabled = false } },
-        --     desc = 'jump to top edge of scope',
-        --   },
-        --   ['];'] = {
-        --     min_size = 1,         -- allow single line scopes
-        --     bottom = true,
-        --     cursor = false,
-        --     edge = true,
-        --     treesitter = { blocks = { enabled = false } },
-        --     desc = 'jump to bottom edge of scope',
-        --   },
-        -- },
-      },
-    },
-    scratch = { enabled = false },
-    scroll = { enabled = false },
-    statuscolumn = {
-        enabled = true,
-        left = { 'mark', 'sign' },
-        right = { 'fold', 'git' },
-        folds = {
-            open = false,
-            git_hl = false,
-        },
-        git = {
-            patterns = { 'GitSign', 'MiniDiffSign' },
-        },
-        refresh = 50,
-    },
+    scope = { enabled = true },
+    statuscolumn = { enabled = false },
     terminal = { enabled = true },
-    toggle = { enabled = false },
     win = { enabled = true },
-    words = { enabled = false },
-    zen = {
-        enabled = false,
-        toggles = {
-            dim = true,
-            git_signs = false,
-            mini_diff_signs = false,
-            -- diagnostics = false,
-            -- inlay_hints = false,
-        },
-        show = {
-            statusline = false,
-            tabline = false,
-        },
-        win = { style = 'zen' },
-        zoom = {
-            toggles = {},
-            show = { statusline = true, tabline = true },
-            win = {
-                backdrop = false,
-                width = 0,
-            },
-        },
-    },
   },
   config = function(_, opts)
-    local snacks = require("snacks")
+    local indent_colors = {
+      "#E06C75",
+      "#E5E07B", 
+      "#61AFEF", 
+      "#D19A66",
+      "#98C379", 
+      "#C678DD", 
+      "#56B6C2", 
+      "#ABB2BF"
+    }
+
+    for i, color in ipairs(indent_colors) do
+      vim.api.nvim_set_hl(0, "SnacksIndent" .. i, { fg = color, nocombine = true })
+    end
+
+    vim.api.nvim_set_hl(0, "SnacksIndentScope", { fg = "#C678DD", bold = true, nocombine = true })
+
+    local snacks =  require("snacks")
     snacks.setup(opts)
-    -- Set vim.ui.input to use Snacks.input
+    -- Use Snacks for the native vim UI input
     vim.ui.input = snacks.input
   end,
 }
