@@ -109,13 +109,13 @@ return {
     lspcfg.ltex_plus = {
       autostart = false,
       cmd = { "ltex-ls-plus" },
-      filetypes = { "bib", "gitcommit", "markdown", "org", "plaintex", "rst", "rnoweb", "tex", "pandoc", "quarto", "rmd" },
+      filetypes = { "bib", "gitcommit", "org", "plaintex", "rst", "rnoweb", "tex", "pandoc", "quarto", "rmd" },
       root_dir = vim.fs.root(0, { ".git", ".ltex", "main.tex" }),
       capabilities = capabilities,
       settings = {
         ltex = {
           language = "de-DE",
-          enabled = { "markdown", "latex", "tex", "bib" },
+          enabled = { "latex", "tex", "bib" },
           -- ltex_ls_plus = {
           --   args = { "--jvm-args", "-Xms128m", "-Xmx512m" }
           -- }
@@ -151,7 +151,7 @@ return {
       tex      = {"texlab", "ltex_plus"},
       latex    = {"texlab", "ltex_plus"},
       plaintex = {"texlab", "ltex_plus"},
-      markdown = {"ltex_plus"},
+      markdown = {"texlab"},
       bib      = {"ltex_plus"},
     }
 
