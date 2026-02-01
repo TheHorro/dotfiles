@@ -1,8 +1,6 @@
 #!/bin/bash
-# /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  ##
-# Scripts for refreshing ags, waybar, rofi, swaync, wallust
+# Scripts for refreshing waybar, rofi, swaync
 
-SCRIPTSDIR=$HOME/.config/hypr/scripts
 WALLPAPER=$HOME/.config/hypr/wallpapers/stairs.jpg
 
 # Define file_exists function
@@ -15,7 +13,7 @@ file_exists() {
 }
 
 # Kill already running processes
-_ps=(waybar rofi swaync ags)
+_ps=(waybar rofi swaync)
 for _prs in "${_ps[@]}"; do
     if pidof "${_prs}" >/dev/null; then
         pkill "${_prs}"
@@ -29,7 +27,7 @@ killall -SIGUSR2 waybar
 #ags -q && ags &
 
 # some process to kill
-for pid in $(pidof waybar rofi swaync ags swaybg); do
+for pid in $(pidof waybar rofi swaync swaybg); do
     kill -SIGUSR1 "$pid"
 done
 
@@ -42,6 +40,7 @@ sleep 0.5
 swaync > /dev/null 2>&1 &
 # reload swaync
 swaync-client --reload-config
+# reload wallpaper
 swaybg -i $WALLPAPER -m fill
 
 exit 0
