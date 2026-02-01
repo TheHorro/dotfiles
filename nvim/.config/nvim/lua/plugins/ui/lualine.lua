@@ -82,7 +82,10 @@ return {
           "diagnostics"
         },
         lualine_c = {
-          { "filename", path = 1 },
+          {
+            "filename",
+            path = 1,
+          },
         },
         lualine_x = {
           -- { require('mcphub.extensions.lualine') },

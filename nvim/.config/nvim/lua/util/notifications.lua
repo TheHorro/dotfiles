@@ -10,7 +10,7 @@ M.config = {
   rate_limit_ms = 1000,
   batch_delay_ms = 1500,
   max_history = 200,
-  
+
   -- Module-specific settings
   modules = {
     lsp = { enabled = true, debug_mode = false },
@@ -25,40 +25,40 @@ local state_file = vim.fn.stdpath('data') .. '/custom_debug_state.json'
 -- Notification categories
 M.categories = {
   -- Critical notifications (always shown)
-  ERROR = { 
-    level = vim.log.levels.ERROR, 
+  ERROR = {
+    level = vim.log.levels.ERROR,
     always_show = true,
     name = "ERROR",
     examples = { "Connection failed", "Command error", "Plugin failure" }
   },
-  
+
   -- Important warnings (always shown)
-  WARNING = { 
-    level = vim.log.levels.WARN, 
+  WARNING = {
+    level = vim.log.levels.WARN,
     always_show = true,
     name = "WARNING",
     examples = { "Config deprecated", "Missing dependency", "Large file" }
   },
-  
+
   -- User-initiated actions (always shown unless disabled)
-  USER_ACTION = { 
-    level = vim.log.levels.INFO, 
+  USER_ACTION = {
+    level = vim.log.levels.INFO,
     always_show = true,
     name = "USER_ACTION",
     examples = { "Email sent", "File saved", "Buffer closed", "Feature toggled" }
   },
-  
+
   -- Status updates (debug mode only)
-  STATUS = { 
-    level = vim.log.levels.INFO, 
+  STATUS = {
+    level = vim.log.levels.INFO,
     debug_only = true,
     name = "STATUS",
     examples = { "Page loaded", "Cache updated", "Connection established" }
   },
-  
+
   -- Background operations (debug mode only)
-  BACKGROUND = { 
-    level = vim.log.levels.DEBUG, 
+  BACKGROUND = {
+    level = vim.log.levels.DEBUG,
     debug_only = true,
     name = "BACKGROUND",
     examples = { "Auto-sync", "Cleanup", "Initialization", "Plugin loading" }
@@ -96,10 +96,10 @@ function M.setup(user_config)
   if user_config then
     M.config = vim.tbl_deep_extend('force', M.config, user_config)
   end
-  
+
   -- Load debug state from persistence
   M.config.debug_mode = load_debug_state()
-  
+
   -- Initialize statistics
   for module_name, _ in pairs(M.config.modules) do
     M.stats.by_module[module_name] = {
@@ -108,7 +108,7 @@ function M.setup(user_config)
       by_category = {}
     }
   end
-  
+
   for category_name, _ in pairs(M.categories) do
     M.stats.by_category[category_name] = 0
   end
@@ -117,46 +117,46 @@ end
 -- Check if notification should be shown based on filtering rules
 function M.should_show_notification(category, message, context)
   local start_time = vim.loop.hrtime()
-  
+
   local module = context.module or 'general'
   local module_config = M.config.modules[module]
-  
+
   -- Always show critical notifications
   if category.always_show and category ~= M.categories.USER_ACTION then
     M._record_processing_time(start_time)
     return true
   end
-  
+
   -- Check if notifications are globally disabled
   if not M.config.enabled then
     M._record_processing_time(start_time)
     return false
   end
-  
+
   -- Check module-specific settings
   if module_config and not module_config.enabled then
     M._record_processing_time(start_time)
     return false
   end
-  
+
   -- Debug mode shows everything for enabled modules
   if M.config.debug_mode or (module_config and module_config.debug_mode) then
     M._record_processing_time(start_time)
     return true
   end
-  
+
   -- Apply category filtering
   if category.debug_only then
     M._record_processing_time(start_time)
     return false
   end
-  
+
   -- Check rate limiting
   if M._is_rate_limited(message, context) then
     M._record_processing_time(start_time)
     return false
   end
-  
+
   M._record_processing_time(start_time)
   return true
 end
@@ -165,21 +165,21 @@ end
 function M._is_rate_limited(message, context)
   local now = vim.loop.now()
   local key = string.format("%s:%s", context.module or 'general', message:gsub('%d+', 'N'))
-  
+
   local last_time = M.recent_notifications[key]
   if last_time and (now - last_time) < M.config.rate_limit_ms then
     return true
   end
-  
+
   M.recent_notifications[key] = now
-  
+
   -- Clean up old entries
   for k, time in pairs(M.recent_notifications) do
     if (now - time) > (M.config.rate_limit_ms * 5) then
       M.recent_notifications[k] = nil
     end
   end
-  
+
   return false
 end
 
@@ -188,7 +188,7 @@ function M._record_processing_time(start_time)
   local duration = (vim.loop.hrtime() - start_time) / 1000000 -- Convert to milliseconds
   M.stats.performance.total_processing_time = M.stats.performance.total_processing_time + duration
   M.stats.performance.max_processing_time = math.max(M.stats.performance.max_processing_time, duration)
-  
+
   local count = M.stats.total_notifications + M.stats.filtered_notifications
   if count > 0 then
     M.stats.performance.avg_processing_time = M.stats.performance.total_processing_time / count
@@ -200,24 +200,24 @@ function M._enhance_message(message, context)
   if not context or vim.tbl_isempty(context) then
     return message
   end
-  
+
   local enhanced = message
-  
+
   -- Add count information
   if context.count and context.count > 1 then
     enhanced = string.format("%s (%d items)", enhanced, context.count)
   end
-  
+
   -- Add file information
   if context.file then
     enhanced = string.format("%s [%s]", enhanced, context.file)
   end
-  
+
   -- Add duration information
   if context.duration then
     enhanced = string.format("%s (%.1fs)", enhanced, context.duration / 1000)
   end
-  
+
   return enhanced
 end
 
@@ -230,9 +230,9 @@ function M._log_to_history(message, category, context)
     timestamp = os.time(),
     context = context
   }
-  
+
   table.insert(M.history, entry)
-  
+
   -- Trim history if too long
   while #M.history > M.config.max_history do
     table.remove(M.history, 1)
@@ -242,26 +242,26 @@ end
 -- Update statistics
 function M._update_stats(category, context, filtered)
   M.stats.total_notifications = M.stats.total_notifications + 1
-  
+
   if filtered then
     M.stats.filtered_notifications = M.stats.filtered_notifications + 1
   end
-  
+
   -- Update category stats
   M.stats.by_category[category.name] = (M.stats.by_category[category.name] or 0) + 1
-  
+
   -- Update module stats
   local module = context.module or 'general'
   if not M.stats.by_module[module] then
     M.stats.by_module[module] = { total = 0, filtered = 0, by_category = {} }
   end
-  
+
   M.stats.by_module[module].total = M.stats.by_module[module].total + 1
   if filtered then
     M.stats.by_module[module].filtered = M.stats.by_module[module].filtered + 1
   end
-  
-  M.stats.by_module[module].by_category[category.name] = 
+
+  M.stats.by_module[module].by_category[category.name] =
     (M.stats.by_module[module].by_category[category.name] or 0) + 1
 end
 
@@ -269,29 +269,29 @@ end
 function M.notify(message, category, context)
   category = category or M.categories.STATUS
   context = context or {}
-  
+
   -- Apply filtering
   local should_show = M.should_show_notification(category, message, context)
-  
+
   -- Update statistics
   M._update_stats(category, context, not should_show)
-  
+
   -- Log to history regardless of whether it's shown
   M._log_to_history(message, category, context)
-  
+
   if not should_show then
     return
   end
-  
+
   -- Enhance message with context
   local enhanced_message = M._enhance_message(message, context)
-  
+
   -- Check if batching is enabled and appropriate
   if M._should_batch(category, context) then
     M._add_to_batch(enhanced_message, category, context)
     return
   end
-  
+
   -- Send the notification via Snacks.nvim (which overrides vim.notify)
   vim.notify(enhanced_message, category.level)
 end
@@ -302,12 +302,12 @@ function M._should_batch(category, context)
   if category == M.categories.ERROR or category == M.categories.WARNING then
     return false
   end
-  
+
   -- Don't batch if batching is disabled
   if not context.allow_batching then
     return false
   end
-  
+
   return true
 end
 
@@ -319,13 +319,13 @@ function M._add_to_batch(message, category, context)
     context = context,
     timestamp = vim.loop.now()
   })
-  
+
   -- Start or reset batch timer
   if M.batch_timer then
     M.batch_timer:stop()
     M.batch_timer:close()
   end
-  
+
   M.batch_timer = vim.loop.new_timer()
   M.batch_timer:start(M.config.batch_delay_ms, 0, vim.schedule_wrap(function()
     M._process_batch()
@@ -339,7 +339,7 @@ function M._process_batch()
   if #M.batch_queue == 0 then
     return
   end
-  
+
   -- Group notifications by category and module
   local groups = {}
   for _, notification in ipairs(M.batch_queue) do
@@ -353,7 +353,7 @@ function M._process_batch()
     end
     table.insert(groups[key].messages, notification.message)
   end
-  
+
   -- Create summary notifications for each group
   for _, group in pairs(groups) do
     local count = #group.messages
@@ -365,7 +365,7 @@ function M._process_batch()
       vim.notify(group.messages[1], group.category.level)
     end
   end
-  
+
   -- Clear batch queue
   M.batch_queue = {}
 end
@@ -432,7 +432,7 @@ function M.notify_force(message, level, context)
   context = context or {}
   local enhanced_message = M._enhance_message(message, context)
   vim.notify(enhanced_message, level or vim.log.levels.INFO)
-  
+
   -- Still log to history and stats
   local category = { name = "FORCED", level = level or vim.log.levels.INFO }
   M._log_to_history(enhanced_message, category, context)
@@ -453,7 +453,7 @@ load_debug_state = function()
     end
     return false -- Default to false if file doesn't exist or is invalid
   end)
-  
+
   if ok then
     return result
   else
@@ -467,7 +467,7 @@ local function save_debug_state()
     local encoded = vim.json.encode(state)
     vim.fn.writefile({ encoded }, state_file)
   end)
-  
+
   if not ok then
     -- Silent failure - don't spam user with persistence errors
   end
@@ -486,7 +486,7 @@ function M.toggle_module_debug(module_name)
     M.notify_force(string.format('Unknown module: %s', module_name), vim.log.levels.ERROR)
     return
   end
-  
+
   M.config.modules[module_name].debug_mode = not M.config.modules[module_name].debug_mode
   local status = M.config.modules[module_name].debug_mode and 'enabled' or 'disabled'
   M.notify_force(string.format('%s debug mode %s', module_name, status), vim.log.levels.INFO)
@@ -520,7 +520,7 @@ end
 function M.show_history()
   local history_lines = {}
   local recent_count = math.min(50, #M.history)
-  
+
   for i = #M.history, math.max(1, #M.history - recent_count + 1), -1 do
     local entry = M.history[i]
     table.insert(history_lines, string.format(
@@ -531,20 +531,20 @@ function M.show_history()
       entry.message
     ))
   end
-  
+
   if #history_lines == 0 then
     table.insert(history_lines, "No notifications in history")
   end
-  
+
   -- Create popup window
   local bufnr = vim.api.nvim_create_buf(false, true)
   vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, history_lines)
   vim.bo[bufnr].filetype = 'text'
   vim.bo[bufnr].readonly = true
-  
+
   local width = math.min(100, vim.o.columns - 10)
   local height = math.min(30, vim.o.lines - 10)
-  
+
   local win_opts = {
     relative = 'editor',
     width = width,
@@ -556,9 +556,9 @@ function M.show_history()
     title = ' Notification History ',
     title_pos = 'center'
   }
-  
+
   local winid = vim.api.nvim_open_win(bufnr, true, win_opts)
-  
+
   -- Set up keymaps for the popup
   local opts = { buffer = bufnr, silent = true }
   vim.keymap.set('n', 'q', function()
@@ -571,52 +571,52 @@ end
 
 function M.show_stats()
   local stats_lines = {}
-  
+
   -- Overall statistics
   table.insert(stats_lines, "=== Notification Statistics ===")
   table.insert(stats_lines, "")
   table.insert(stats_lines, string.format("Total notifications: %d", M.stats.total_notifications))
   table.insert(stats_lines, string.format("Filtered notifications: %d", M.stats.filtered_notifications))
   table.insert(stats_lines, string.format("Batched notifications: %d", M.stats.batched_notifications))
-  
+
   if M.stats.total_notifications > 0 then
     local filter_rate = (M.stats.filtered_notifications / M.stats.total_notifications) * 100
     table.insert(stats_lines, string.format("Filter effectiveness: %.1f%%", filter_rate))
   end
-  
+
   -- Performance statistics
   table.insert(stats_lines, "")
   table.insert(stats_lines, "=== Performance ===")
   table.insert(stats_lines, string.format("Avg processing time: %.2fms", M.stats.performance.avg_processing_time))
   table.insert(stats_lines, string.format("Max processing time: %.2fms", M.stats.performance.max_processing_time))
-  
+
   -- Category breakdown
   table.insert(stats_lines, "")
   table.insert(stats_lines, "=== By Category ===")
   for category, count in pairs(M.stats.by_category) do
     table.insert(stats_lines, string.format("%s: %d", category, count))
   end
-  
+
   -- Module breakdown
   table.insert(stats_lines, "")
   table.insert(stats_lines, "=== By Module ===")
   for module, stats in pairs(M.stats.by_module) do
     if stats.total > 0 then
       local filter_rate = stats.filtered > 0 and (stats.filtered / stats.total) * 100 or 0
-      table.insert(stats_lines, string.format("%s: %d total, %d filtered (%.1f%%)", 
-        module, stats.total, stats.filtered, filter_rate))
+      table.insert(stats_lines, string.format("%s: %d total, %d filtered (%.1f%%)",
+      module, stats.total, stats.filtered, filter_rate))
     end
   end
-  
+
   -- Create popup window
   local bufnr = vim.api.nvim_create_buf(false, true)
   vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, stats_lines)
   vim.bo[bufnr].filetype = 'text'
   vim.bo[bufnr].readonly = true
-  
+
   local width = 60
   local height = math.min(25, #stats_lines + 2)
-  
+
   local win_opts = {
     relative = 'editor',
     width = width,
@@ -628,9 +628,9 @@ function M.show_stats()
     title = ' Notification Statistics ',
     title_pos = 'center'
   }
-  
+
   local winid = vim.api.nvim_open_win(bufnr, true, win_opts)
-  
+
   -- Set up keymaps for the popup
   local opts = { buffer = bufnr, silent = true }
   vim.keymap.set('n', 'q', function()
@@ -643,7 +643,7 @@ end
 
 function M.show_config()
   local config_lines = {}
-  
+
   table.insert(config_lines, "=== Notification Configuration ===")
   table.insert(config_lines, "")
   table.insert(config_lines, string.format("Enabled: %s", M.config.enabled and "true" or "false"))
@@ -651,7 +651,7 @@ function M.show_config()
   table.insert(config_lines, string.format("Rate limit: %dms", M.config.rate_limit_ms))
   table.insert(config_lines, string.format("Batch delay: %dms", M.config.batch_delay_ms))
   table.insert(config_lines, string.format("Max history: %d", M.config.max_history))
-  
+
   table.insert(config_lines, "")
   table.insert(config_lines, "=== Module Settings ===")
   for module, settings in pairs(M.config.modules) do
@@ -659,16 +659,16 @@ function M.show_config()
     table.insert(config_lines, string.format("  enabled: %s", settings.enabled and "true" or "false"))
     table.insert(config_lines, string.format("  debug_mode: %s", settings.debug_mode and "true" or "false"))
   end
-  
+
   -- Create popup window
   local bufnr = vim.api.nvim_create_buf(false, true)
   vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, config_lines)
   vim.bo[bufnr].filetype = 'yaml'
   vim.bo[bufnr].readonly = true
-  
+
   local width = 50
   local height = math.min(20, #config_lines + 2)
-  
+
   local win_opts = {
     relative = 'editor',
     width = width,
@@ -680,9 +680,9 @@ function M.show_config()
     title = ' Notification Configuration ',
     title_pos = 'center'
   }
-  
+
   local winid = vim.api.nvim_open_win(bufnr, true, win_opts)
-  
+
   -- Set up keymaps for the popup
   local opts = { buffer = bufnr, silent = true }
   vim.keymap.set('n', 'q', function()
@@ -725,16 +725,16 @@ function M.show_help()
     "",
     "See docs/NOTIFICATIONS.md for complete documentation"
   }
-  
+
   -- Create popup window
   local bufnr = vim.api.nvim_create_buf(false, true)
   vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, help_lines)
   vim.bo[bufnr].filetype = 'text'
   vim.bo[bufnr].readonly = true
-  
+
   local width = 70
   local height = math.min(25, #help_lines + 2)
-  
+
   local win_opts = {
     relative = 'editor',
     width = width,
@@ -746,9 +746,9 @@ function M.show_help()
     title = ' Notification System Help ',
     title_pos = 'center'
   }
-  
+
   local winid = vim.api.nvim_open_win(bufnr, true, win_opts)
-  
+
   -- Set up keymaps for the popup
   local opts = { buffer = bufnr, silent = true }
   vim.keymap.set('n', 'q', function()
@@ -775,35 +775,35 @@ function M._setup_commands()
       M.show_help()
     end
   end, {
-    nargs = '?',
-    complete = function()
-      return { 'history', 'stats', 'config', 'clear', 'help' }
-    end,
-    desc = 'Manage unified notification system'
-  })
-  
-  -- Module-specific debug toggles
-  vim.api.nvim_create_user_command('NotifyDebug', function(opts)
-    local module = opts.args
-    
-    if module == '' then
-      M.toggle_debug_mode()
-    else
-      M.toggle_module_debug(module)
-    end
-  end, {
-    nargs = '?',
-    complete = function()
-      return vim.tbl_keys(M.config.modules)
-    end,
-    desc = 'Toggle debug mode for notification modules'
+  nargs = '?',
+  complete = function()
+    return { 'history', 'stats', 'config', 'clear', 'help' }
+  end,
+  desc = 'Manage unified notification system'
+})
+
+-- Module-specific debug toggles
+vim.api.nvim_create_user_command('NotifyDebug', function(opts)
+  local module = opts.args
+
+  if module == '' then
+    M.toggle_debug_mode()
+  else
+    M.toggle_module_debug(module)
+  end
+end, {
+nargs = '?',
+complete = function()
+  return vim.tbl_keys(M.config.modules)
+end,
+desc = 'Toggle debug mode for notification modules'
   })
 end
 
 -- Initialize the notification system
 function M.init()
   M._setup_commands()
-  
+
   -- Initialize with default config if not already set up
   if not M._initialized then
     M.setup()

@@ -326,7 +326,6 @@ return {
       { "<leader>r", group = "run", icon = "󰌵" },
       { "<leader>rc", "<cmd>TermExec cmd='rm -rf ~/.cache/nvim' open=0<CR>", desc = "clear plugin cache", icon = "󰃢" },
       { "<leader>rd", function()
-          local notify = require('util.notifications')
           notify.toggle_debug_mode()
         end, desc = "toggle debug mode", icon = "󰃤" },
       { "<leader>rl", "<cmd>lua require('util.diagnostics').show_all_errors()<CR>", desc = "show linter errors", icon = "󰅚" },
