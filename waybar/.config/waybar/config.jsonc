@@ -5,6 +5,7 @@
         "$HOME/.config/waybar/options.jsonc",
     ],
     "modules-left": [
+        "custom/logo",
         "hyprland/workspaces#pacman",
         "custom/separator#dot-line",
         "pulseaudio",

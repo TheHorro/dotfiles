@@ -167,14 +167,14 @@
 	"format-bluetooth": "{icon} 󰂰 {volume}%",
 	"format-muted": "󰖁 ",
 	"format-icons": {
-		"headphone": "",
-		"hands-free": "",
-		"headset": "",
-		"phone": "",
-		"portable": "",
-		"car": "",
+		"headphone": " ",
+		"hands-free": " ",
+		"headset": " ",
+		"phone": " ",
+		"portable": " ",
+		"car": " ",
 		"default": [
-			"", "", "󰕾",  ""
+			"", " ", "󰕾 ",  " "
 		],
 		"ignored-sinks": [
 			"Easy Effects Sink"
@@ -187,8 +187,8 @@
 	"on-scroll-down": "$HOME/.config/hypr/scripts/Volume.sh --dec",
 	"tooltip-format": "{icon} {desc} | {volume}%",
 	"smooth-scrolling-threshold": 1,
-	"min-length": 6,
-	"max-length": 6,
+	"min-length": 7,
+	"max-length": 9,
     "align": 0,
 },
 
