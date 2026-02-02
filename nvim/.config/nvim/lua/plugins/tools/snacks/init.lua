@@ -4,6 +4,7 @@ return {
   lazy = false,
   ---@type snacks.Config
   opts = {
+    -- Visual Styles & UI
     styles = {
       blame_lines = {
         width = 0.6,
@@ -14,20 +15,62 @@ return {
         ft = "git",
       }
     },
-    bigfile = {
+    indent = {
       enabled = true,
-      notify = true,
-      size = 100 * 1024, -- 100 KB
+      priority = 1,
+      char = "│",
+      -- only_scope = false,
+      -- only_current = false,
+      animate = { enabled = false },
+      exclude = {
+        filetypes = { "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy", "mason", "notify", "toggleterm", },
+      },
+      scope = {
+        enabled = true,
+        priority = 200,
+        underline = true,
+        hl = "SnacksIndentScope",
+      },
     },
-    bufdelete = { enabled = true },
+    input = {
+      enabled = true,
+      backdrop = true,
+      position = "float",
+      border = "rounded",
+      title_pos = "center",
+      expand = true,
+    },
+    notifier = {
+      enabled = true,
+      timeout = 4000,
+      level = vim.log.levels.TRACE,
+      style = "compact",
+      top_down = true,
+    },
+
+    -- Picker & Explorer
+    picker = require("plugins.tools.snacks.picker").picker,
+
+    -- Essential Modules
+    explorer = { enabled = true, replace_netrw = true, },
+    bigfile = { enabled = true, size = 100 * 1024, },
     dashboard = {
       enabled = true,
-      -- Ensure these files exist or this will throw an error
       preset = require("plugins.tools.snacks.dashboard").preset,
       sections = require("plugins.tools.snacks.dashboard").sections,
     },
     git = { enabled = true },
     gitbrowse = { enabled = true },
+    lazygit = { enabled = true },
+    -- notify = { enabled = true },
+    quickfile = { enabled = true },
+    rename = { enabled = true },
+    scope = { enabled = true },
+    statuscolumn = { enabled = false },
+    terminal = { enabled = true },
+    words = { enabled = true },
+    bufdelete = { enabled = true },
+
     image = {
       enabled = true,
       formats = { "png", "jpg", "jpeg", "gif", "bmp", "webp", "tiff", "heic", "avif", "mp4", "mov", "avi", "mkv", "webm", "pdf", "icns" },
@@ -53,63 +96,14 @@ return {
         enabled = true,
         typst = {
           tpl = [[
-            #set page(width: auto, height: auto, margin: (x: 2pt, y: 2pt))
-            #show math.equation.where(block: false): set text(top-edge: "bounds", bottom-edge: "bounds")
-            #set text(size: 12pt, fill: rgb("${color}"))
-            ${header}
-            ${content}]],
+          #set page(width: auto, height: auto, margin: (x: 2pt, y: 2pt))
+          #show math.equation.where(block: false): set text(top-edge: "bounds", bottom-edge: "bounds")
+          #set text(size: 12pt, fill: rgb("${color}"))
+          ${header}
+          ${content}]],
         },
       },
     },
-    indent = {
-      enabled = true,
-      priority = 1,
-      char = "│",
-      only_scope = false,
-      only_current = false,
-      animate = { enabled = false },
-      exclude = {
-        filetypes = {
-          "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy", "mason", "notify", "toggleterm",
-        },
-      },
-      indent = {
-        hl = {
-          "SnacksIndent1", "SnacksIndent2", "SnacksIndent3", "SnacksIndent4",
-          "SnacksIndent5", "SnacksIndent6", "SnacksIndent7", "SnacksIndent8",
-        },
-      },
-      scope = {
-        enabled = true,
-        priority = 200,
-        underline = true,
-        hl = "SnacksIndentScope",
-      },
-    },
-    input = {
-      enabled = true,
-      backdrop = false,
-      position = "float",
-      border = "rounded",
-      title_pos = "center",
-      win = { style = 'input' },
-      expand = true,
-    },
-    lazygit = { enabled = true },
-    notifier = {
-      enabled = true,
-      timeout = 4000,
-      level = vim.log.levels.TRACE,
-      style = 'compact',
-      top_down = true,
-    },
-    notify = { enabled = true },
-    quickfile = { enabled = true },
-    rename = { enabled = true },
-    scope = { enabled = true },
-    statuscolumn = { enabled = false },
-    terminal = { enabled = true },
-    win = { enabled = true },
   },
   config = function(_, opts)
     local indent_colors = {
@@ -133,5 +127,30 @@ return {
     snacks.setup(opts)
     -- Use Snacks for the native vim UI input
     vim.ui.input = snacks.input
+
+    local original_select = vim.ui.select
+    vim.ui.select = function(items, select_opts, on_choice)
+      select_opts = select_opts or {}
+
+      -- If it's a confirmation/deletion, use the tiny "cursor" layout
+      if select_opts.kind == "confirmation" or select_opts.kind == "file_deletion" then
+        return snacks.picker.select(items, select_opts, function(item)
+          on_choice(item)
+        end, 
+        {
+          layout = {
+            preset = "cursor",
+            width = 0.2,
+            height = 0.15,
+          },
+          main = { border = "rounded" },
+          preview = false,
+        })
+      end
+
+      -- Default: use the standard Snacks ui_select (dropdown style)
+      return original_select(items, select_opts, on_choice)
+    end
+
   end,
 }

@@ -61,7 +61,7 @@ end
 
 -- Load modules
 local gitsigns_module      = safe_require("plugins.tools.gitsigns")
-local snacks_module        = safe_require("plugins.tools.snacks")
+-- local snacks_module        = safe_require("plugins.tools.snacks")
 local autolist_module      = safe_require("plugins.tools.autolist")
 -- local mini_module          = safe_require("plugins.tools.mini")
 local autopairs_module     = safe_require("plugins.tools.autopairs")
@@ -84,7 +84,7 @@ end
 
 -- Add only valid plugin specs
 add_if_valid(gitsigns_module)
-add_if_valid(snacks_module)
+-- add_if_valid(snacks_module)
 add_if_valid(autolist_module)
 -- add_if_valid(mini_module)
 add_if_valid(autopairs_module)

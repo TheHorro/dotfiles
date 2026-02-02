@@ -1,13 +1,13 @@
 local keymap = vim.keymap.set
 
 -- Nvim-tree
-keymap("n", "<leader>e", ":NvimTreeToggle<CR>", { desc = "Toggle file tree" })
+keymap("n", "<leader>e", ":lua Snacks.explorer()<CR>", { desc = "Toggle file tree" })
 
 -- Telescope
-keymap("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Find files" })
-keymap("n", "<leader>fg", "<cmd>Telescope live_grep<cr>", { desc = "Live grep" })
-keymap("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "Buffers" })
-keymap("n", "<leader>fh", "<cmd>Telescope help_tags<cr>", { desc = "Help" })
+-- keymap("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Find files" })
+-- keymap("n", "<leader>fg", "<cmd>Telescope live_grep<cr>", { desc = "Live grep" })
+-- keymap("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "Buffers" })
+-- keymap("n", "<leader>fh", "<cmd>Telescope help_tags<cr>", { desc = "Help" })
 
 ------------------------------------------
 -- HELPER FUNCTIONS FOR KEYMAP SETUP   --
@@ -138,20 +138,20 @@ map("n", "<C-t>", "<cmd>ToggleTerm<CR>", { remap = true }, "Toggle terminal")
 map("t", "<C-t>", "<cmd>ToggleTerm<CR>", { remap = true }, "Toggle terminal")
 
 -- Telescope-based spelling suggestions
-map("n", "<C-s>", function()
-  require("telescope.builtin").spell_suggest(require("telescope.themes").get_cursor({
-    previewer = false,
-    layout_config = { width = 50, height = 15 }
-  }))
-end, { remap = true }, "Spelling suggestions")
+-- map("n", "<C-s>", function()
+--   require("telescope.builtin").spell_suggest(require("telescope.themes").get_cursor({
+--     previewer = false,
+--     layout_config = { width = 50, height = 15 }
+--   }))
+-- end, { remap = true }, "Spelling suggestions")
 
 -- Search and file finding
-map("n", "<CR>", "<cmd>noh<CR>", {}, "Clear search highlights")
-map("n", "<C-p>", "<cmd>Telescope find_files<CR>", { remap = true }, "Find files")
+-- map("n", "<CR>", "<cmd>noh<CR>", {}, "Clear search highlights")
+-- map("n", "<C-p>", "<cmd>Telescope find_files<CR>", { remap = true }, "Find files")
 
 -- Documentation and help access
-map("n", "<S-m>", '<cmd>Telescope help_tags cword=true<cr>', {}, "Help for word under cursor")
-map("n", "<C-m>", '<cmd>Telescope man_pages<cr>', {}, "Search man pages")
+-- map("n", "<S-m>", '<cmd>Telescope help_tags cword=true<cr>', {}, "Help for word under cursor")
+-- map("n", "<C-m>", '<cmd>Telescope man_pages<cr>', {}, "Search man pages")
 ------------------------
 -- TEXT EDITING KEYS --
 ------------------------
@@ -179,6 +179,7 @@ map("n", "<A-l>", ":vertical resize +2<CR>", {}, "Increase width")
 
 -- Smart buffer navigation with fallback chain
 local buffer_utils_loaded = false
+
 
 -- Attempt to load advanced buffer utilities
 local ok, buffer_utils = pcall(require, "util.buffer")

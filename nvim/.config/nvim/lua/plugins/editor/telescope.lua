@@ -74,35 +74,35 @@ return {
             },
           },
         },
-        -- bibtex = {
-        --   depth = 1,
-        --   -- Depth for the *.bib file
-        --   global_files = { '~/texmf/bibtex/bib/Zotero.bib' },
-        --   -- Path to global bibliographies (placed outside of the project)
-        --   search_keys = { 'author', 'year', 'title' },
-        --   -- Define the search keys to use in the picker
-        --   citation_format = '{{author}} ({{year}}), {{title}}.',
-        --   -- Template for the formatted citation
-        --   citation_trim_firstname = true,
-        --   -- Only use initials for the authors first name
-        --   citation_max_auth = 2,
-        --   -- Max number of authors to write in the formatted citation
-        --   -- following authors will be replaced by "et al."
-        --   custom_formats = {
-        --     { id = 'citet', cite_maker = '\\citet{%s}' }
-        --   },
-        --   -- Custom format for citation label
-        --   format = 'citet',
-        --   -- Format to use for citation label.
-        --   -- Try to match the filetype by default, or use 'plain'
-        --   context = true,
-        --   -- Context awareness disabled by default
-        --   context_fallback = true,
-        --   -- Fallback to global/directory .bib files if context not found
-        --   -- This setting has no effect if context = false
-        --   wrap = false,
-        --   -- Wrapping in the preview window is disabled by default
-        -- },
+        bibtex = {
+          depth = 1,
+          -- Depth for the *.bib file
+          global_files = { '~/texmf/bibtex/bib/Zotero.bib' },
+          -- Path to global bibliographies (placed outside of the project)
+          search_keys = { 'author', 'year', 'title' },
+          -- Define the search keys to use in the picker
+          citation_format = '{{author}} ({{year}}), {{title}}.',
+          -- Template for the formatted citation
+          citation_trim_firstname = true,
+          -- Only use initials for the authors first name
+          citation_max_auth = 2,
+          -- Max number of authors to write in the formatted citation
+          -- following authors will be replaced by "et al."
+          custom_formats = {
+            { id = 'citet', cite_maker = '\\citet{%s}' }
+          },
+          -- Custom format for citation label
+          format = 'citet',
+          -- Format to use for citation label.
+          -- Try to match the filetype by default, or use 'plain'
+          context = true,
+          -- Context awareness disabled by default
+          context_fallback = true,
+          -- Fallback to global/directory .bib files if context not found
+          -- This setting has no effect if context = false
+          wrap = false,
+          -- Wrapping in the preview window is disabled by default
+        },
       },
     })
     -- Load extensions
@@ -212,20 +212,26 @@ return {
       end
     end
     local hi = function(name, val) vim.api.nvim_set_hl(0, name, val) end
-    local base_hl = { bg = "none", fg = colors.fg1 }
-    local tsgroups = {
+    local ts_text = {
       "TelescopeNormal",
       "TelescopeCounter",
-      "TelescopePromptPrefix",
+      "TelescopePreviewTitle",
+      "TelescopeResultsTitle",
       "TelescopePromptNormal",
+    }
+    local text_hl = { bg = "none", fg = colors.fg1 }
+    for _, text in ipairs(ts_text) do
+      hi(text, text_hl)
+    end
+    local ts_groups = {
+      "TelescopePromptPrefix",
       "TelescopePromptBorder",
       "TelescopePreviewBorder",
-      "TelescopePreviewTitle",
       "TelescopeResultsBorder",
-      "TelescopeResultsTitle"
     }
-    for _, group in ipairs(tsgroups) do
-      hi(group, base_hl)
+    local groups_hl = { bg = "none", fg = colors.blue.base }
+    for _, group in ipairs(ts_groups) do
+      hi(group, groups_hl)
     end
     hi("TelescopeBorder", { fg = colors.blue.base, bg = "none" })
     hi("TelescopePromptTitle", { fg = colors.fg1, bg = "none", bold = true })

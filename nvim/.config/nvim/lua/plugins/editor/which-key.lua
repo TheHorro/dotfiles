@@ -175,34 +175,54 @@ return {
     wk.add({
       { "<leader>c", "<cmd>vert sb<CR>", desc = "create split", icon = "󰯌" },
       { "<leader>d", "<cmd>update! | lua Snacks.bufdelete()<CR>", desc = "delete buffer", icon = "󰩺" },
-      { "<leader>e", "<cmd>Neotree toggle<CR>", desc = "explorer", icon = "󰙅" },
+      { "<leader>e", function() Snacks.explorer() end, desc = "explorer", icon = "󰙅" },
       { "<leader>k", "<cmd>close<CR>", desc = "kill split", icon = "󰆴" },
       { "<leader>q", "<cmd>wa! | qa!<CR>", desc = "write quit", icon = "󰗼" },
-      { "<leader>u", "<cmd>Telescope undo<CR>", desc = "undo", icon = "󰕌" },
+      { "<leader>u", function() Snacks.picker.undo() end, desc = "undo", icon = "󰕌" },
       { "<leader>w", "<cmd>wa!<CR>", desc = "write", icon = "󰆓" },
     })
 
     -- ============================================================================
     -- <leader>f - FIND GROUP
     -- ============================================================================
-
     wk.add({
       { "<leader>f", group = "find", icon = "󰍉", mode = { "n", "v" } },
-      { "<leader>fa", "<cmd>lua require('telescope.builtin').find_files({ no_ignore = true, hidden = true, search_dirs = { '~/' } })<CR>", desc = "all files", icon = "󰈙" },
-      { "<leader>fb", "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<CR>", desc = "buffers", icon = "󰓩" },
-      { "<leader>fc", "<cmd>Telescope bibtex format_string=\\citet{%s}<CR>", desc = "citations", icon = "󰈙" },
-      { "<leader>ff", "<cmd>Telescope live_grep theme=ivy<CR>", desc = "project", icon = "󰊄" },
-      { "<leader>fl", "<cmd>Telescope resume<CR>", desc = "last search", icon = "󰺄" },
-      { "<leader>fp", "<cmd>lua require('util.misc').copy_buffer_path()<CR>", desc = "copy buffer path", icon = "󰆏" },
-      { "<leader>fq", "<cmd>Telescope quickfix<CR>", desc = "quickfix", icon = "󰁨" },
-      { "<leader>fg", "<cmd>Telescope git_commits<CR>", desc = "git history", icon = "󰊢" },
-      { "<leader>fh", "<cmd>Telescope help_tags<CR>", desc = "help", icon = "󰞋" },
-      { "<leader>fk", "<cmd>Telescope keymaps<CR>", desc = "keymaps", icon = "󰌌" },
-      { "<leader>fr", "<cmd>Telescope registers<CR>", desc = "registers", icon = "󰊄" },
-      { "<leader>fs", "<cmd>Telescope grep_string<CR>", desc = "string", icon = "󰊄", mode = { "n", "v" } },
-      { "<leader>fw", "<cmd>lua SearchWordUnderCursor()<CR>", desc = "word", icon = "󰊄", mode = { "n", "v" } },
-      { "<leader>fy", function() _G.YankyTelescopeHistory() end, desc = "yanks", icon = "󰆏", mode = { "n", "v" } },
+      { "<leader>fa", function() Snacks.picker.files({ cwd = "~/", hidden = true, ignored = true }) end, desc = "all files", icon = "󰈙" },
+      { "<leader>fb", function() Snacks.picker.buffers({ layout = "dropdown" }) end, desc = "buffers", icon = "󰓩" },
+      -- Citations (Note: Bibtex is a niche Telescope extension, you may need to keep Telescope for just this or use a custom Snacks source)
+      { "<leader>fc", "<cmd>Telescope bibtex format_string=\\citet{%s}<CR>", desc = "citations (telescope)", icon = "󰈙" },
+      { "<leader>ff", function() Snacks.picker.grep({ layout = "ivy" }) end, desc = "project", icon = "󰊄" },
+      { "<leader>fl", function() Snacks.picker.resume() end, desc = "last search", icon = "󰺄" },
+      -- Helper logic
+      -- { "<leader>fp", "<cmd>lua require('util.misc').copy_buffer_path()<CR>", desc = "copy buffer path", icon = "󰆏" },
+      { "<leader>fq", function() Snacks.picker.qflist() end, desc = "quickfix", icon = "󰁨" },
+      { "<leader>fg", function() Snacks.picker.git_log() end, desc = "git history", icon = "󰊢" },
+      { "<leader>fh", function() Snacks.picker.help() end, desc = "help", icon = "󰞋" },
+      { "<leader>fk", function() Snacks.picker.keymaps() end, desc = "keymaps", icon = "󰌌" },
+      { "<leader>fr", function() Snacks.picker.registers() end, desc = "registers", icon = "󰊄" },
+      { "<leader>fs", function() Snacks.picker.grep_word() end, desc = "string", icon = "󰊄", mode = { "n", "v" } },
+      { "<leader>fw", function() Snacks.picker.grep_word() end, desc = "word", icon = "󰊄", mode = { "n", "v" } },
+      { "<leader>fy", function() Snacks.picker.yanky() end, desc = "yanks", icon = "󰆏", mode = { "n", "v" } },
+      -- { "<leader>fy", function() _G.YankyTelescopeHistory() end, desc = "yanks", icon = "󰆏", mode = { "n", "v" } },
     })
+
+
+    -- wk.add({
+    --   { "<leader>f", group = "find", icon = "󰍉", mode = { "n", "v" } },
+    --   { "<leader>fa", "<cmd>lua require('telescope.builtin').find_files({ no_ignore = true, hidden = true, search_dirs = { '~/' } })<CR>", desc = "all files", icon = "󰈙" },
+    --   { "<leader>fb", "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<CR>", desc = "buffers", icon = "󰓩" },
+    --   { "<leader>fc", "<cmd>Telescope bibtex format_string=\\citet{%s}<CR>", desc = "citations", icon = "󰈙" },
+    --   { "<leader>ff", "<cmd>Telescope live_grep theme=ivy<CR>", desc = "project", icon = "󰊄" },
+    --   { "<leader>fl", "<cmd>Telescope resume<CR>", desc = "last search", icon = "󰺄" },
+    --   { "<leader>fp", "<cmd>lua require('util.misc').copy_buffer_path()<CR>", desc = "copy buffer path", icon = "󰆏" },
+    --   { "<leader>fq", "<cmd>Telescope quickfix<CR>", desc = "quickfix", icon = "󰁨" },
+    --   { "<leader>fg", "<cmd>Telescope git_commits<CR>", desc = "git history", icon = "󰊢" },
+    --   { "<leader>fh", "<cmd>Telescope help_tags<CR>", desc = "help", icon = "󰞋" },
+    --   { "<leader>fk", "<cmd>Telescope keymaps<CR>", desc = "keymaps", icon = "󰌌" },
+    --   { "<leader>fr", "<cmd>Telescope registers<CR>", desc = "registers", icon = "󰊄" },
+    --   { "<leader>fs", "<cmd>Telescope grep_string<CR>", desc = "string", icon = "󰊄", mode = { "n", "v" } },
+    --   { "<leader>fw", "<cmd>lua SearchWordUnderCursor()<CR>", desc = "word", icon = "󰊄", mode = { "n", "v" } },
+    -- })
 
     -- ============================================================================
     -- <leader>g - GIT GROUP
@@ -214,12 +234,12 @@ return {
       { "<leader>gc", "<cmd>Telescope git_commits<CR>", desc = "commits", icon = "󰜘" },
       { "<leader>gd", "<cmd>Gitsigns diffthis HEAD<CR>", desc = "diff HEAD", icon = "󰦓" },
       -- { "<leader>gf", "<cmd>Telescope git_worktree create_git_worktree<CR>", desc = "new feature", icon = "󰊕" },
-      { "<leader>gg", function() require("snacks").lazygit() end, desc = "lazygit", icon = "󰊢" },
+      { "<leader>gg", function() Snacks.lazygit() end, desc = "lazygit", icon = "󰊢" },
       { "<leader>gh", "<cmd>Gitsigns prev_hunk<CR>", desc = "prev hunk", icon = "󰮲" },
       { "<leader>gj", "<cmd>Gitsigns next_hunk<CR>", desc = "next hunk", icon = "󰮰" },
       { "<leader>gl", "<cmd>Gitsigns blame_line<CR>", desc = "line blame", icon = "󰊢", mode = { "n", "v" } },
       { "<leader>gp", "<cmd>Gitsigns preview_hunk<CR>", desc = "preview hunk", icon = "󰆈" },
-      { "<leader>gs", "<cmd>Telescope git_status<CR>", desc = "status", icon = "󰊢" },
+      { "<leader>gs", function() Snacks.picker.git_status() end, desc = "status", icon = "󰊢" },
       { "<leader>gt", "<cmd>Gitsigns toggle_current_line_blame<CR>", desc = "toggle blame", icon = "󰔡" },
     })
 
@@ -229,16 +249,16 @@ return {
 
     wk.add({
       { "<leader>h", group = "help", icon = "󰞋" },
-      { "<leader>ha", "<cmd>Telescope autocommands<CR>", desc = "autocommands", icon = "󰆘" },
-      { "<leader>hc", "<cmd>Telescope commands<CR>", desc = "commands", icon = "󰘳" },
-      { "<leader>hh", "<cmd>Telescope help_tags<CR>", desc = "help tags", icon = "󰞋" },
-      { "<leader>hH", "<cmd>Telescope highlights<CR>", desc = "highlights", icon = "󰸱" },
-      { "<leader>hk", "<cmd>Telescope keymaps<CR>", desc = "keymaps", icon = "󰌌" },
+      { "<leader>ha", function() Snacks.picker.autocmds() end, desc = "autocommands", icon = "󰆘" },
+      { "<leader>hc", function() Snacks.picker.commmands() end, desc = "commands", icon = "󰘳" },
+      { "<leader>hh", function() Snacks.picker.help() end, desc = "help tags", icon = "󰞋" },
+      { "<leader>hH", function() Snacks.picker.highlights() end, desc = "highlights", icon = "󰸱" },
+      { "<leader>hk", function() Snacks.picker.keymaps() end, desc = "keymaps", icon = "󰌌" },
       { "<leader>hl", "<cmd>LspInfo<CR>", desc = "lsp info", icon = "󰅴" },
       { "<leader>hL", "<cmd>Lazy<CR>", desc = "lazy plugin manager", icon = "󰒲" },
-      { "<leader>hm", "<cmd>Telescope man_pages<CR>", desc = "man pages", icon = "󰈙" },
+      { "<leader>hm", function() Snacks.picker.man() end, desc = "man pages", icon = "󰈙" },
       { "<leader>hM", "<cmd>Mason<CR>", desc = "mason lsp installer", icon = "󰏖" },
-      { "<leader>hn", "<cmd>NullLsInfo<CR>", desc = "null-ls info", icon = "󰅴" },
+      -- { "<leader>hn", "<cmd>NullLsInfo<CR>", desc = "null-ls info", icon = "󰅴" },
       { "<leader>ho", "<cmd>Telescope vim_options<CR>", desc = "vim options", icon = "󰒕" },
       { "<leader>hr", "<cmd>Telescope reloader<CR>", desc = "reload modules", icon = "󰜉" },
       { "<leader>ht", "<cmd>TSPlaygroundToggle<CR>", desc = "treesitter playground", icon = "󰔡" },
@@ -250,8 +270,8 @@ return {
 
     wk.add({
       { "<leader>i", group = "lsp", icon = "󰅴", mode = { "n", "v" } },
-      { "<leader>ib", "<cmd>Telescope diagnostics bufnr=0<CR>", desc = "buffer diagnostics", icon = "󰒓" },
-      { "<leader>iB", "<cmd>LintToggle buffer<CR>", desc = "toggle buffer linting", icon = "󰔡" },
+      { "<leader>ib", function() Snacks.picker.diagnostics({ filter = { bufnr = 0 } }) end, desc = "buffer diagnostics", icon = "󰒓" },
+      -- { "<leader>iB", "<cmd>LintToggle buffer<CR>", desc = "toggle buffer linting", icon = "󰔡" },
       { "<leader>ic", "<cmd>lua vim.lsp.buf.code_action()<CR>", desc = "code action", icon = "󰌵", mode = { "n", "v" } },
       { "<leader>id", "<cmd>Telescope lsp_definitions<CR>", desc = "definition", icon = "󰳦" },
       { "<leader>iD", "<cmd>lua vim.lsp.buf.declaration()<CR>", desc = "declaration", icon = "󰳦" },
@@ -324,26 +344,25 @@ return {
 
     wk.add({
       { "<leader>r", group = "run", icon = "󰌵" },
-      { "<leader>rc", "<cmd>TermExec cmd='rm -rf ~/.cache/nvim' open=0<CR>", desc = "clear plugin cache", icon = "󰃢" },
+      -- { "<leader>rc", "<cmd>TermExec cmd='rm -rf ~/.cache/nvim' open=0<CR>", desc = "clear plugin cache", icon = "󰃢" },
       { "<leader>rd", function()
           notify.toggle_debug_mode()
         end, desc = "toggle debug mode", icon = "󰃤" },
       { "<leader>rl", "<cmd>lua require('util.diagnostics').show_all_errors()<CR>", desc = "show linter errors", icon = "󰅚" },
-      { "<leader>rf", function() require("conform").format({ async = true, lsp_fallback = true }) end, desc = "format", icon = "󰉣", mode = { "n", "v" } },
-      { "<leader>rF", "<cmd>lua ToggleAllFolds()<CR>", desc = "toggle all folds", icon = "󰘖" },
-      { "<leader>rh", "<cmd>LocalHighlightToggle<CR>", desc = "highlight", icon = "󰠷" },
+      -- { "<leader>rf", function() require("conform").format({ async = true, lsp_fallback = true }) end, desc = "format", icon = "󰉣", mode = { "n", "v" } },
+      -- { "<leader>rF", "<cmd>lua ToggleAllFolds()<CR>", desc = "toggle all folds", icon = "󰘖" },
+      -- { "<leader>rh", "<cmd>LocalHighlightToggle<CR>", desc = "highlight", icon = "󰠷" },
       { "<leader>rk", "<cmd>BufDeleteFile<CR>", desc = "kill file and buffer", icon = "󰆴" },
       { "<leader>rK", "<cmd>TermExec cmd='rm -rf ~/.local/share/nvim/lazy && rm -f ~/.config/nvim/lazy-lock.json' open=0<CR>", desc = "wipe plugins and lock file", icon = "󰩺" },
-      { "<leader>ri", "<cmd>LeanInfoviewToggle<CR>", desc = "lean info", icon = "󰊕", cond = is_lean },
-      { "<leader>rm", "<cmd>lua RunModelChecker()<CR>", desc = "model checker", icon = "󰐊", mode = "n" },
-      { "<leader>rM", "<cmd>lua Snacks.notifier.show_history()<cr>", desc = "show messages", icon = "󰍡" },
+      -- { "<leader>rm", "<cmd>lua RunModelChecker()<CR>", desc = "model checker", icon = "󰐊", mode = "n" },
+      { "<leader>rM", function() Snacks.notifier.show_history() end, desc = "show messages", icon = "󰍡" },
       { "<leader>ro", "za", desc = "toggle fold under cursor", icon = "󰘖" },
-      { "<leader>rp", "<cmd>TermExec cmd='python %:p:r.py'<CR>", desc = "python run", icon = "󰌠", cond = is_python },
+      -- { "<leader>rp", "<cmd>TermExec cmd='python %:p:r.py'<CR>", desc = "python run", icon = "󰌠", cond = is_python },
       { "<leader>rr", "<cmd>AutolistRecalculate<CR>", desc = "reorder list", icon = "󰔢", cond = is_markdown },
-      { "<leader>rR", "<cmd>ReloadConfig<cr>", desc = "reload configs", icon = "󰜉" },
-      { "<leader>re", "<cmd>Neotree ~/.config/nvim/snippets/<CR>", desc = "snippets edit", icon = "󰩫" },
-      { "<leader>rt", "<cmd>lua ToggleFoldingMethod()<CR>", desc = "toggle folding method", icon = "󰘖" },
-      { "<leader>ru", "<cmd>cd %:p:h | Neotree reveal<CR>", desc = "update cwd", icon = "󰉖" },
+      -- { "<leader>rR", "<cmd>ReloadConfig<cr>", desc = "reload configs", icon = "󰜉" },
+      -- { "<leader>re", "<cmd>Neotree ~/.config/nvim/snippets/<CR>", desc = "snippets edit", icon = "󰩫" },
+      -- { "<leader>rt", "<cmd>lua ToggleFoldingMethod()<CR>", desc = "toggle folding method", icon = "󰘖" },
+      -- { "<leader>ru", "<cmd>cd %:p:h | Neotree reveal<CR>", desc = "update cwd", icon = "󰉖" },
       { "<leader>rg", "<cmd>lua OpenUrlUnderCursor()<CR>", desc = "go to URL", icon = "󰖟" },
     })
 
@@ -400,13 +419,13 @@ return {
     -- <leader>T - TEXT group
     -- ============================================================================
 
-    wk.add({
-      { "<leader>T", group = "Text", icon = "󰤌", mode = { "n", "v" } },
-      { "<leader>Ta", desc = "align", icon = "󰉞", mode = { "n", "v" } },
-      { "<leader>TA", desc = "align with preview", icon = "󰉞", mode = { "n", "v" } },
-      { "<leader>Tf", desc = "ALE fix", icon = "󰉞", mode = { "n", "v" } },
-    })
-
+    -- wk.add({
+    --   { "<leader>T", group = "Text", icon = "󰤌", mode = { "n", "v" } },
+    --   { "<leader>Ta", desc = "align", icon = "󰉞", mode = { "n", "v" } },
+    --   { "<leader>TA", desc = "align with preview", icon = "󰉞", mode = { "n", "v" } },
+    --   { "<leader>Tf", desc = "ALE fix", icon = "󰉞", mode = { "n", "v" } },
+    -- })
+    --
 
     -- ============================================================================
     -- <leader>y - YANK GROUP

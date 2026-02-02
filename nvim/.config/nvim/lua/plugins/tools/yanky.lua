@@ -138,6 +138,46 @@ return {
       }):find()
     end
 
+    _G.YankySnacksHistory = function()
+      local yanky_history = require("yanky.history")
+      local yanky_utils = require("yanky.utils")
+      local yanky = require("yanky")
+
+      Snacks.picker.pick({
+        source = "Yank History",
+        items = yanky_history.all(),
+        -- How the list displays the items
+        format = function(item)
+          local content = item.regcontents:gsub("\n", "\\n"):gsub("%s+", " ")
+          return {
+            { content, "SnacksPickerText" },
+          }
+        end,
+        -- Custom Previewer
+        preview = function(ctx)
+          local lines = vim.split(ctx.item.regcontents, "\n")
+          vim.api.nvim_buf_set_lines(ctx.buf, 0, -1, false, lines)
+          if ctx.item.filetype then
+            vim.bo[ctx.buf].filetype = ctx.item.filetype
+          end
+        end,
+        -- Default Action (Pressing Enter)
+        confirm = function(picker, item)
+          picker:close()
+          vim.schedule(function()
+            yanky_utils.use_temporary_register(
+              yanky_utils.get_default_register(),
+              item,
+              function() yanky.put("p", false) end
+            )
+          end)
+        end,
+        -- Set layout (optional, but dropdown looks great for yanks)
+        layout = { preset = "dropdown" },
+      })
+    end
+
+
     -- NOTE: Keymaps for <leader>fy and <leader>yh are defined in which-key.lua
     -- They will automatically use the _G.YankyTelescopeHistory() function defined above
 

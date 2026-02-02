@@ -27,7 +27,7 @@ end
 local colorscheme_module = safe_require("plugins.ui.colorscheme")
 local lualine_module = safe_require("plugins.ui.lualine")
 local bufferline_module = safe_require("plugins.ui.bufferline")
-local neo_tree_module = safe_require("plugins.ui.neo-tree")
+-- local neo_tree_module = safe_require("plugins.ui.neo-tree")
 local web_devicons_module = safe_require("plugins.ui.nvim-web-devicons")
 local sessions_module = safe_require("plugins.ui.sessions")
 -- local incline_module = safe_require("plugins.ui.incline")
@@ -41,7 +41,7 @@ return {
   colorscheme_module,
   lualine_module,
   bufferline_module,
-  neo_tree_module,
+  -- neo_tree_module,
   web_devicons_module,
   sessions_module,
   -- incline_module,
