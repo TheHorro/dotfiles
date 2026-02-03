@@ -2,7 +2,8 @@
 local function safe_require(module)
   local ok, result = pcall(require, module)
   if not ok then
-    require('util.notifications').editor('Failed to load plugin module', require('util.notifications').categories.WARNING, { module = module })
+    -- require('util.notifications').editor('Failed to load plugin module', require('util.notifications').categories.WARNING, { module = module })
+    vim.notify("Failed to load plugin module: " .. module, vim.log.levels.WARN)
     return {}
   end
   return result

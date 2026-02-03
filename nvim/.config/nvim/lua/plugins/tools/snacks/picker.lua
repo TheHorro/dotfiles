@@ -3,6 +3,9 @@ local M = {}
 M.picker = {
   enabled = true,
   ui_select = true, 
+  layout = {
+    preset = "telescope",
+  },
   win = {
     input = {
       keys = {
@@ -54,6 +57,7 @@ M.picker = {
     },
     undo = {
       win = {
+        list = { reverse = true, },
         input = {
           keys = {
             ["<C-a>"] = { "yank_additions", mode = { "n", "i" } },

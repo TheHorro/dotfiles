@@ -202,27 +202,7 @@ return {
       { "<leader>fr", function() Snacks.picker.registers() end, desc = "registers", icon = "󰊄" },
       { "<leader>fs", function() Snacks.picker.grep_word() end, desc = "string", icon = "󰊄", mode = { "n", "v" } },
       { "<leader>fw", function() Snacks.picker.grep_word() end, desc = "word", icon = "󰊄", mode = { "n", "v" } },
-      { "<leader>fy", function() Snacks.picker.yanky() end, desc = "yanks", icon = "󰆏", mode = { "n", "v" } },
-      -- { "<leader>fy", function() _G.YankyTelescopeHistory() end, desc = "yanks", icon = "󰆏", mode = { "n", "v" } },
     })
-
-
-    -- wk.add({
-    --   { "<leader>f", group = "find", icon = "󰍉", mode = { "n", "v" } },
-    --   { "<leader>fa", "<cmd>lua require('telescope.builtin').find_files({ no_ignore = true, hidden = true, search_dirs = { '~/' } })<CR>", desc = "all files", icon = "󰈙" },
-    --   { "<leader>fb", "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<CR>", desc = "buffers", icon = "󰓩" },
-    --   { "<leader>fc", "<cmd>Telescope bibtex format_string=\\citet{%s}<CR>", desc = "citations", icon = "󰈙" },
-    --   { "<leader>ff", "<cmd>Telescope live_grep theme=ivy<CR>", desc = "project", icon = "󰊄" },
-    --   { "<leader>fl", "<cmd>Telescope resume<CR>", desc = "last search", icon = "󰺄" },
-    --   { "<leader>fp", "<cmd>lua require('util.misc').copy_buffer_path()<CR>", desc = "copy buffer path", icon = "󰆏" },
-    --   { "<leader>fq", "<cmd>Telescope quickfix<CR>", desc = "quickfix", icon = "󰁨" },
-    --   { "<leader>fg", "<cmd>Telescope git_commits<CR>", desc = "git history", icon = "󰊢" },
-    --   { "<leader>fh", "<cmd>Telescope help_tags<CR>", desc = "help", icon = "󰞋" },
-    --   { "<leader>fk", "<cmd>Telescope keymaps<CR>", desc = "keymaps", icon = "󰌌" },
-    --   { "<leader>fr", "<cmd>Telescope registers<CR>", desc = "registers", icon = "󰊄" },
-    --   { "<leader>fs", "<cmd>Telescope grep_string<CR>", desc = "string", icon = "󰊄", mode = { "n", "v" } },
-    --   { "<leader>fw", "<cmd>lua SearchWordUnderCursor()<CR>", desc = "word", icon = "󰊄", mode = { "n", "v" } },
-    -- })
 
     -- ============================================================================
     -- <leader>g - GIT GROUP
@@ -230,10 +210,9 @@ return {
 
     wk.add({
       { "<leader>g", group = "git", icon = "󰊢", mode = { "n", "v" } },
-      { "<leader>gb", "<cmd>Telescope git_branches<CR>", desc = "branches", icon = "󰘬" },
-      { "<leader>gc", "<cmd>Telescope git_commits<CR>", desc = "commits", icon = "󰜘" },
+      { "<leader>gb", function() Snacks.picker.git_branches({remote = true}) end, desc = "branches", icon = "󰘬" },
+      { "<leader>gc", function() Snacks.picker.git_log() end, desc = "commits", icon = "󰜘" },
       { "<leader>gd", "<cmd>Gitsigns diffthis HEAD<CR>", desc = "diff HEAD", icon = "󰦓" },
-      -- { "<leader>gf", "<cmd>Telescope git_worktree create_git_worktree<CR>", desc = "new feature", icon = "󰊕" },
       { "<leader>gg", function() Snacks.lazygit() end, desc = "lazygit", icon = "󰊢" },
       { "<leader>gh", "<cmd>Gitsigns prev_hunk<CR>", desc = "prev hunk", icon = "󰮲" },
       { "<leader>gj", "<cmd>Gitsigns next_hunk<CR>", desc = "next hunk", icon = "󰮰" },
@@ -258,10 +237,8 @@ return {
       { "<leader>hL", "<cmd>Lazy<CR>", desc = "lazy plugin manager", icon = "󰒲" },
       { "<leader>hm", function() Snacks.picker.man() end, desc = "man pages", icon = "󰈙" },
       { "<leader>hM", "<cmd>Mason<CR>", desc = "mason lsp installer", icon = "󰏖" },
-      -- { "<leader>hn", "<cmd>NullLsInfo<CR>", desc = "null-ls info", icon = "󰅴" },
-      { "<leader>ho", "<cmd>Telescope vim_options<CR>", desc = "vim options", icon = "󰒕" },
-      { "<leader>hr", "<cmd>Telescope reloader<CR>", desc = "reload modules", icon = "󰜉" },
-      { "<leader>ht", "<cmd>TSPlaygroundToggle<CR>", desc = "treesitter playground", icon = "󰔡" },
+      -- { "<leader>ho", "<cmd>Telescope vim_options<CR>", desc = "vim options", icon = "󰒕" },
+      -- { "<leader>hr", "<cmd>Telescope reloader<CR>", desc = "reload modules", icon = "󰜉" },
     })
 
     -- ============================================================================
@@ -273,16 +250,16 @@ return {
       { "<leader>ib", function() Snacks.picker.diagnostics({ filter = { bufnr = 0 } }) end, desc = "buffer diagnostics", icon = "󰒓" },
       -- { "<leader>iB", "<cmd>LintToggle buffer<CR>", desc = "toggle buffer linting", icon = "󰔡" },
       { "<leader>ic", "<cmd>lua vim.lsp.buf.code_action()<CR>", desc = "code action", icon = "󰌵", mode = { "n", "v" } },
-      { "<leader>id", "<cmd>Telescope lsp_definitions<CR>", desc = "definition", icon = "󰳦" },
+      { "<leader>id", function() Snacks.picker.lsp_definitions() end, desc = "definition", icon = "󰳦" },
       { "<leader>iD", "<cmd>lua vim.lsp.buf.declaration()<CR>", desc = "declaration", icon = "󰳦" },
-      { "<leader>ig", "<cmd>LintToggle<CR>", desc = "toggle global linting", icon = "󰔡" },
+      -- { "<leader>ig", "<cmd>LintToggle<CR>", desc = "toggle global linting", icon = "󰔡" },
       { "<leader>ih", "<cmd>lua vim.lsp.buf.hover()<CR>", desc = "help", icon = "󰞋" },
-      { "<leader>ii", "<cmd>Telescope lsp_implementations<CR>", desc = "implementations", icon = "󰡱" },
+      { "<leader>ii", function() Snacks.picker.lsp_implementations() end, desc = "implementations", icon = "󰡱" },
       { "<leader>il", "<cmd>lua vim.diagnostic.open_float()<CR>", desc = "line diagnostics", icon = "󰒓" },
       { "<leader>iL", function() require("lint").try_lint() end, desc = "lint file", icon = "󰁨" },
       { "<leader>in", "<cmd>lua vim.diagnostic.goto_next()<CR>", desc = "next diagnostic", icon = "󰮰" },
       { "<leader>ip", "<cmd>lua vim.diagnostic.goto_prev()<CR>", desc = "previous diagnostic", icon = "󰮲" },
-      { "<leader>ir", "<cmd>Telescope lsp_references<CR>", desc = "references", icon = "󰌹" },
+      { "<leader>ir", function() Snacks.picker.lsp_references() end, desc = "references", icon = "󰌹" },
       { "<leader>iR", "<cmd>lua vim.lsp.buf.rename()<CR>", desc = "rename", icon = "󰑕" },
       { "<leader>is", "<cmd>LspRestart<CR>", desc = "restart lsp", icon = "󰜉" },
       { "<leader>it", function()
@@ -434,7 +411,7 @@ return {
     wk.add({
       { "<leader>y", group = "yank", icon = "󰆏", mode = { "n", "v" } },
       { "<leader>yc", function() require("yanky").clear_history() end, desc = "clear history", icon = "󰃢" },
-      { "<leader>yh", function() _G.YankyTelescopeHistory() end, desc = "yank history", icon = "󰞋", mode = { "n", "v" } },
+      { "<leader>yh", function() Snacks.picker.yanky() end, desc = "yank history", icon = "󰞋", mode = { "n", "v" } },
     })
   end,
 }

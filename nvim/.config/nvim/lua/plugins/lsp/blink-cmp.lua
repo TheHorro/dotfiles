@@ -36,6 +36,14 @@ return {
       },
     },
     opts = {
+      enabled = function()
+        local filetype = vim.bo[0].filetype
+        -- Disable for Telescope/picker buffers
+        if filetype == "TelescopePrompt" or filetype == "minifiles" or filetype == "snacks_picker_input" then
+          return false
+        end
+        return true
+      end,
       snippets = { preset = 'luasnip' },
       
       keymap = {
