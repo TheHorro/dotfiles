@@ -1,51 +1,32 @@
+
+
 return {
   "nvim-lualine/lualine.nvim",
   event = "BufReadPost", -- Only load when an actual file is read
   dependencies = { "nvim-tree/nvim-web-devicons" },
 
   config = function()
-		-- local colors = {
-		-- 	color0 = "#092236",
-		-- 	color1 = "#ff5874",
-		-- 	color2 = "#c3ccdc",
-		-- 	color3 = "#1c1e26",
-		-- 	color6 = "#a1aab8",
-		-- 	color7 = "#828697",
-		-- 	color8 = "#ae81ff",
-		-- }
-		-- local my_lualine_theme = {
-		-- 	replace = {
-		-- 		a = { fg = colors.color0, bg = colors.color1, gui = "bold" },
-		-- 		b = { fg = colors.color2, bg = colors.color3 },
-		-- 	},
-		-- 	inactive = {
-		-- 		a = { fg = colors.color6, bg = colors.color3, gui = "bold" },
-		-- 		b = { fg = colors.color6, bg = colors.color3 },
-		-- 		c = { fg = colors.color6, bg = colors.color3 },
-		-- 	},
-		-- 	normal = {
-		-- 		a = { fg = colors.color0, bg = colors.color7, gui = "bold" },
-		-- 		b = { fg = colors.color2, bg = colors.color3 },
-		-- 		c = { fg = colors.color2, bg = colors.color3 },
-		-- 	},
-		-- 	visual = {
-		-- 		a = { fg = colors.color0, bg = colors.color8, gui = "bold" },
-		-- 		b = { fg = colors.color2, bg = colors.color3 },
-		-- 	},
-		-- 	insert = {
-		-- 		a = { fg = colors.color0, bg = colors.color2, gui = "bold" },
-		-- 		b = { fg = colors.color2, bg = colors.color3 },
-		-- 	},
-		-- }
+    local mode = {
+      "mode",
+      fmt = function(str)
+        -- return ' '
+        -- displays only the first character of the mode
+        return " " .. str
+      end,
+    }
 
-		local mode = {
-			"mode",
-			fmt = function(str)
-				-- return ' '
-				-- displays only the first character of the mode
-				return " " .. str
-			end,
-		}
+    local function vimtex_status()
+      if vim.b.vimtex and vim.b.vimtex.compiler then
+        local state = vim.b.vimtex.compiler.state
+        local status_map = {
+          [0] = "󱎘 Stopped", -- Compiler not running
+          [1] = "󱐋 Running", -- Compiler active/continuous
+          [2] = "󰚌 Failed",  -- Last compilation failed
+        }
+        return status_map[state] or ""
+      end
+      return ""
+    end
 
     require("lualine").setup({
       options = {
@@ -88,8 +69,24 @@ return {
           },
         },
         lualine_x = {
-          -- { require('mcphub.extensions.lualine') },
-          "encoding",
+          {
+            function()
+              if vim.bo.filetype == 'tex' and vim.b.vimtex and vim.b.vimtex.compiler then
+                local status = vim.b.vimtex.compiler.status
+                local ret = 'Vimtex: '
+                if status == 2 then
+                  return ret .. ' '
+                elseif status == 1 then
+                  return ret .. ' '
+                elseif status == 0 then
+                  return ret .. ' '
+                end
+
+              end
+              return ''
+            end,
+          },
+          -- "encoding",
           -- 'fileformat',
           "filetype",
         },

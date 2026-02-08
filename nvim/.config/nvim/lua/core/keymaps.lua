@@ -308,4 +308,8 @@ map("n", "K", "gk", {}, "Move up display line")
 map("v", "J", "gj", {}, "Move down display line")
 map("v", "K", "gk", {}, "Move up display line")
 
+-- Disable F1 Help
+map("n", "<F1>", "<NOP>")
+map("v", "<F1>", "<NOP>")
+map("i", "<F1>", "<NOP>")
 
