@@ -106,7 +106,7 @@ local options = {
   virtualedit = "block", -- Virtual block cursor mode
   autoread = true,      -- Auto-reload files when changed externally
   foldenable = true,    -- Enable folding by default
-  foldmethod = "manual", -- Folding method (manual)
+  foldmethod = "syntax", -- Folding method (manual)
   -- Performance optimizations
   lazyredraw = true,        -- Reduce redraw frequency
   synmaxcol = 200,         -- Limit syntax highlighting for better performance
