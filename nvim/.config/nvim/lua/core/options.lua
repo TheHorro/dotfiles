@@ -107,6 +107,7 @@ local options = {
   autoread = true,      -- Auto-reload files when changed externally
   foldenable = true,    -- Enable folding by default
   foldmethod = "syntax", -- Folding method (manual)
+  foldlevel = 0,
   -- Performance optimizations
   lazyredraw = true,        -- Reduce redraw frequency
   synmaxcol = 200,         -- Limit syntax highlighting for better performance
