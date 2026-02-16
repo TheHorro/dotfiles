@@ -1,20 +1,271 @@
 {
-    "layer": "top",
-    "mode": "dock",
-    "exclusive": true,
-    "passthrough": false,
-    "position": "top",
-    "spacing": 3,
-    "fixed-center": true,
-    "ipc": true,
-    "margin-top": 0,
-    "margin-left": 0,
-    "margin-right": 0,
-    "height": 20,
-    "include": [
-        "$HOME/.config/waybar/Modules.jsonc",
-        "$HOME/.config/waybar/ModulesCustom.jsonc",
-        "$HOME/.config/waybar/ModulesGroups.jsonc"
+  "layer": "top",
+  "mode": "dock",
+  "exclusive": true,
+  "passthrough": false,
+  "position": "top",
+  "spacing": 3,
+  "fixed-center": true,
+  "ipc": false,
+  "margin-top": 3,
+  "margin-left": 3,
+  "margin-right": 3,
+  "margin-bottom": 0,
+  "height": 31,
+
+  "hyprland/workspaces": {
+    "active-only": true,
+    "all-outputs": false,
+    "on-click": "activate",
+    "on-scroll-up": "hyprctl dispatch workspace e+1",
+    "on-scroll-down": "hyprctl dispatch workspace e-1",
+    "show-special": false,
+    "persistent-workspaces": {
+      "DP-2" : [1, 2, 3, 4, 5],
+      "DP-3" : [11, 12, 13, 14, 15] 
+    },
+    "format": "{icon}{name}",
+    "format-icons": {
+      "active": "󰮯 ",
+      "empty": " ",
+      "default": "󰊠 ",
+    },
+  },
+
+  "temperature": {
+    "interval": 10,
+    "tooltip": true,
+    "hwmon-path": [
+      "/sys/class/hwmon/hwmon1/temp1_input",
+      "/sys/class/thermal/thermal_zone0/temp"
     ],
+    "critical-threshold": 82,
+    "format-critical": "{temperatureC}°C {icon}",
+    "format": "{temperatureC}°C {icon}",
+    "format-icons": [
+      "󰈸"
+    ],
+  },
+
+  "bluetooth": {
+    "format": "  ",
+    "format-disabled": " 󰂳 ",
+    "format-connected": "󰂱 {num_connections}",
+    "tooltip-format": " {device_alias}",
+    "tooltip-format-connected": "{device_enumerate}",
+    "tooltip-format-enumerate-connected": " {device_alias} 󰂄{device_battery_percentage}%",
+    "tooltip": true,
+    "on-click": "blueman-manager",
+  },
+
+  "clock": {
+    "interval": 1,
+    // "format": " {:L%A %H:%M:%S}",
+    "format": "{:%H:%M:%S}", // 24H
+    // "format": " {:%H:%M:%S   %Y, %d %B, %A}",
+    "tooltip": false,
+  },
+
+  "actions": {
+    "on-click-right": "mode",
+    "on-click-forward": "tz_up",
+    "on-click-backward": "tz_down",
+    "on-scroll-up": "shift_up",
+    "on-scroll-down": "shift_down"
+  },
+
+  "cpu": {
+    "format": "{usage}% 󰍛",
+    "interval": 1,
+    "min-length": 5,
+    "on-click-right": "gnome-system-monitor",
+  },
+
+  "disk": {
+    "interval": 30,
+    "path": "/",
+    "format": "{percentage_used}% 󰋊 ",
+    "tooltip-format": "{used} used out of {total} on {path} ({percentage_used}%)",
+  },
+
+  "idle_inhibitor": {
+    "tooltip": true,
+    "tooltip-format-activated": "Idle_inhibitor active",
+    "tooltip-format-deactivated": "Idle_inhibitor not active",
+    "format": "{icon}",
+    "format-icons": {
+      "activated": " ",
+      "deactivated": " ",
+    }
+  },
+
+  "memory": {
+    "interval": 10,
+    "format": "{used:0.1f}G 󰾆",
+    "format-alt": "{percentage}% 󰾆",
+    "format-alt-click": "click",
+    "tooltip": true,
+    "tooltip-format": "{used:0.1f}GB/{total:0.1f}G",
+    "on-click-right": "$HOME/.config/hypr/scripts/WaybarScripts.sh --btop"
+  },
+
+  "mpris": {
+    "interval": 10,
+    "format": " {player_icon} ",
+    "format-paused": "{status_icon}",
+    "on-click-middle": "playerctl play-pause",
+    "on-click": "playerctl previous",
+    "on-click-right": "playerctl next",
+    "scroll-step": 5.0,
+    "on-scroll-up": "$HOME/.config/hypr/scripts/Volume.sh --inc",
+    "on-scroll-down": "$HOME/.config/hypr/scripts/Volume.sh --dec",
+    "smooth-scrolling-threshold": 1,
+    "tooltip": true,
+    "tooltip-format": "{status_icon} {dynamic}\nLeft Click: previous\nMid Click: Pause\nRight Click: Next",
+    "player-icons": {
+      "chromium": "",
+      "default": "",
+      "firefox": "",
+      "kdeconnect": "",
+      "mopidy": "",
+      "mpv": "󰐹",
+      "spotify": "",
+      "vlc": "󰕼",
+    },
+    "status-icons": {
+      "paused": "󰐎",
+      "playing": "",
+      "stopped": "",
+    },
+    "max-length": 30,
+  },
+
+  "network": {
+    "format": "{ifname}",
+    "format-wifi": "{icon}",
+    "format-ethernet": "󰌘",
+    "format-disconnected": "󰌙",
+    "tooltip-format": "{ipaddr}  {bandwidthUpBits}  {bandwidthDownBits}",
+    "format-linked": "󰈁 {ifname} (No IP)",
+    "tooltip-format-wifi": "{essid} {icon} {signalStrength}%",
+    "tooltip-format-ethernet": "{ifname} 󰌘",
+    "tooltip-format-disconnected": "󰌙 Disconnected",
+    "max-length": 30,
+    "format-icons": [
+      "󰤯", "󰤟", "󰤢", "󰤥", "󰤨"
+    ],
+    "on-click-right": "$HOME/.config/hypr/scripts/WaybarScripts.sh --nmtui"
+  },
+
+  "network#speed": {
+    "interval": 1,
+    "format": "{ifname}",
+    "format-wifi": "{icon}  {bandwidthUpBytes}  {bandwidthDownBytes}",
+    "format-ethernet": "󰌘  {bandwidthUpBytes}  {bandwidthDownBytes}",
+    "format-disconnected": "󰌙",
+    "tooltip-format": "{ipaddr}",
+    "format-linked": "󰈁 {ifname} (No IP)",
+    "tooltip-format-wifi": "{essid} {icon} {signalStrength}%",
+    "tooltip-format-ethernet": "{ifname} 󰌘",
+    "tooltip-format-disconnected": "󰌙 Disconnected",
+    "min-length": 24,
+    "max-length": 24,
+    "format-icons": [
+      "󰤯", "󰤟", "󰤢", "󰤥", "󰤨"
+    ]
+  },
+
+  "pulseaudio#sound": {
+    "format": "{icon} {volume:>3}%",
+    "format-bluetooth": "{icon} 󰂰 {volume}%",
+    "format-muted": "󰖁 ",
+    "format-icons": {
+      "headphone": " ",
+      "hands-free": " ",
+      "headset": " ",
+      "phone": " ",
+      "portable": " ",
+      "car": " ",
+      "default": [
+        "", " ", "󰕾 ",  " "
+      ],
+      "ignored-sinks": [
+        "Easy Effects Sink"
+      ],
+    },
+    "scroll-step": 5.0,
+    "on-click": "$HOME/.config/hypr/scripts/Volume.sh --toggle",
+    "on-click-right": "pavucontrol -t 3",
+    "on-scroll-up": "$HOME/.config/hypr/scripts/Volume.sh --inc",
+    "on-scroll-down": "$HOME/.config/hypr/scripts/Volume.sh --dec",
+    "tooltip-format": "{icon} {desc} | {volume}%",
+    "smooth-scrolling-threshold": 1,
+    "min-length": 7,
+    "max-length": 9,
+    "align": 0,
+  },
+
+  "pulseaudio#microphone": {
+    "format": "{format_source}",
+    "format-source": " {volume:>3}%",
+    "format-source-muted": "󰍭 {volume:>3}%",
+    "on-click": "$HOME/.config/hypr/scripts/Volume.sh --toggle-mic",
+    "on-click-right": "pavucontrol -t 4",
+    "on-scroll-up": "$HOME/.config/hypr/scripts/Volume.sh --mic-inc",
+    "on-scroll-down": "$HOME/.config/hypr/scripts/Volume.sh --mic-dec",
+    "tooltip-format": "{source_desc} | {source_volume}%",
+    "scroll-step": 5,
+    "min-length": 6,
+    "max-length": 6,
+    "align": 0,
+  },
+
+  "custom/power": {
+    "format": " ",
+    "on-click": "$HOME/.config/hypr/scripts/Wlogout.sh",
+    "tooltip": true,
+    "tooltip-format": "Logout Menu",
+  },
+  "tray": {
+    "icon-size": 18,
+    "spacing": 4,
+  },
+
+  "custom/swaync": {
+    "tooltip": true,
+    "tooltip-format": "Left Click: Launch Notification Center\nRight Click: Do not Disturb",
+    "format": "{} {icon} ",
+    "format-icons": {
+      "notification": "<span foreground='red'><sup></sup></span>",
+      "none": "",
+      "dnd-notification": "<span foreground='red'><sup></sup></span>",
+      "dnd-none": "",
+      "inhibited-notification": "<span foreground='red'><sup></sup></span>",
+      "inhibited-none": "",
+      "dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
+      "dnd-inhibited-none": ""
+    },
+    "return-type": "json",
+    "exec-if": "which swaync-client",
+    "exec": "swaync-client -swb",
+    "on-click": "sleep 0.1 && swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw",
+    "escape": true,
+  },
+
+  "custom/music": {
+    "format": "{}",
+    "return-type": "json",
+    "exec": "~/.config/hypr/scripts/music.sh",
+    "interval": 2,
+    "max-length": 40,
+    "on-click": "playerctl play-pause",
+    "on-click-right": "playerctl next",
+    "on-click-middle": "playerctl previous",
+    "on-scroll-up": "playerctl position 5+",
+    "on-scroll-down": "playerctl position 5-",
+    "escape": true,
+    "tooltip": true
+  },
 
 }

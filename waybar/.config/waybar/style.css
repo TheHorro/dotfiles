@@ -1,93 +1,75 @@
-/* @define-color critical #ff0000; */
-/* @define-color warning #f3f809; */
-/* @define-color fgcolor #ffffff; */
-/* @define-color bgcolor #303030; */
-/* @define-color bgcolor #222436; */
-/* @define-color alert   #df3320; */
-
-/* @define-color accent1 #ff7a93; */
-/* @define-color accent2 #b9f27c; */
-/* @define-color accent3 #ff9e64; */
-/* @define-color accent4 #bb9af7; */
-/* @define-color accent5 #7da6ff; */
-/* @define-color accent6 #0db9d7; */
+@import "../hypr/colors.css";
 
 * {
-    font-family: "CaskaydiaCove Nerd Font", Roboto, Helvetica, Arial, sans-serif;;
-    font-feature-settings: '"zero", "ss01", "ss02", "ss03", "ss04", "ss05", "cv31"';
+  font-family: "CaskaydiaCove Nerd Font", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  font-feature-settings: '"zero", "ss01", "ss02", "ss03", "ss04", "ss05", "cv31"';
+  min-height: 0;
+  border: none;
+  border-radius: 0;
+  /* padding: 0; */
+  margin: 0;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
 }
 
-window#waybar {
-    background-color: rgba(0, 0, 0, 0.3);
-    color: #ffffff;
-    transition-property: background-color;
-    transition-duration: 0.5s;
-    border-radius: 0px;
-    padding: 0px 200px 0px 200px; /* top right bottom left */
+#waybar {
+  background: rgba(0,0,0,0.1);
+  color: #ffffff;
+  transition: background-color 0.5s;
+  border-radius: 0;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
 }
 
-window#waybar.hidden {
-    opacity: 0.1;
-}
+window#waybar.hidden { opacity: 0.1; }
 
 tooltip {
-    background: #1e1e2e;
-    /* opacity: 0; */
-    border-radius: 10px;
-    border-width: 10px;
-    border-style: solid;
-    border-color: #11111b;
+  background: @background;
+  border-radius: 10px;
+  border: 1px solid @background;
 }
 
-#taskbar button,
-#workspaces button {
-    background-color: transparent;
-    color: #ffffff;
-    box-shadow: none;
-    text-shadow: none;
-    padding: 4px;
-    border-radius: 9px;
-    animation: gradient_f 20s ease-in infinite;
-    transition: all 0.5s cubic-bezier(0.55, -0.68, 0.48, 1.682);
+/* Buttons: taskbar/workspaces - shared base */
+#taskbar button, #workspaces button {
+  background: transparent; 
+  box-shadow: none;
+  text-shadow: none;
+  padding: 4px;
+  border-radius: 9px;
+  animation: gradient_f 20s ease-in infinite;
+  transition: all 0.5s cubic-bezier(0.55,-0.68,0.48,1.682);
 }
 
 #taskbar button.active,
-#workspaces button.active {
-    background-color: transparent;
-    color: #ff7a93;
-    padding-left: 4px;
-    padding-right: 4px;
-    animation: gradient_f 20s ease-in infinite;
-    transition: all 0.3s cubic-bezier(0.55, -0.68, 0.48, 1.682);
+#workspaces button.active { 
+  color: #ff7a93;
+  padding: 4px 4px;
+  transition: all 0.3s cubic-bezier(0.55,-0.68,0.48,1.682); 
 }
 
 #taskbar button:hover,
 #workspaces button:hover {
-    background: rgba(0, 0, 0, 0.2);
-    color: #ff9e64;
-    padding-left: 4px;
-    padding-right: 4px;
-    animation: gradient_f 20s ease-in infinite;
-    transition: all 0.3s cubic-bezier(0.55, -0.68, 0.48, 1.682);
+  background: rgba(0,0,0,0.2);
+  color: #ff9e64;
+  padding: 4px 4px;
+  transition: all 0.3s cubic-bezier(0.55,-0.68,0.48,1.682);
 }
-
 #workspaces button.focused {
-    background-color: #bbccdd;
-    color: #b9f27c;
-    /* box-shadow: inset 0 -3px #ffffff; */
+  background: #bbccdd;
+  color: #b9f27c;
 }
-
-#workspaces button.urgent {
-    background-color: #eb4d4b;
-}
-
+#workspaces button.urgent { background: #eb4d4b; }
 #mode {
-    background-color: #64727d;
-    border-bottom: 3px solid #ffffff;
+  background: #64727d;
+  border-bottom: 3px solid #ffffff;
 }
 
 #backlight,
-#backlight-slider,
 #battery,
 #bluetooth,
 #clock,
@@ -102,103 +84,42 @@ tooltip {
 #power,
 #power-profiles-daemon,
 #pulseaudio,
-#pulseaudio-slider,
+/* #pulseaudio-slider, */
 #taskbar,
 #temperature,
 #tray,
 #window,
 #wireplumber,
 #workspaces,
-#custom-backlight,
-#custom-browser,
-#custom-cava_mviz,
-#custom-cycle_wall,
-#custom-dot_update,
-#custom-file_manager,
-#custom-keybinds,
-#custom-keyboard,
-#custom-light_dark,
-#custom-lock,
-#custom-hint,
-#custom-hypridle,
-#custom-menu,
-#custom-playerctl,
-#custom-power_vertical,
-#custom-power,
-#custom-quit,
-#custom-reboot,
-#custom-settings,
-#custom-spotify,
+#custom-music,
 #custom-swaync,
-#custom-tty,
-#custom-updater,
-#custom-weather,
-#custom-weather.clearNight,
-#custom-weather.cloudyFoggyDay,
-#custom-weather.cloudyFoggyNight,
-#custom-weather.default,
-#custom-weather.rainyDay,
-#custom-weather.rainyNight,
-#custom-weather.severe,
-#custom-weather.showyIcyDay,
-#custom-weather.snowyIcyNight,
-#custom-weather.sunnyDay {
-    padding-top: 4px;
-    padding-bottom: 4px;
-    padding-right: 6px;
-    padding-left: 6px;
-}
-
-#custom-updater {
-    color: #7287fd;
-}
-
-@keyframes blink {
-    to {
-        background-color: #ffffff;
-        color: #333333;
-    }
-}
-
-label:focus {
-    background-color: #000000;
-}
-
-#backlight {
-    color: #cdd6f4;
-}
-
-#bluetooth {
-    color: #1e66f5;
-}
-
-#power,
 #custom-power {
-    color: #cc3436;
+  background-color: alpha(@background, 0.9);
+  padding: 2px 6px; /* top/bottom 4px (compact), left/right 6px */
+  margin: 0px 0px 0px 0px;
+  border-radius: 9px;
+  border: 1px solid @background;
+  transition: all 0.3s ease;
 }
 
-#temperature.critical {
-    background-color: #ff0000;
-}
+#custom-updater { color: #7287fd; }
+@keyframes blink { to { background: #ffffff; color: #333333; } }
+label:focus { background: #000000; }
 
-#custom-hypridle,
-#idle_inhibitor {
-    color: #f9e2af;
-    /*background-color: #2d3436;*/
+#backlight { color: #cdd6f4; }
+#bluetooth { color: #1e66f5; }
+#power, #custom-power {
+  color: #cc3436;
+  padding-left: 4px;
+  padding-right: 0px;
 }
+#temperature.critical { background: #ff0000; }
+#custom-hypridle, #idle_inhibitor { color: #f9e2af; }
 
-/*-----Indicators----*/
-#custom-hypridle.notactive,
-#idle_inhibitor.activated {
-    color: #39ff14;
-}
+/* Active indicators (green) */
+#custom-hypridle.notactive, #idle_inhibitor.activated { color: #39ff14; }
 
 #custom-logo {
-  font-size: 8px;
-  background-image: url("icons/arch.png");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
+  font-size: 8px; background: url("icons/arch.png"); background-repeat: no-repeat; background-position: center; background-size: contain;
   margin-left: 10px;
 }
-
