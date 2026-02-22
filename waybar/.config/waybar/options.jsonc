@@ -222,7 +222,7 @@
 
   "custom/power": {
     "format": " ",
-    "on-click": "$HOME/.config/hypr/scripts/Wlogout.sh",
+    "on-click": "wlogout --protocol layer-shell -b 3",
     "tooltip": true,
     "tooltip-format": "Logout Menu",
   },
