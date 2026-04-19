@@ -1,0 +1,18 @@
+/* @define-color bg              {{colors.background.dark.hex}}; */
+/* @define-color bg-alt          {{colors.surface.dark.hex}}; */
+/* @define-color bg-hover        {{colors.surface_variant.dark.hex}}; */
+/* @define-color fg              {{colors.on_background.dark.hex}}; */
+/* @define-color fg-muted        {{colors.on_surface_variant.dark.hex}}; */
+/* @define-color primary         {{colors.primary.dark.hex}}; */
+/* @define-color on-primary      {{colors.on_primary.dark.hex}}; */
+/* @define-color primary-ctr     {{colors.primary_container.dark.hex}}; */
+/* @define-color on-primary-ctr  {{colors.on_primary_container.dark.hex}}; */
+/* @define-color surface         {{colors.surface.dark.hex}}; */
+/* @define-color outline         {{colors.outline.dark.hex}}; */
+/* @define-color error           {{colors.error.dark.hex}}; */
+/* @define-color on-error        {{colors.on_error.dark.hex}}; */
+/**/
+<* for name, value in colors *>
+@define-color {{name}} {{value.default.hex}};
+<* endfor *>
+
