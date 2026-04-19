@@ -45,7 +45,6 @@ end
 local ale_module = safe_require("plugins.text.ale")
 local vimtex_module = safe_require("plugins.text.vimtex")
 -- local lean_module = safe_require("plugins.text.lean")
--- local jupyter_module = safe_require("plugins.text.jupyter")
 local markdown_preview_module = safe_require("plugins.text.markdown-preview")
 
 -- Create array of valid plugin specs
@@ -62,8 +61,8 @@ end
 add_if_valid(ale_module)
 add_if_valid(vimtex_module)
 -- add_if_valid(lean_module)
--- add_if_valid(jupyter_module)
 add_if_valid(markdown_preview_module)
+
 
 -- Return only valid plugin specs
 return plugins
