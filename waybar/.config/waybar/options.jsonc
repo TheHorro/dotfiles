@@ -12,6 +12,7 @@
   "margin-right": 3,
   "margin-bottom": 0,
   "height": 31,
+  "reload_style_on_change": true,
 
   "hyprland/workspaces": {
     "active-only": true,
@@ -21,8 +22,8 @@
     "on-scroll-down": "hyprctl dispatch workspace e-1",
     "show-special": false,
     "persistent-workspaces": {
-      "DP-2" : [1, 2, 3, 4, 5],
-      "DP-3" : [11, 12, 13, 14, 15] 
+      "DP-2": [1, 2, 3, 4, 5],
+      "DP-3": [11, 12, 13, 14, 15],
     },
     "format": "{icon}{name}",
     "format-icons": {
@@ -37,14 +38,12 @@
     "tooltip": true,
     "hwmon-path": [
       "/sys/class/hwmon/hwmon1/temp1_input",
-      "/sys/class/thermal/thermal_zone0/temp"
+      "/sys/class/thermal/thermal_zone0/temp",
     ],
     "critical-threshold": 82,
     "format-critical": "{temperatureC}°C {icon}",
     "format": "{temperatureC}°C {icon}",
-    "format-icons": [
-      "󰈸"
-    ],
+    "format-icons": ["󰈸"],
   },
 
   "bluetooth": {
@@ -71,7 +70,7 @@
     "on-click-forward": "tz_up",
     "on-click-backward": "tz_down",
     "on-scroll-up": "shift_up",
-    "on-scroll-down": "shift_down"
+    "on-scroll-down": "shift_down",
   },
 
   "cpu": {
@@ -96,7 +95,7 @@
     "format-icons": {
       "activated": " ",
       "deactivated": " ",
-    }
+    },
   },
 
   "memory": {
@@ -106,7 +105,7 @@
     "format-alt-click": "click",
     "tooltip": true,
     "tooltip-format": "{used:0.1f}GB/{total:0.1f}G",
-    "on-click-right": "$HOME/.config/hypr/scripts/WaybarScripts.sh --btop"
+    "on-click-right": "$HOME/.config/hypr/scripts/WaybarScripts.sh --btop",
   },
 
   "mpris": {
@@ -151,10 +150,8 @@
     "tooltip-format-ethernet": "{ifname} 󰌘",
     "tooltip-format-disconnected": "󰌙 Disconnected",
     "max-length": 30,
-    "format-icons": [
-      "󰤯", "󰤟", "󰤢", "󰤥", "󰤨"
-    ],
-    "on-click-right": "$HOME/.config/hypr/scripts/WaybarScripts.sh --nmtui"
+    "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
+    "on-click-right": "$HOME/.config/hypr/scripts/WaybarScripts.sh --nmtui",
   },
 
   "network#speed": {
@@ -170,9 +167,7 @@
     "tooltip-format-disconnected": "󰌙 Disconnected",
     "min-length": 24,
     "max-length": 24,
-    "format-icons": [
-      "󰤯", "󰤟", "󰤢", "󰤥", "󰤨"
-    ]
+    "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
   },
 
   "pulseaudio#sound": {
@@ -186,12 +181,8 @@
       "phone": " ",
       "portable": " ",
       "car": " ",
-      "default": [
-        "", " ", "󰕾 ",  " "
-      ],
-      "ignored-sinks": [
-        "Easy Effects Sink"
-      ],
+      "default": ["", " ", "󰕾 ", " "],
+      "ignored-sinks": ["Easy Effects Sink"],
     },
     "scroll-step": 5.0,
     "on-click": "$HOME/.config/hypr/scripts/Volume.sh --toggle",
@@ -243,7 +234,7 @@
       "inhibited-notification": "<span foreground='red'><sup></sup></span>",
       "inhibited-none": "",
       "dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
-      "dnd-inhibited-none": ""
+      "dnd-inhibited-none": "",
     },
     "return-type": "json",
     "exec-if": "which swaync-client",
@@ -265,7 +256,6 @@
     "on-scroll-up": "playerctl position 5+",
     "on-scroll-down": "playerctl position 5-",
     "escape": true,
-    "tooltip": true
+    "tooltip": true,
   },
-
 }
