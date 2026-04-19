@@ -4,8 +4,8 @@
 players=$(playerctl -l 2>/dev/null)
 
 if [ -z "$players" ]; then
-    echo '{"text":"󰝛","class":"idle","tooltip":"No media detected"}'
-    exit 0
+  echo '{"text":"󰝛","class":"idle","tooltip":"No media detected"}'
+  exit 0
 fi
 
 active=""
@@ -13,35 +13,35 @@ state=""
 
 # Priority 1: Find Playing media
 for player in $players; do
-    status=$(playerctl -p "$player" status 2>/dev/null)
-    if [ "$status" = "Playing" ]; then
-        active="$player"
-        state="playing"
-        break
-    fi
+  status=$(playerctl -p "$player" status 2>/dev/null)
+  if [ "$status" = "Playing" ]; then
+    active="$player"
+    state="playing"
+    break
+  fi
 done
 
 # Priority 2: Fallback to Paused
 if [ -z "$active" ]; then
-    for player in $players; do
-        status=$(playerctl -p "$player" status 2>/dev/null)
-        if [ "$status" = "Paused" ]; then
-            active="$player"
-            state="paused"
-            break
-        fi
-    done
+  for player in $players; do
+    status=$(playerctl -p "$player" status 2>/dev/null)
+    if [ "$status" = "Paused" ]; then
+      active="$player"
+      state="paused"
+      break
+    fi
+  done
 fi
 
 # Priority 3: First available
 if [ -z "$active" ]; then
-    active=$(echo "$players" | head -1)
-    state="idle"
+  active=$(echo "$players" | head -1)
+  state="idle"
 fi
 
 if [ -z "$active" ]; then
-    echo '{"text":"󰝛","class":"idle","tooltip":"No media playing"}'
-    exit 0
+  echo '{"text":"󰝛","class":"idle","tooltip":"No media playing"}'
+  exit 0
 fi
 
 # Get metadata
@@ -57,7 +57,7 @@ player_name=${player_name:-Media Player}
 
 # Escape special characters for JSON
 escape_json() {
-    echo "$1" | sed 's/\\/\\\\/g; s/"/\\"/g; s/$/\\n/g' | tr -d '\n' | sed 's/\\n$//'
+  echo "$1" | sed 's/\\/\\\\/g; s/"/\\"/g; s/$/\\n/g' | tr -d '\n' | sed 's/\\n$//'
 }
 
 title=$(escape_json "$title")
@@ -67,16 +67,16 @@ player_name=$(escape_json "$player_name")
 
 # Icon based on state
 case "$state" in
-    playing) icon="󰎈" ;;
-    paused) icon="󰏤" ;;
-    *) icon="󰝛" ;;
+  playing) icon="󰎈" ;;
+  paused) icon="󰏤" ;;
+  *) icon="󰝛" ;;
 esac
 
 # Build display text
 if [ "$artist" != "Unknown Artist" ]; then
-    text="$artist - $title"
+  text="$artist - $title"
 else
-    text="$title"
+  text="$title"
 fi
 
 # Build tooltip (escape newlines properly)

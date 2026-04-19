@@ -1,7 +1,7 @@
 #!/bin/bash
 # Scripts for refreshing waybar, rofi, swaync
 
-WALLPAPER=$HOME/.config/hypr/wallpapers/stairs.jpg
+# WALLPAPER=$HOME/.config/hypr/wallpapers/forest.jpg
 
 # Define file_exists function
 file_exists() {
@@ -22,12 +22,16 @@ done
 
 # added since wallust sometimes not applying
 killall -SIGUSR2 waybar 
+killall hyprpaper
+killall swaync
+
+matugen image $WALLPAPER
 
 # quit ags & relaunch ags
 #ags -q && ags &
 
 # some process to kill
-for pid in $(pidof waybar rofi swaync swaybg); do
+for pid in $(pidof waybar rofi swaync hyprpaper); do
     kill -SIGUSR1 "$pid"
 done
 
@@ -41,6 +45,7 @@ swaync > /dev/null 2>&1 &
 # reload swaync
 swaync-client --reload-config
 # reload wallpaper
-swaybg -i $WALLPAPER -m fill
+# swaybg -i $WALLPAPER -m fill
+hyprpaper
 
 exit 0
