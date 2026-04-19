@@ -1,61 +1,77 @@
+@import "colors.css";
+
 * {
-    background-image: none;
-    box-shadow: none;
+  background-image: none;
+  box-shadow: none;
 }
 
 window {
-    background-color: rgba(0, 0, 0, 0.9);
+  font-family: GeistMono Nerd Font Propo;
+  font-size: 16pt;
+  color: @foreground; /* text */
+  background-color: @surface-alpha;
 }
 
 button {
-    background-color: rgba(0, 0, 0, 0.8);
-    border: 1px solid #00ff00;
-    border-radius: 10px;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 25%;
-    margin: 20px;
-    transition: all 0.3s ease;
-}
-
-button:hover {
-    background-color: rgba(0, 255, 0, 0.2);
-    border: 3px solid #00ff00;
-    background-size: 30%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 20%;
+  background-color: transparent;
+  animation: gradient_f 20s ease-in infinite;
+  transition: all 0.3s ease-in;
+  box-shadow: 0 0 10px 2px transparent;
+  border-radius: 36px;
+  margin: 10px;
 }
 
 button:focus {
-    background-color: rgba(0, 255, 0, 0.3);
-    border: 3px solid #7fff00;
+  box-shadow: none;
+  outline-style: none;
+  background-size: 20%;
 }
 
-#lock {
-    background-image: url("/home/Horro/.config/wlogout/icons/lock.svg");
-}
-
-#logout {
-    background-image: url("/home/Horro/.config/wlogout/icons/logout.svg");
-}
-
-#suspend {
-    background-image: url("/home/Horro/.config/wlogout/icons/suspend.svg");
-}
-
-#hibernate {
-    background-image: url("/home/Horro/.config/wlogout/icons/hibernate.svg");
+button:hover {
+  background-size: 27%;
+  outline-style: none;
+  box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.4);
+  background-color: @primary;
+  color: transparent;
+  transition:
+    all 0.3s cubic-bezier(0.55, 0, 0.28, 1.682),
+    box-shadow 0.5s ease-in;
 }
 
 #shutdown {
-    background-image: url("/home/Horro/.config/wlogout/icons/shutdown.svg");
+  background-image: image(url("./icons/power.png"));
+}
+#shutdown:hover {
+  background-image: image(url("./icons/power-hover.png"));
+}
+
+#logout {
+  background-image: image(url("./icons/logout.png"));
+}
+#logout:hover {
+  background-image: image(url("./icons/logout-hover.png"));
 }
 
 #reboot {
-    background-image: url("/home/Horro/.config/wlogout/icons/reboot.svg");
+  background-image: image(url("./icons/restart.png"));
+}
+#reboot:hover {
+  background-image: image(url("./icons/restart-hover.png"));
 }
 
-label {
-    color: #00ff00;
-    font-size: 16px;
-    font-weight: bold;
-    margin-top: 10px;
+#lock {
+  background-image: image(url("./icons/lock.png"));
+}
+#lock:hover {
+  background-image: image(url("./icons/lock-hover.png"));
+}
+
+#sleep {
+  background-image: image(url("./icons/hibernate.png"));
+}
+#sleep:hover {
+  background-image: image(url("./icons/hibernate-hover.png"));
 }
