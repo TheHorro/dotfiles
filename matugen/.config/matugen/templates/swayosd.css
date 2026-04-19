@@ -1,0 +1,51 @@
+:root {
+    /* ── Primary ──────────────────────────── */
+    --primary:              {{colors.primary.dark.hex}};
+    --on-primary:           {{colors.on_primary.dark.hex}};
+    --primary-container:    {{colors.primary_container.dark.hex}};
+    --on-primary-container: {{colors.on_primary_container.dark.hex}};
+
+    /* ── Secondary ────────────────────────── */
+    --secondary:              {{colors.secondary.dark.hex}};
+    --on-secondary:           {{colors.on_secondary.dark.hex}};
+    --secondary-container:    {{colors.secondary_container.dark.hex}};
+    --on-secondary-container: {{colors.on_secondary_container.dark.hex}};
+
+    /* ── Tertiary ─────────────────────────── */
+    --tertiary:              {{colors.tertiary.dark.hex}};
+    --on-tertiary:           {{colors.on_tertiary.dark.hex}};
+    --tertiary-container:    {{colors.tertiary_container.dark.hex}};
+    --on-tertiary-container: {{colors.on_tertiary_container.dark.hex}};
+
+    /* ── Error ────────────────────────────── */
+    --error:              {{colors.error.dark.hex}};
+    --on-error:           {{colors.on_error.dark.hex}};
+    --error-container:    {{colors.error_container.dark.hex}};
+    --on-error-container: {{colors.on_error_container.dark.hex}};
+
+    /* ── Surface ──────────────────────────── */
+    --surface:                {{colors.surface.dark.hex}};
+    --on-surface:             {{colors.on_surface.dark.hex}};
+    --surface-variant:        {{colors.surface_variant.dark.hex}};
+    --on-surface-variant:     {{colors.on_surface_variant.dark.hex}};
+    --surface-container:      {{colors.surface_container.dark.hex}};
+    --surface-container-high: {{colors.surface_container_high.dark.hex}};
+    --surface-container-low:  {{colors.surface_container_low.dark.hex}};
+    --surface-bright:         {{colors.surface_bright.dark.hex}};
+    --surface-dim:            {{colors.surface_dim.dark.hex}};
+
+    /* ── Background ───────────────────────── */
+    --background:    {{colors.background.dark.hex}};
+    --on-background: {{colors.on_background.dark.hex}};
+
+    /* ── Outline ──────────────────────────── */
+    --outline:         {{colors.outline.dark.hex}};
+    --outline-variant: {{colors.outline_variant.dark.hex}};
+
+    /* ── Misc ─────────────────────────────── */
+    --shadow:           {{colors.shadow.dark.hex}};
+    --scrim:            {{colors.scrim.dark.hex}};
+    --inverse-surface:  {{colors.inverse_surface.dark.hex}};
+    --inverse-on-surface: {{colors.inverse_on_surface.dark.hex}};
+    --inverse-primary:  {{colors.inverse_primary.dark.hex}};
+}

@@ -1,0 +1,59 @@
+@import url("colors.css");
+
+/* ─── OSD Container ─────────────────────────────────────── */
+window#osd {
+  background-color: var(--background);
+  border: 1px solid var(--outline);
+  border-radius: 16px;
+  box-shadow: 0 4px 24px var(--shadow);
+  padding: 12px 20px;
+  color: var(--on-surface);
+}
+
+/* ─── Progress Bar track ────────────────────────────────── */
+progressbar trough {
+  background-color: var(--surface-variant);
+  border-radius: 8px;
+  min-height: 6px;
+}
+
+/* ─── Progress Bar fill ─────────────────────────────────── */
+progressbar progress,
+progressbar.osd progress {
+  background-color: var(--primary);
+  border-radius: 8px;
+  min-height: 6px;
+}
+
+/* ─── Mute state — error color ──────────────────────────── */
+progressbar.osd.muted progress {
+  background-color: var(--error);
+}
+
+/* ─── Overamplified (>100%) — tertiary color ────────────── */
+progressbar.osd.overamplified progress {
+  background-color: var(--tertiary);
+}
+
+/* ─── Icons ─────────────────────────────────────────────── */
+image {
+  color: var(--on-surface);
+  margin-right: 12px;
+}
+
+/* ─── Labels ────────────────────────────────────────────── */
+label {
+  color: var(--on-surface);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+/* ─── Layout ────────────────────────────────────────────── */
+box#icon_and_progressbar {
+  padding: 4px 0;
+}
+
+box#container {
+  margin: 4px 0;
+}
