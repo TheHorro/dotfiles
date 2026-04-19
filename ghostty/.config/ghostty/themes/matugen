@@ -1,0 +1,23 @@
+background = 0f1417
+foreground = dfe3e7
+cursor-color = dff3ff
+cursor-text = 000000
+selection-background = b0c6d2
+selection-foreground = 000000
+
+palette = 0=0f1417
+palette = 1=ffece9
+palette = 2=f2eeff
+palette = 3=dff3ff
+palette = 4=dff3ff
+palette = 5=c3bee6
+palette = 6=88cbec
+palette = 7=ffffff
+palette = 8=40484c
+palette = 9=ffaea4
+palette = 10=f2eeff
+palette = 11=dff3ff
+palette = 12=dff3ff
+palette = 13=c3bee6
+palette = 14=88cbec
+palette = 15=dfe3e7
