@@ -4,6 +4,7 @@ command_timeout = 1000
 add_newline = false
 
 format = """
+$conda\
 $os$directory \
 ${custom.giturl} \
 $git_branch \
@@ -164,3 +165,9 @@ format = '[ $time]($style)'
 # [transient_character]
 # success_symbol = '[❯](bold green)'
 # error_symbol = '[❯](bold red)'
+
+[conda]
+format = "[$symbol$environment](bold green) "
+# symbol = "🐍 "
+ignore_base = true   # zeigt "base" nicht an, nur benannte Envs
+
