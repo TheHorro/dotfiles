@@ -19,6 +19,7 @@
     "modules-left": ["hyprland/workspaces"],
     "modules-center": ["clock"],
     "modules-right": [
+      "network",
       "network#speed",
       "cpu",
       "memory",
