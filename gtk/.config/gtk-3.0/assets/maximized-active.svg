@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg viewBox="0 0 50 50"
+ xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.2" baseProfile="tiny">
+<title>Qt SVG Document</title>
+<desc>Generated with Qt</desc>
+<defs>
+<linearGradient gradientUnits="userSpaceOnUse" x1="52" y1="32.6" x2="38" y2="31.6" id="gradient1">
+    <stop offset="0" stop-color="#006edb" stop-opacity="1" />
+    <stop offset="1" stop-color="#00e500" stop-opacity="1" />
+</linearGradient>
+</defs>
+<g fill="none" stroke="black" stroke-width="1" fill-rule="evenodd" stroke-linecap="square" stroke-linejoin="bevel" >
+
+<g fill="#ffffff" fill-opacity="1" stroke="none" transform="matrix(2.77778,0,0,2.77778,-101.389,-68.3333)"
+font-family="Noto Sans" font-size="10" font-weight="400" font-style="normal" 
+opacity="3.92157e-05" >
+<rect x="36.5" y="24.6" width="18" height="18"/>
+</g>
+
+<g fill="url(#gradient1)" stroke="none" transform="matrix(2.77778,0,0,2.77778,-101.389,-68.3333)"
+font-family="Noto Sans" font-size="10" font-weight="400" font-style="normal" 
+opacity="0.9" >
+<ellipse cx="45.5" cy="33.6" rx="8" ry="8"/>
+</g>
+
+<g fill="#000000" fill-opacity="1" stroke="none" transform="matrix(2.77778,0,0,2.77778,-101.389,-68.3333)"
+font-family="Noto Sans" font-size="10" font-weight="400" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="nonzero" d="M41,29.6 L41,37.6 L50,37.6 L50,29.6 L41,29.6 M42,30.6 L49,30.6 L49,36.6 L42,36.6 L42,30.6"/>
+</g>
+
+<g fill="none" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
+font-family="Noto Sans" font-size="10" font-weight="400" font-style="normal" 
+>
+</g>
+</g>
+</svg>
