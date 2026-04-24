@@ -63,11 +63,12 @@ zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 alias ls='lsd'
 alias ll='ls -lAh'
 alias vim='nvim'
-alias c='clear'
+alias c='reset && fastfetch'
 alias ..='cd ..'
 alias ...='cd ..;cd ..'
 alias md='mkdir -p'
 alias ip='ip --color'
+alias clear='c'
 
 ZVM_LINE_INIT_WIDGET="zle-line-init"
 
@@ -198,3 +199,6 @@ eval "$(direnv hook zsh)"
 
 export ROCM_PATH=/opt/rocm
 export HSA_OVERRIDE_GFX_VERSION=10.3.0
+
+clear
+
