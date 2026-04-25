@@ -18,8 +18,8 @@
     "active-only": true,
     "all-outputs": false,
     "on-click": "activate",
-    "on-scroll-up": "hyprctl dispatch workspace e+1",
-    "on-scroll-down": "hyprctl dispatch workspace e-1",
+    "on-scroll-up": "hyprctl dispatch split-cycleworkspaces -1",
+    "on-scroll-down": "hyprctl dispatch split-cycleworkspaces +1",
     "show-special": false,
     "persistent-workspaces": {
       "DP-2": [1, 2, 3, 4, 5],
@@ -30,7 +30,10 @@
       "active": "󰮯 ",
       "empty": " ",
       "default": "󰊠 ",
+      "urgent": " ",
+      //"visible": " ", // focused workspace on other monitors
     },
+    "all-outputs": false,
   },
 
   "temperature": {
