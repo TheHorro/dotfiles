@@ -28,4 +28,19 @@
       "custom/power",
     ],
   },
+  {
+    // config for monitor eDP-1
+    "output": "eDP-1",
+    "include": ["$HOME/.config/waybar/options.jsonc"],
+    "modules-left": ["hyprland/workspaces", "tray"],
+    "modules-center": ["clock"],
+    "modules-right": [
+      "custom/music",
+      "pulseaudio#sound",
+      "network",
+      "battery",
+      "custom/swaync",
+    ],
+  },
+
 ]

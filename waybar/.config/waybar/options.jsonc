@@ -22,6 +22,7 @@
     "on-scroll-down": "hyprctl dispatch split-cycleworkspaces +1",
     "show-special": false,
     "persistent-workspaces": {
+      "eDP-1": [1, 2, 3, 4, 5],
       "DP-2": [1, 2, 3, 4, 5],
       "DP-3": [11, 12, 13, 14, 15],
     },
@@ -47,6 +48,17 @@
     "format-critical": "{temperatureC}°C {icon}",
     "format": "{temperatureC}°C {icon}",
     "format-icons": ["󰈸"],
+  },
+  "battery": {
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon} {capacity}%",
+    "format-charging": "{icon} {capacity}% ",
+    "format-plugged": "{icon} {capacity}% ",
+    "format-icons": ["", "", "", "", ""],
+    "interval": 60,
   },
 
   "bluetooth": {
@@ -145,7 +157,7 @@
   "network": {
     "interval": 1,
     "format": "{ifname}",
-    "format-wifi": "{icon}",
+    "format-wifi": "{icon} {essid}",
     "format-ethernet": "󰌘 {ifname} {ipaddr}",
     "format-disconnected": "󰌙",
     "tooltip-format": "{ifname}",
