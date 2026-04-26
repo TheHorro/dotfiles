@@ -167,7 +167,7 @@
     "tooltip-format-disconnected": "󰌙 Disconnected",
     "max-length": 30,
     "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
-    "on-click-right": "$HOME/.config/hypr/scripts/WaybarScripts.sh --nmtui",
+    "on-click": "nm-connection-editor",
   },
 
   "network#speed": {
