@@ -8,7 +8,7 @@
 window {
   font-family: GeistMono Nerd Font Propo;
   font-size: 16pt;
-  color: @foreground; /* text */
+  color: @primary; /* text */
   background-color: @surface-alpha;
 }
 
@@ -25,21 +25,25 @@ button {
 }
 
 button:focus {
-  box-shadow: none;
-  outline-style: none;
   background-size: 20%;
-}
-
-button:hover {
-  background-size: 27%;
   outline-style: none;
   box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.4);
-  background-color: @primary;
-  color: transparent;
+  background-color: @surface;
   transition:
     all 0.3s cubic-bezier(0.55, 0, 0.28, 1.682),
     box-shadow 0.5s ease-in;
 }
+
+/* button:hover { */
+/*   background-size: 27%; */
+/*   outline-style: none; */
+/*   box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.4); */
+/*   background-color: @primary; */
+/*   color: transparent; */
+/*   transition: */
+/*     all 0.3s cubic-bezier(0.55, 0, 0.28, 1.682), */
+/*     box-shadow 0.5s ease-in; */
+/* } */
 
 #shutdown {
   background-image: image(url("./icons/power.png"));

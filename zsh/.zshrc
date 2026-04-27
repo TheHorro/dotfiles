@@ -69,6 +69,7 @@ alias ...='cd ..;cd ..'
 alias md='mkdir -p'
 alias ip='ip --color'
 alias clear='c'
+alias vi='nvim'
 
 ZVM_LINE_INIT_WIDGET="zle-line-init"
 
