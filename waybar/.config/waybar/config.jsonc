@@ -37,6 +37,7 @@
     "modules-right": [
       "custom/music",
       "pulseaudio#sound",
+      "bluetooth",
       "network",
       "battery",
       "custom/swaync",
