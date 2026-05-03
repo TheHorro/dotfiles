@@ -1,54 +1,134 @@
+//  and  for rounded block edges.
+//  and  for angled branch-like separators.
+// │, ├, and └ if you want a literal tree look.
+//  if you want a branch/commit-style symbol, though it reads more like git 
+
+// OS:  — the Garuda-style logo icon used for the OS line.
+// Kernel:  — a generic kernel/system glyph used in many Nerd Font setups.
+// Packages: 󰏖  — the package box icon.
+// Shell:  or a similar terminal/shell glyph; the screenshot shows a fish shell entry, but the exact glyph can vary by font.
+// DE:  -style desktop-environment glyph is common, but in this config it appears as a boxed desktop icon rather than a literal distro logo
+
+
 {
   "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
 
   "logo": {
     // "source": "~/.config/fastfetch/arch.png",
-    "type": "data",
-    "height": 10,
+    "type": "builtin",
+    "height": 30,
     "width": 18,
     "padding": {
-      "top": 1,
+      "top": 1
     },
+  },
+  "display": {
+    "separator": " ",
+    "brightColor": true,
+    "showErrors": true,
+    "hideCursor": true,
+    "key" : {
+    //   "width" : 6,
+      "type": "string"
+    },
+    "size": {
+      "binaryPrefix": "iec"
+    },
+    "temp": {
+      "unit" : "K"
+    },
+    "bar" : {
+      // "char" : {
+      //   "elapsed": "x",
+      //   "total": "v"
+      // },
+      "width": 20
+    }
   },
   "modules": [
     {
       "type": "title",
       "key": " ",
     },
-    "separator",
+    "break",
     {
       "type": "os",
-      "key": " ",
-      "keyColor": "red",
+      "key": " OS",
+      // "keyColor": "red",
     },
-    "host",
-    "kernel",
+    // "host",
+    {
+      "type": "kernel",
+      "key": "├ Kernel",
+      // "keyColor": "red",
+    },
     {
       "type": "packages",
-      "key": "󰮯 ",
-      "keyColor": "yellow",
+      "key": "├󰏖 packages",
+      // "keyColor": "yellow",
     },
     {
       "type": "shell",
-      "key": "󰈺 ",
-      "keyColor": "white",
+      "key": "├ shell",
+      // "keyColor": "white",
     },
-    "de",
-    "wm",
-    "font",
-    "cursor",
+    {
+      "type": "uptime",
+      "key" : "└ uptime",
+      // "keycolor" : "cyan"
+    },
+    "break",
+    {
+      "type":"wm",
+      "key": "󰨇 WM"
+    },
+    {
+      "type" : "de",
+      "key" : "  DE"
+    },
+    { 
+      "type": "font", 
+      "key": " Font"
+    },
+    {
+      "type":   "cursor",
+      "key" : "󰆿 Cursor"
+    },
     {
       "type": "terminal",
-      "key": " ",
-      "keyColor": "magenta",
+      "key": "├ terminal"
     },
-    "terminalfont",
-    "cpu",
-    "gpu",
-    "memory",
-    "swap",
-    "localip",
-    "uptime",
+    {
+      "type": "terminalfont",
+      "key" : "├  TerminalFont"
+    },
+    "break",
+    {
+    "type" :"host",
+    "key" : "󰌢  Host"
+    },
+
+    {
+      "type": "cpu",
+      "key" : "├󰻠 CPU",
+    },
+    {
+      "type": "gpu",
+      "key" : "├ GPU",
+    },
+    {
+      "type": "memory",
+      "key" : "├ Memory",
+      "format": "{used}/{total}",
+      // "keycolor" : "cyan"
+    },
+
+    // "swap",
+    {
+      "type": "localip",
+      "key" : "󰩟 IP",
+      "keycolor" : "cyan"
+    },
     "break",
     "colors",
   ],
