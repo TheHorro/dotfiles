@@ -16,13 +16,14 @@
   "logo": {
     // "source": "~/.config/fastfetch/arch.png",
     "type": "builtin",
-    "height": 30,
-    "width": 18,
+    "height": 18,
+    "width": 15,
     "padding": {
-      "top": 1
+      "top": 3
     },
   },
   "display": {
+    // "stat": true,
     "separator": " ",
     "brightColor": true,
     "showErrors": true,
@@ -54,28 +55,22 @@
     {
       "type": "os",
       "key": " OS",
-      // "keyColor": "red",
     },
-    // "host",
     {
       "type": "kernel",
       "key": "├ Kernel",
-      // "keyColor": "red",
     },
     {
       "type": "packages",
       "key": "├󰏖 packages",
-      // "keyColor": "yellow",
     },
     {
       "type": "shell",
       "key": "├ shell",
-      // "keyColor": "white",
     },
     {
       "type": "uptime",
       "key" : "└ uptime",
-      // "keycolor" : "cyan"
     },
     "break",
     {
@@ -83,29 +78,38 @@
       "key": "󰨇 WM"
     },
     {
-      "type" : "de",
-      "key" : "  DE"
-    },
-    { 
-      "type": "font", 
-      "key": " Font"
-    },
-    {
-      "type":   "cursor",
-      "key" : "󰆿 Cursor"
+      "type": "lm",
+      "key": "├󰍂 LM"
+
     },
     {
       "type": "terminal",
       "key": "├ terminal"
     },
+    // {
+    //   "type": "terminalfont",
+    //   "key" : "├ TerminalFont"
+    // },
     {
-      "type": "terminalfont",
-      "key" : "├  TerminalFont"
+      "type": "theme",
+      "key" : "├󰔎 Theme"
+    },
+    // {
+    //   "type": "terminaltheme",
+    //   "key" : "├ TerminalFont"
+    // },
+    { 
+      "type": "font", 
+      "key": "├ Font"
+    },
+    {
+      "type": "cursor",
+      "key" : "└󰆿 Cursor"
     },
     "break",
     {
-    "type" :"host",
-    "key" : "󰌢  Host"
+      "type" :"host",
+      "key" : "󰌢 Host"
     },
 
     {
@@ -116,18 +120,32 @@
       "type": "gpu",
       "key" : "├ GPU",
     },
+    // {
+    //   "type": "tpm",
+    //   "key" : "├ TPM",
+    // },
     {
       "type": "memory",
-      "key" : "├ Memory",
-      "format": "{used}/{total}",
+      "key" : "├ Memory",
+      // "format": "{used}/{total}",
       // "keycolor" : "cyan"
     },
-
-    // "swap",
     {
-      "type": "localip",
-      "key" : "󰩟 IP",
-      "keycolor" : "cyan"
+      "type": "disk",
+      "key": "├ Disk [{mountpoint}]",
+
+    },
+    {
+      "type": "monitor",
+      "key": "├󰍹 Monitor"
+    },
+    {
+      "type": "wifi",
+      "key" : "├󰖩 WIFI",
+    },
+    {
+      "type": "publicip",
+      "key" : "└󰩟 IP",
     },
     "break",
     "colors",
