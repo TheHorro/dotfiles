@@ -11,7 +11,7 @@
   "margin-left": 3,
   "margin-right": 3,
   "margin-bottom": 0,
-  "height": 31,
+  "height": 20,
   "reload_style_on_change": true,
 
   "hyprland/workspaces": {
@@ -52,7 +52,7 @@
   "battery": {
     "states": {
       "warning": 30,
-      "critical": 15
+      "critical": 15,
     },
     "format": "{icon} {capacity}%",
     "format-charging": "{icon} {capacity}% ",
@@ -234,7 +234,7 @@
     "tooltip-format": "Logout Menu",
   },
   "tray": {
-    "icon-size": 18,
+    "icon-size": 10,
     "spacing": 4,
   },
 
