@@ -1,0 +1,22 @@
+hl.config({
+	input = {
+		kb_layout = "us",
+		kb_variant = "altgr-intl",
+		kb_model = "",
+		kb_options = "nodeadkeys",
+		kb_rules = "",
+		repeat_rate = 50,
+		repeat_delay = 300,
+
+		sensitivity = 0,
+		accel_profile = "flat",
+		numlock_by_default = true,
+		left_handed = false,
+		follow_mouse = true,
+		float_switch_override_focus = false,
+
+		touchpad = {
+			natural_scroll = false,
+		},
+	},
+})
