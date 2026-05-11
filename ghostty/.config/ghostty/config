@@ -2,8 +2,8 @@
 shell-integration = zsh
 
 # theme = Apple System Colors
-theme = Builtin Dark
-# theme = matugen
+# theme = Builtin Dark
+theme = matugen
 # theme = Dark Pastel
 background = #000000
 background-opacity = 0.8

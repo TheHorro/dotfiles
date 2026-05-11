@@ -234,7 +234,7 @@
     "tooltip-format": "Logout Menu",
   },
   "tray": {
-    "icon-size": 10,
+    "icon-size": 12,
     "spacing": 4,
   },
 
