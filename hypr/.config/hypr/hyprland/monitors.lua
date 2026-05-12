@@ -35,8 +35,5 @@ hl.monitor({
 
 for i = 1, 10 do
 	hl.workspace_rule({ workspace = tostring(i), monitor = "DP-2" })
-end
-
-for i = 11, 20 do
-	hl.workspace_rule({ workspace = tostring(i), monitor = "DP-3" })
+	hl.workspace_rule({ workspace = tostring(i + 10), monitor = "DP-3" })
 end
