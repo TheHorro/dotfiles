@@ -1,12 +1,15 @@
-require("colors")
+package.path = package.path .. ";../?.lua"
+local colors = require("colors")
 
 hl.config({
 	general = {
 		gaps_in = 1,
 		gaps_out = 4,
 		border_size = 2,
-		-- ["col.active_border"] = "$outline",
-		-- ["col.inactive_border"] = "$on_primary",
+		col = {
+			active_border = { colors = { colors.primary_hex } },
+			inactive_border = { colors = { colors.background_hex } },
+		},
 		resize_on_border = false,
 		allow_tearing = true,
 		layout = "dwindle",
@@ -20,7 +23,7 @@ hl.config({
 			enabled = true,
 			range = 2,
 			render_power = 3,
-			color = "rgba(1a1a1aee)",
+			color = colors.shadow_hex,
 		},
 
 		blur = {
