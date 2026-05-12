@@ -1,14 +1,13 @@
 //  and  for rounded block edges.
 //  and  for angled branch-like separators.
 // │, ├, and └ if you want a literal tree look.
-//  if you want a branch/commit-style symbol, though it reads more like git 
+//  if you want a branch/commit-style symbol, though it reads more like git
 
 // OS:  — the Garuda-style logo icon used for the OS line.
 // Kernel:  — a generic kernel/system glyph used in many Nerd Font setups.
 // Packages: 󰏖  — the package box icon.
 // Shell:  or a similar terminal/shell glyph; the screenshot shows a fish shell entry, but the exact glyph can vary by font.
 // DE:  -style desktop-environment glyph is common, but in this config it appears as a boxed desktop icon rather than a literal distro logo
-
 
 {
   "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
@@ -19,7 +18,7 @@
     "height": 18,
     "width": 15,
     "padding": {
-      "top": 3
+      "top": 3,
     },
   },
   "display": {
@@ -28,23 +27,23 @@
     "brightColor": true,
     "showErrors": true,
     "hideCursor": true,
-    "key" : {
-    //   "width" : 6,
-      "type": "string"
+    "key": {
+      //   "width" : 6,
+      "type": "string",
     },
     "size": {
-      "binaryPrefix": "iec"
+      "binaryPrefix": "iec",
     },
     "temp": {
-      "unit" : "K"
+      "unit": "K",
     },
-    "bar" : {
+    "bar": {
       // "char" : {
       //   "elapsed": "x",
       //   "total": "v"
       // },
-      "width": 20
-    }
+      "width": 20,
+    },
   },
   "modules": [
     {
@@ -70,21 +69,20 @@
     },
     {
       "type": "uptime",
-      "key" : "└ uptime",
+      "key": "└ uptime",
     },
     "break",
     {
-      "type":"wm",
-      "key": "󰨇 WM"
+      "type": "wm",
+      "key": "󰨇 WM",
     },
     {
       "type": "lm",
-      "key": "├󰍂 LM"
-
+      "key": "├󰍂 LM",
     },
     {
       "type": "terminal",
-      "key": "├ terminal"
+      "key": "├ terminal",
     },
     // {
     //   "type": "terminalfont",
@@ -92,33 +90,33 @@
     // },
     {
       "type": "theme",
-      "key" : "├󰔎 Theme"
+      "key": "├󰔎 Theme",
     },
     // {
     //   "type": "terminaltheme",
     //   "key" : "├ TerminalFont"
     // },
-    { 
-      "type": "font", 
-      "key": "├ Font"
+    {
+      "type": "font",
+      "key": "├ Font",
     },
     {
       "type": "cursor",
-      "key" : "└󰆿 Cursor"
+      "key": "└󰆿 Cursor",
     },
     "break",
     {
-      "type" :"host",
-      "key" : "󰌢 Host"
+      "type": "host",
+      "key": "󰌢 Host",
     },
 
     {
       "type": "cpu",
-      "key" : "├󰻠 CPU",
+      "key": "├󰻠 CPU",
     },
     {
       "type": "gpu",
-      "key" : "├ GPU",
+      "key": "├ GPU",
     },
     // {
     //   "type": "tpm",
@@ -126,26 +124,25 @@
     // },
     {
       "type": "memory",
-      "key" : "├ Memory",
+      "key": "├ Memory",
       // "format": "{used}/{total}",
       // "keycolor" : "cyan"
     },
     {
       "type": "disk",
       "key": "├ Disk [{mountpoint}]",
-
     },
     {
       "type": "monitor",
-      "key": "├󰍹 Monitor"
+      "key": "├󰍹 Monitor",
     },
     {
       "type": "wifi",
-      "key" : "├󰖩 WIFI",
+      "key": "├󰖩 WIFI",
     },
     {
-      "type": "publicip",
-      "key" : "└󰩟 IP",
+      "type": "localip",
+      "key": "└󰩟 IP",
     },
     "break",
     "colors",

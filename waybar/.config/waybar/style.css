@@ -3,7 +3,7 @@
 
 * {
   font-family: "CaskaydiaCove Nerd Font", Roboto, Helvetica, Arial, sans-serif;
-  font-size: 13px;
+  font-size: 10px;
   font-feature-settings: '"zero", "ss01", "ss02", "ss03", "ss04", "ss05", "cv31"';
   min-height: 0;
   border: none;
@@ -17,7 +17,7 @@
 }
 
 #waybar {
-  background: rgba(0,0,0,0);
+  background: rgba(0, 0, 0, 0);
   color: @primary;
   transition: background-color 0.5s;
   border-radius: 0;
@@ -27,7 +27,9 @@
   padding-right: 0px;
 }
 
-window#waybar.hidden { opacity: 0.1; }
+window#waybar.hidden {
+  opacity: 0.1;
+}
 
 tooltip {
   background: @background;
@@ -36,36 +38,39 @@ tooltip {
 }
 
 /* Buttons: taskbar/workspaces - shared base */
-#taskbar button, #workspaces button {
-  background: transparent; 
+#taskbar button,
+#workspaces button {
+  background: transparent;
   box-shadow: none;
   text-shadow: none;
   padding: 4px;
   border-radius: 9px;
   animation: gradient_f 20s ease-in infinite;
-  transition: all 0.5s cubic-bezier(0.55,-0.68,0.48,1.682);
+  transition: all 0.5s cubic-bezier(0.55, -0.68, 0.48, 1.682);
 }
 
 #taskbar button.active,
-#workspaces button.active { 
+#workspaces button.active {
   /* color: #ff7a93; */
   color: @primary;
   padding: 4px 4px;
-  transition: all 0.3s cubic-bezier(0.55,-0.68,0.48,1.682); 
+  transition: all 0.3s cubic-bezier(0.55, -0.68, 0.48, 1.682);
 }
 
 #taskbar button:hover,
 #workspaces button:hover {
-  background: rgba(0,0,0,0.2);
+  background: rgba(0, 0, 0, 0.2);
   color: @on_primary;
   padding: 4px 4px;
-  transition: all 0.3s cubic-bezier(0.55,-0.68,0.48,1.682);
+  transition: all 0.3s cubic-bezier(0.55, -0.68, 0.48, 1.682);
 }
 #workspaces button.focused {
   background: #bbccdd;
   color: #b9f27c;
 }
-#workspaces button.urgent { background: #eb4d4b; }
+#workspaces button.urgent {
+  background: #eb4d4b;
+}
 #mode {
   background: #64727d;
   border-bottom: 3px solid #ffffff;
@@ -104,24 +109,50 @@ tooltip {
   transition: all 0.3s ease;
 }
 
-#custom-updater { color: #7287fd; }
-@keyframes blink { to { background: #ffffff; color: #333333; } }
-label:focus { background: #000000; }
+#custom-updater {
+  color: #7287fd;
+}
+@keyframes blink {
+  to {
+    background: #ffffff;
+    color: #333333;
+  }
+}
+label:focus {
+  background: #000000;
+}
 
-#backlight { color: #cdd6f4; }
-#bluetooth { color: #1e66f5; }
-#power, #custom-power {
+#backlight {
+  color: #cdd6f4;
+}
+#bluetooth {
+  color: #1e66f5;
+}
+#power,
+#custom-power {
   color: #cc3436;
   padding-left: 4px;
   padding-right: 0px;
 }
-#temperature.critical { background: #ff0000; }
-#custom-hypridle, #idle_inhibitor { color: #f9e2af; }
+#temperature.critical {
+  background: #ff0000;
+}
+#custom-hypridle,
+#idle_inhibitor {
+  color: #f9e2af;
+}
 
 /* Active indicators (green) */
-#custom-hypridle.notactive, #idle_inhibitor.activated { color: #39ff14; }
+#custom-hypridle.notactive,
+#idle_inhibitor.activated {
+  color: #39ff14;
+}
 
 #custom-logo {
-  font-size: 8px; background: url("icons/arch.png"); background-repeat: no-repeat; background-position: center; background-size: contain;
+  font-size: 8px;
+  background: url("icons/arch.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
   margin-left: 10px;
 }
