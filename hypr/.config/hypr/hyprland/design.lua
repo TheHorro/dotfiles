@@ -1,4 +1,4 @@
-local colors = loadfile("/home/Horro/.config/hypr/colors.lua") or {}
+local colors = loadfile(os.getenv("HOME") .. "/.config/hypr/colors.lua") or {}
 
 hl.config({
 	general = {
