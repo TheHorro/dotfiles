@@ -13,6 +13,7 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("wl-paste --type image --watch cliphist store")
 end)
 
+-- monitor options
 hl.monitor({
 	output = "*",
 	mode = "preferred",
@@ -48,16 +49,20 @@ hl.monitor({
 	cm = "srgb",
 })
 
+-- workspace assignment
 local curMon = hl.get_active_monitor()
 if curMon ~= nil then
-	if curMon.name == "eDP-1" then
-		for i = 1, 10 do
-			hl.workspace_rule({ workspace = tostring(i), monitor = "eDP-1" })
-		end
-	elseif curMon.name == "DP-2" or curMon.name == "DP-3" then
+	if curMon.name == "DP-2" or curMon.name == "DP-3" then
+		-- mainPC config
 		for i = 1, 10 do
 			hl.workspace_rule({ workspace = tostring(i), monitor = "DP-2" })
 			hl.workspace_rule({ workspace = tostring(i + 10), monitor = "DP-3" })
+		end
+	elseif curMon.name == "eDP-1" or curMon.name == "HDMI-A-1" then
+		-- laptop config
+		for i = 1, 10 do
+			hl.workspace_rule({ workspace = tostring(i), monitor = "eDP-1" })
+			hl.workspace_rule({ workspace = tostring(i + 10), monitor = "HDMI-A-1" })
 		end
 	end
 end
