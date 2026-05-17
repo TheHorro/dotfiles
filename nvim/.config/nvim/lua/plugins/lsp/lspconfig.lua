@@ -3,29 +3,17 @@ return {
 	event = { "BufReadPre", "BufNewFile" },
 
 	config = function()
-		---------------------------------------------------------------------------
-		-- NEW API (Neovim 0.11+)
-		---------------------------------------------------------------------------
-		local lspcfg = vim.lsp.config -- NEW native namespace
+		local lspcfg = vim.lsp.config
 
-		---------------------------------------------------------------------------
-		-- Diagnostics
-		---------------------------------------------------------------------------
-		local icons = {
-			Error = "",
-			Warn = "",
-			Hint = "󰠠",
-			Info = "",
-		}
 		vim.diagnostic.config({
 			virtual_text = false,
 			signs = {
 				active = true,
 				values = {
-					{ name = "DiagnosticSignError", text = icons.Error },
-					{ name = "DiagnosticSignWarn", text = icons.Warn },
-					{ name = "DiagnosticSignInfo", text = icons.Info },
-					{ name = "DiagnosticSignHint", text = icons.Hint },
+					{ name = "DiagnosticSignError", text = "" },
+					{ name = "DiagnosticSignWarn", text = "" },
+					{ name = "DiagnosticSignInfo", text = "󰠠" },
+					{ name = "DiagnosticSignHint", text = "" },
 				},
 			},
 			underline = true,
@@ -33,16 +21,8 @@ return {
 			severity_sort = true,
 		})
 
-		---------------------------------------------------------------------------
-		-- on_attach
-		---------------------------------------------------------------------------
-		local on_attach = function(client, bufnr)
-			-- add key maps here if needed
-		end
+		local on_attach = function(client, bufnr) end
 
-		---------------------------------------------------------------------------
-		-- Capabilities
-		---------------------------------------------------------------------------
 		local capabilities = vim.lsp.protocol.make_client_capabilities()
 		local ok, blink = pcall(require, "blink.cmp")
 		if ok then
@@ -50,11 +30,10 @@ return {
 		end
 
 		---------------------------------------------------------------------------
-		-- Server configs (must define vim.lsp.config.<name>)
+		-- specific Server configs
 		---------------------------------------------------------------------------
-
 		-- lua_ls
-		-- installes by AUR: `yay -S lua-language-server` as Mason has version issues of libs bc of Arch
+		-- installs by AUR: `yay -S lua-language-server` as Mason has version issues of libs bc of Arch
 		lspcfg.lua_ls = vim.tbl_deep_extend("force", {
 			autostart = false,
 			cmd = { "lua-language-server" },
@@ -83,6 +62,8 @@ return {
 		lspcfg.texlab = {
 			autostart = false,
 			cmd = { "texlab" },
+			on_attach = on_attach,
+			capabilities = capabilities,
 			settings = {
 				texlab = {
 					build = { onSave = true },
@@ -93,8 +74,6 @@ return {
 					diagnosticsDelay = 300,
 				},
 			},
-			on_attach = on_attach,
-			capabilities = capabilities,
 		}
 
 		-- LTeX
@@ -108,19 +87,18 @@ return {
 				ltex = {
 					language = "de-DE",
 					enabled = { "latex", "tex", "bib" },
-					-- ltex_ls_plus = {
-					--   args = { "--jvm-args", "-Xms128m", "-Xmx512m" }
-					-- }
 				},
 			},
-			-- on_attach = on_attach,
 			on_init = function(client)
 				vim.schedule(function()
-					require("ltex_extra").setup({
-						load_langs = { "de-DE" },
-						path = vim.fn.getcwd() .. "/.ltex", -- Absolute path ensures it finds it
-						server_name = "ltex_plus",
-					})
+					local ltex_ok, ltex_extra = pcall(require, "ltex_extra")
+					if ltex_ok then
+						ltex_extra.setup({
+							load_langs = { "de-DE" },
+							path = vim.fn.getcwd() .. "/.ltex", -- Absolute path ensures it finds it
+							server_name = "ltex_plus",
+						})
+					end
 				end)
 			end,
 			on_attach = function(client, bufnr)
@@ -133,18 +111,6 @@ return {
 				end
 			end,
 		}
-
-		-- lspcfg.hyprls = {
-		--   cmd = {'hyprls'},
-		--   filetypes = { "hyprlang" },
-		--   root_markers = { ".git", "hyprland.conf" },
-		--   settings = {
-		--     hyprls = {
-		--       preferIgnoreFile = false,
-		--       ignore = {"hyprlock.conf", "hypridle.conf"}
-		--     }
-		--   }
-		-- }
 
 		lspcfg.pyright = {
 			autostart = false,
@@ -182,7 +148,7 @@ return {
 			capabilities = capabilities,
 			init_options = {
 				settings = {
-					lineLength = 88,
+					lineLength = 120,
 					lint = {
 						select = { "E", "F", "I", "UP" }, -- pycodestyle, pyflakes, isort, pyupgrade
 					},
@@ -190,25 +156,37 @@ return {
 			},
 		}
 
+		lspcfg.clangd = {
+			cmd = { "clangd" },
+			filetypes = { "c", "cpp" },
+			root_markers = {
+				".clangd",
+				".clang-tidy",
+				".clang-format",
+				"compile_commands.json",
+				"compile_flags.txt",
+				".git",
+			},
+			on_attach = on_attach,
+			capabilities = capabilities,
+		}
+
 		---------------------------------------------------------------------------
 		-- FileType → LSP autostart map
 		---------------------------------------------------------------------------
-		local ft_map = {
-			lua = { "lua_ls" },
-			python = { "pyright", "ruff" },
-			tex = { "texlab", "ltex_plus" },
-			latex = { "texlab", "ltex_plus" },
-			plaintex = { "texlab", "ltex_plus" },
-			markdown = { "texlab" },
-			bib = { "ltex_plus" },
-		}
+		-- local ft_map = {
+		-- 	lua = { "lua_ls" },
+		-- 	python = { "pyright", "ruff" },
+		-- 	tex = { "texlab", "ltex_plus" },
+		-- 	latex = { "texlab", "ltex_plus" },
+		-- 	plaintex = { "texlab", "ltex_plus" },
+		-- 	markdown = { "texlab" },
+		-- 	bib = { "ltex_plus" },
+		-- 	c = { "clangd" },
+		-- 	cpp = { "clangd" },
+		-- }
 
-		-- vim.filetype.add({
-		-- 	pattern = { [".*/hypr/.*%.conf"] = "hyprlang" },
-		-- })
-		-- vim.lsp.enable("hyprls")
-
-		vim.lsp.enable({ "lua_ls", "pyright", "ruff", "texlab", "ltex_plus" })
+		vim.lsp.enable({ "lua_ls", "pyright", "ruff", "texlab", "ltex_plus", "clangd" })
 
 		---------------------------------------------------------------------------
 		-- Block stylua from starting as a language server
@@ -222,32 +200,8 @@ return {
 
 				if client.name == "stylua" then
 					vim.lsp.stop_client(client.id)
-					-- elseif client.name == "ltex_plus" then
-					-- require("ltex_extra").setup {
-					--   load_langs = { "de-DE" },
-					--   path = vim.fn.getcwd() .. "/.ltex",
-					--   server_name = "ltex_plus",
-					-- }
 				end
 			end,
 		})
 	end,
-
-	-- vim.api.nvim_create_autocmd({'BufEnter', 'BufWinEnter'}, {
-	--   pattern = {"*.hl", "hypr*.conf"},
-	--   callback = function(event)
-	--     print(string.format("starting hyprls for %s", vim.inspect(event)))
-	--     vim.lsp.start {
-	--       name = "hyprlang",
-	--       cmd = {"hyprls"},
-	--       root_dir = vim.fn.getcwd(),
-	--       settings = {
-	--         hyprls = {
-	--           preferIgnoreFile = true, -- set to false to prefer `hyprls.ignore`
-	--           ignore = {"hyprlock.conf", "hypridle.conf"}
-	--         }
-	--       }
-	--     }
-	--   end
-	-- })
 }
