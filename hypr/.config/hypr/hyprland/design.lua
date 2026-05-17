@@ -40,10 +40,17 @@ hl.config({
 
 	-- Dwindle layout
 	dwindle = {
+		force_split = 0,
 		preserve_split = false,
-		force_split = false,
-		smart_split = true,
-		split_width_multiplier = 1.2,
+		smart_split = false,
+		smart_resizing = true,
+		permanent_direction_override = false,
+		special_scale_factor = 1,
+		split_width_multiplier = 1.0,
+		use_active_for_splits = true,
+		default_split_ratio = 1.0,
+		split_bias = 0,
+		precise_mouse_move = false,
 	},
 
 	-- Master layout
@@ -56,12 +63,9 @@ hl.config({
 		disable_hyprland_logo = true,
 		disable_splash_rendering = true,
 		focus_on_activate = true,
-	},
-
-	-- Cursor
-	cursor = {
-		hide_on_key_press = true,
-		no_hardware_cursors = 1,
+		font_family = "CaskaydiaCove Nerd Font",
+		mouse_move_enables_dpms = true,
+		key_press_enables_dpms = true,
 	},
 })
 

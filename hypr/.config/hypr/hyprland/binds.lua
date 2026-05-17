@@ -1,7 +1,5 @@
 local mainMod = "SUPER + "
 
-local scripts = "$HOME/.config/hypr/scripts"
-
 -- Application bindings
 local terminal = "ghostty"
 local browser = "brave --disable-features=WaylandWpColorManagerV1"
@@ -24,11 +22,9 @@ hl.bind(
 )
 hl.bind("CTRL + ALT + Delete", hl.dsp.exit(), { desc = "exit Hyprland" }) -- hl.dsp.exec_cmd("hyprctl dispatch exit 0")
 hl.bind(mainMod .. "Q", hl.dsp.window.close(), { desc = "close focused window" })
-hl.bind(
-	mainMod .. "SHIFT + Q",
-	hl.dsp.exec_cmd("kill \"$(hyprctl activewindow | grep -o 'pid: [0-9]*' | cut -d' ' -f2)\""),
-	{ desc = "kill focused window" }
-)
+hl.bind(mainMod .. "SHIFT + Q", function()
+	hl.dispatch(hl.dsp.exec_cmd("kill -9 " .. hl.get_active_window().pid))
+end, { desc = "kill focused window" })
 
 hl.bind(mainMod .. "SHIFT + N", hl.dsp.exec_cmd("swaync-client -t -sw"), { desc = "Open swayNc-Notification Panel" })
 
@@ -110,7 +106,6 @@ for i = 1, 10 do
 	end)
 end
 
--- local curMonitor = "$(hyprctl monitors -j | jq -r '.[] | select(.focused == true).name')"
 local swayosdcmd = "swayosd-client --monitor " .. hl.get_active_monitor().name
 local maxvolume = "150"
 
