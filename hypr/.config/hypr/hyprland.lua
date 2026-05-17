@@ -1,7 +1,7 @@
-require("hyprland.autostart")
-require("hyprland.envs")
+require("hyprland.startup")
+require("hyprland.config")
 require("hyprland.lookandfeel")
 require("hyprland.windowrules")
 require("hyprland.binds")
-require("hyprland.input")
-require("hyprland.monitors")
+
+hl.dispatch(hl.dsp.force_renderer_reload())

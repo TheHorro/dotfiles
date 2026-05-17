@@ -41,9 +41,6 @@ return {
 			c = { "clang_format" },
 			cpp = { "clang_format" },
 
-			-- Hyprland — no standalone formatter, fall back to hyprls LSP
-			hyprlang = { "hypr_indent" },
-
 			-- Catch-all: attempt LSP formatting for unknown filetypes
 			["_"] = { "trim_whitespace" },
 		},

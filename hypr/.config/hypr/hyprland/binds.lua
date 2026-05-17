@@ -9,53 +9,62 @@ local music = "tidal-hifi"
 local fileManager = "thunar"
 local pwManager = "bitwarden-desktop "
 
--- local curMonitor = "$(hyprctl monitors -j | jq -r '.[] | select(.focused == true).name')"
-local swayosdcmd = "swayosd-client --monitor \"$(hyprctl monitors -j | jq -r '.[] | select(.focused == true).name')\""
-
--- .. hl.get_active_monitor()
-local maxvolume = "150"
-
-hl.bind(mainMod .. "RETURN", hl.dsp.exec_cmd(terminal), { description = "Open Terminal" })
-hl.bind(mainMod .. "F", hl.dsp.exec_cmd(fileManager), { description = "File Manager" })
+hl.bind(mainMod .. "RETURN", hl.dsp.exec_cmd(terminal), { desc = "Open Terminal" })
+hl.bind(mainMod .. "F", hl.dsp.exec_cmd(fileManager), { desc = "File Manager" })
 hl.bind(mainMod .. "B", hl.dsp.exec_cmd(browser), { desc = "Browser" })
 hl.bind(mainMod .. "SHIFT + B", hl.dsp.exec_cmd(browser .. " --incognito"), { desc = "private Browser" })
-hl.bind(mainMod .. "M", hl.dsp.exec_cmd(music), { description = "Music Player" })
-hl.bind(mainMod .. "O", hl.dsp.exec_cmd("obsidian -disable-gpu"))
-hl.bind(mainMod .. "SLASH", hl.dsp.exec_cmd(pwManager), { description = "PasswordManager" })
+hl.bind(mainMod .. "M", hl.dsp.exec_cmd(music), { desc = "Music Player" })
+hl.bind(mainMod .. "O", hl.dsp.exec_cmd("obsidian -disable-gpu"), { desc = "Obsidian" })
+hl.bind(mainMod .. "SLASH", hl.dsp.exec_cmd(pwManager), { desc = "PasswordManager" })
 
 hl.bind(
 	mainMod .. "D",
-	hl.dsp.exec_cmd(
-		"pkill rofi || true && rofi -show drun -drun-match-fields name -modi drun,filebrowser,run,window # Main Menu (APP Launcher)"
-	)
+	hl.dsp.exec_cmd("pkill rofi || true && rofi -show drun -drun-match-fields name -modi drun,filebrowser,run,window"),
+	{ desc = "Main Menu (APP Launcher)" }
 )
--- exit Hyprland
-hl.bind("CTRL + ALT + Delete", hl.dsp.exec_cmd("hyprctl dispatch exit 0"))
--- close active (not kill)
-hl.bind(mainMod .. "Q", hl.dsp.window.close())
---  Kill active process
+hl.bind("CTRL + ALT + Delete", hl.dsp.exit(), { desc = "exit Hyprland" }) -- hl.dsp.exec_cmd("hyprctl dispatch exit 0")
+hl.bind(mainMod .. "Q", hl.dsp.window.close(), { desc = "close focused window" })
 hl.bind(
 	mainMod .. "SHIFT + Q",
-	hl.dsp.exec_cmd("kill \"$(hyprctl activewindow | grep -o 'pid: [0-9]*' | cut -d' ' -f2)\"")
+	hl.dsp.exec_cmd("kill \"$(hyprctl activewindow | grep -o 'pid: [0-9]*' | cut -d' ' -f2)\""),
+	{ desc = "kill focused window" }
 )
 
--- swayNC notification panel
-hl.bind(mainMod .. "SHIFT + N", hl.dsp.exec_cmd("swaync-client -t -sw"))
+hl.bind(mainMod .. "SHIFT + N", hl.dsp.exec_cmd("swaync-client -t -sw"), { desc = "Open swayNc-Notification Panel" })
 
 hl.bind(mainMod .. "CTRL + ALT + M", hl.dsp.exit(), { description = "Exit Hyprland" })
 
-hl.bind(mainMod .. "SHIFT + F", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle" })) -- whole full screen
-hl.bind(mainMod .. "CTRL + F", hl.dsp.window.fullscreen({ mode = "maximized", action = "toggle" })) -- fake full screen
+hl.bind(
+	mainMod .. "SHIFT + F",
+	hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle", desc = "toggle read fullscreen" })
+)
+hl.bind(
+	mainMod .. "CTRL + F",
+	hl.dsp.window.fullscreen({ mode = "maximized", action = "toggle", desc = "toggle fake fullscreen" })
+)
 hl.bind(mainMod .. "SPACE", hl.dsp.window.float({ action = "toggle" })) -- toggle float screen
 
-hl.bind(mainMod .. "SHIFT + S", hl.dsp.exec_cmd(scripts .. "/ScreenShot.sh --swappy"))
-hl.bind(mainMod .. "SHIFT + R", hl.dsp.exec_cmd(scripts .. "/Refresh.sh"))
+hl.bind(mainMod .. "SHIFT + S", hl.dsp.exec_cmd("hyprscreen screenshot area"))
+hl.bind(mainMod .. "SHIFT + R", function()
+	local wallpaper = os.getenv("HOME") .. "/.config/hypr/wallpapers/green-room.jpg"
+
+	os.execute("kill -9 $(pidof waybar rofi hyprpaper swaync swayosd-server)")
+
+	os.execute("matugen image " .. wallpaper)
+
+	os.execute("sleep 1 && waybar &")
+	os.execute("swaync > /dev/null 2>&1 &")
+	os.execute("swayosd-server &")
+	os.execute("hyprpaper &")
+end)
 hl.bind("CTRL + ALT + P", hl.dsp.exec_cmd("wlogout --protocol layer-shell -b 2"))
 hl.bind("CTRL + ALT + L", hl.dsp.exec_cmd("hyprlock"))
 
--- Dwindle Layout
-hl.bind(mainMod .. "SHIFT + T", hl.dsp.layout("togglesplit"))
-hl.bind(mainMod .. "CTRL + T", hl.dsp.layout("swapsplit"))
+local layout = hl.get_active_workspace().tiled_layout
+if layout ~= nil and layout == "dwindle" then
+	hl.bind(mainMod .. "SHIFT + T", hl.dsp.layout("togglesplit"))
+	hl.bind(mainMod .. "CTRL + T", hl.dsp.layout("swapsplit"))
+end
 
 local dirs = { h = "left", j = "down", k = "up", l = "right" }
 for key, dir in pairs(dirs) do
@@ -101,37 +110,58 @@ for i = 1, 10 do
 	end)
 end
 
--- Scroll through existing workspaces with mainMod + scroll
--- hl.bind(mainMod .. "mouse_down", hl.dsp.focus({ workspace = "e+1" }))
--- hl.bind(mainMod .. "mouse_up", hl.dsp.focus({ workspace = "e-1" }))
--- hl.bind(mainMod .. "period", hl.dsp.focus({ workspace = "e+1" }))
--- hl.bind(mainMod .. "comma", hl.dsp.focus({ workspace = "e-1" }))
+-- local curMonitor = "$(hyprctl monitors -j | jq -r '.[] | select(.focused == true).name')"
+local swayosdcmd = "swayosd-client --monitor " .. hl.get_active_monitor().name
+local maxvolume = "150"
 
 -- media control
--- hl.bind("XF86AudioPlayPause", hl.dsp.exec_cmd(swayosdcmd .. " --playerctl play-pause"), { locked = true })
-hl.bind("XF86AudioPause", hl.dsp.exec_cmd(swayosdcmd .. " --playerctl play-pause"), { locked = true })
-hl.bind("XF86AudioPlay", hl.dsp.exec_cmd(swayosdcmd .. " --playerctl play-pause"), { locked = true })
-hl.bind("XF86AudioNext", hl.dsp.exec_cmd(swayosdcmd .. " --playerctl next"), { locked = true })
-hl.bind("XF86AudioPrev", hl.dsp.exec_cmd(swayosdcmd .. " --playerctl previous"), { locked = true })
-hl.bind("XF86Audiostop", hl.dsp.exec_cmd(swayosdcmd .. " --playerctl stop"), { locked = true })
+hl.bind(
+	"XF86AudioPause",
+	hl.dsp.exec_cmd(swayosdcmd .. " --playerctl play-pause"),
+	{ locked = true, desc = "toggle PlayPause" }
+)
+hl.bind(
+	"XF86AudioPlay",
+	hl.dsp.exec_cmd(swayosdcmd .. " --playerctl play-pause"),
+	{ locked = true, desc = "toggle PlayPause" }
+)
+hl.bind("XF86AudioNext", hl.dsp.exec_cmd(swayosdcmd .. " --playerctl next"), { locked = true, desc = "Next Track" })
+hl.bind(
+	"XF86AudioPrev",
+	hl.dsp.exec_cmd(swayosdcmd .. " --playerctl previous"),
+	{ locked = true, desc = "Previous Track" }
+)
+hl.bind("XF86Audiostop", hl.dsp.exec_cmd(swayosdcmd .. " --playerctl stop"), { locked = true, desc = "Stop Media" })
 -- brightness
-hl.bind("XF86monbrightnessup", hl.dsp.exec_cmd(swayosdcmd .. "--brightness raise"), { repeating = true, locked = true })
+hl.bind(
+	"XF86monbrightnessup",
+	hl.dsp.exec_cmd(swayosdcmd .. " --brightness +5"),
+	{ repeating = true, locked = true, desc = "Brightness up" }
+)
 hl.bind(
 	"XF86monbrightnessdown",
-	hl.dsp.exec_cmd(swayosdcmd .. "--brightness lower"),
-	{ repeating = true, locked = true }
+	hl.dsp.exec_cmd(swayosdcmd .. " --brightness -5"),
+	{ repeating = true, locked = true, desc = "Brightness down" }
 )
 
 -- volume
 hl.bind(
 	"XF86AudioRaiseVolume",
-	hl.dsp.exec_cmd(swayosdcmd .. " --output-volume raise --max-volume " .. maxvolume),
-	{ repeating = true, locked = true }
+	hl.dsp.exec_cmd(swayosdcmd .. " --output-volume +5 --max-volume " .. maxvolume),
+	{ repeating = true, locked = true, desc = "Volume up" }
 )
 hl.bind(
 	"XF86AudioLowerVolume",
-	hl.dsp.exec_cmd(swayosdcmd .. " --output-volume lower --max-volume " .. maxvolume),
-	{ repeating = true, locked = true }
+	hl.dsp.exec_cmd(swayosdcmd .. " --output-volume -5 --max-volume " .. maxvolume),
+	{ repeating = true, locked = true, desc = "Volume down" }
 )
-hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd(swayosdcmd .. " --input-volume mute-toggle"), { locked = true })
-hl.bind("XF86AudioMute", hl.dsp.exec_cmd(swayosdcmd .. " --output-volume mute-toggle"), { locked = true })
+hl.bind(
+	"XF86AudioMicMute",
+	hl.dsp.exec_cmd(swayosdcmd .. " --input-volume mute-toggle"),
+	{ locked = true, desc = "Toggle Mic" }
+)
+hl.bind(
+	"XF86AudioMute",
+	hl.dsp.exec_cmd(swayosdcmd .. " --output-volume mute-toggle"),
+	{ locked = true, desc = "Toggle Audio" }
+)
