@@ -1,9 +1,11 @@
 /* @import "../hypr/colors.css"; */
 @import "colors.css";
+/* @import "mods/center.css"; */
 
 * {
   font-family: "CaskaydiaCove Nerd Font", Roboto, Helvetica, Arial, sans-serif;
   font-size: 10px;
+  color: @primary;
   font-feature-settings: '"zero", "ss01", "ss02", "ss03", "ss04", "ss05", "cv31"';
   min-height: 0;
   border: none;
@@ -25,6 +27,22 @@
   padding-bottom: 0px;
   padding-left: 0px;
   padding-right: 0px;
+}
+
+window#waybar {
+  background-color: @background-alpha;
+  color: @primary;
+  /* border-radius: 6px; */
+}
+
+window#waybar > box {
+  /* margin-top: 2px; */
+  /* margin-bottom: 2px; */
+  /* padding-top: 2px; */
+  /* padding-bottom: 2px; */
+  margin-top: 0px;
+  margin-top: 0px;
+  background-color: @background-alpha;
 }
 
 window#waybar.hidden {
@@ -91,7 +109,7 @@ tooltip {
 #power,
 #power-profiles-daemon,
 #pulseaudio,
-/* #pulseaudio-slider, */
+#pulseaudio-slider,
 #taskbar,
 #temperature,
 #tray,
