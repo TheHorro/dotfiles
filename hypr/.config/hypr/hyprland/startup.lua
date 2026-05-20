@@ -1,54 +1,64 @@
 -- monitor options
-hl.monitor({
-	output = "*",
-	mode = "preferred",
-	position = "auto",
-	transform = 1,
-})
+local monitors = {
+	{
 
-hl.monitor({
-	output = "DP-2",
-	mode = "3440x1440@165.0",
-	position = "0x1440",
-	scale = 1,
-	bitdepth = 10,
-	cm = "srgb",
-})
+		output = "*",
+		mode = "preferred",
+		position = "auto",
+		transform = 1,
+	},
+	{
+		output = "DP-2",
+		mode = "3440x1440@165.0",
+		position = "0x1440",
+		scale = 1,
+		bitdepth = 10,
+		cm = "srgb",
+	},
+	{
+		output = "DP-3",
+		mode = "2560x1440@165.0",
+		position = "440x0",
+		scale = 1,
+		bitdepth = 10,
+		cm = "srgb",
+		transform = 2,
+	},
+	{
+		output = "eDP-1",
+		mode = "2560x1600@60.0",
+		position = "0x0",
+		scale = "1.0",
+		bitdepth = 10,
+		cm = "srgb",
+	},
+}
 
-hl.monitor({
-	output = "DP-3",
-	mode = "2560x1440@165.0",
-	position = "440x0",
-	scale = 1,
-	bitdepth = 10,
-	cm = "srgb",
-	transform = 2,
-})
+for _, m in ipairs(monitors) do
+	hl.monitor(m)
+end
 
-hl.monitor({
-	output = "eDP-1",
-	mode = "2560x1600@60.0",
-	position = "0x0",
-	scale = "1.0",
-	bitdepth = 10,
-	cm = "srgb",
-})
+local function get_branch_name()
+	local handle = io.popen("git branch --show-current 2>/dev/null")
+	if handle then
+		local branch = handle:read("*l")
+		handle:close()
+		return branch ~= "" and branch or nil
+	end
+	return nil
+end
 
--- workspace assignment
-local curMon = hl.get_active_monitor()
-if curMon ~= nil then
-	if curMon.name == "DP-2" or curMon.name == "DP-3" then
-		-- mainPC config
-		for i = 1, 10 do
-			hl.workspace_rule({ workspace = tostring(i), monitor = "DP-2" })
-			hl.workspace_rule({ workspace = tostring(i + 10), monitor = "DP-3" })
-		end
-	elseif curMon.name == "eDP-1" or curMon.name == "HDMI-A-1" then
-		-- laptop config
-		for i = 1, 10 do
-			hl.workspace_rule({ workspace = tostring(i), monitor = "eDP-1" })
-			hl.workspace_rule({ workspace = tostring(i + 10), monitor = "HDMI-A-1" })
-		end
+local branch = get_branch_name()
+if branch == "laptop" then
+	-- laptop config
+	for i = 1, 10 do
+		hl.workspace_rule({ workspace = tostring(i), monitor = "eDP-1" })
+		hl.workspace_rule({ workspace = tostring(i + 10), monitor = "HDMI-A-1" })
+	end
+else
+	for i = 1, 10 do
+		hl.workspace_rule({ workspace = tostring(i), monitor = "DP-2" })
+		hl.workspace_rule({ workspace = tostring(i + 10), monitor = "DP-3" })
 	end
 end
 
