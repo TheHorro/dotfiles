@@ -1,3 +1,4 @@
+local utils = require("hyprland.utils")
 -- monitor options
 local monitors = {
 	{
@@ -38,24 +39,13 @@ for _, m in ipairs(monitors) do
 	hl.monitor(m)
 end
 
-local function get_branch_name()
-	local handle = io.popen("git branch --show-current 2>/dev/null")
-	if handle then
-		local branch = handle:read("*l")
-		handle:close()
-		return branch ~= "" and branch or nil
-	end
-	return nil
-end
-
-local branch = get_branch_name()
+local branch = utils.get_branch_name()
 if branch == "laptop" then
-	-- laptop config
 	for i = 1, 10 do
 		hl.workspace_rule({ workspace = tostring(i), monitor = "eDP-1" })
 		hl.workspace_rule({ workspace = tostring(i + 10), monitor = "HDMI-A-1" })
 	end
-else
+elseif branch == "main" then
 	for i = 1, 10 do
 		hl.workspace_rule({ workspace = tostring(i), monitor = "DP-2" })
 		hl.workspace_rule({ workspace = tostring(i + 10), monitor = "DP-3" })
