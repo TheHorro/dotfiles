@@ -1,4 +1,4 @@
-export PATH="$PATH:/bin/Swiftpoint X1 Control Panel 3.0.7.20"
+export PATH="$PATH:/bin/Swiftpoint X1 Control Panel 3.0.7.20:$HOME/.local/bin"
 export ROCM_PATH=/opt/rocm
 export HSA_OVERRIDE_GFX_VERSION=10.3.0
 
@@ -64,6 +64,7 @@ zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 # Aliases
 alias ls='lsd'
 alias ll='ls -lAh'
+alias l='ls -lAh'
 alias vim='nvim'
 alias c='reset && fastfetch'
 alias ..='cd ..'
