@@ -2,7 +2,6 @@ local utils = require("hyprland.utils")
 -- monitor options
 local monitors = {
 	{
-
 		output = "*",
 		mode = "preferred",
 		position = "auto",
