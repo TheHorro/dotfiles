@@ -64,15 +64,18 @@ tooltip {
   padding: 4px;
   border-radius: 9px;
   animation: gradient_f 20s ease-in infinite;
-  transition: all 0.5s cubic-bezier(0.55, -0.68, 0.48, 1.682);
+  transition: all 0.1s cubic-bezier(0.55, -0.68, 0.48, 1.682);
 }
 
 #taskbar button.active,
 #workspaces button.active {
   /* color: #ff7a93; */
   color: @primary;
+  background: @inverse_primary;
   padding: 4px 4px;
-  transition: all 0.3s cubic-bezier(0.55, -0.68, 0.48, 1.682);
+  padding-left: 8px;
+  padding-right: 8px;
+  transition: all 0.1s cubic-bezier(0.55, -0.68, 0.48, 1.682);
 }
 
 #taskbar button:hover,
@@ -80,7 +83,7 @@ tooltip {
   background: rgba(0, 0, 0, 0.2);
   color: @on_primary;
   padding: 4px 4px;
-  transition: all 0.3s cubic-bezier(0.55, -0.68, 0.48, 1.682);
+  transition: all 0.1s cubic-bezier(0.55, -0.68, 0.48, 1.682);
 }
 #workspaces button.focused {
   background: #bbccdd;
