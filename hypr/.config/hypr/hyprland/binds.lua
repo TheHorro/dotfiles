@@ -42,16 +42,17 @@ hl.bind(mainMod .. "SPACE", hl.dsp.window.float({ action = "toggle" })) -- toggl
 
 hl.bind(mainMod .. "SHIFT + S", hl.dsp.exec_cmd("hyprscreen screenshot area"))
 hl.bind(mainMod .. "SHIFT + R", function()
-	local wallpaper = os.getenv("HOME") .. "/.config/hypr/wallpapers/green-room.jpg"
+	-- local wallpaper = os.getenv("HOME") .. "/.config/hypr/wallpapers/green-room.jpg"
 
-	os.execute("kill -9 $(pidof waybar rofi hyprpaper swaync swayosd-server)")
+	os.execute("kill -9 $(pidof waybar rofi hyprpaper swaync swayosd-server hypridle)")
 
-	os.execute("matugen image " .. wallpaper)
+	-- os.execute("matugen image " .. wallpaper)
 
 	os.execute("sleep 1 && waybar &")
 	os.execute("swaync > /dev/null 2>&1 &")
 	os.execute("swayosd-server &")
 	os.execute("hyprpaper &")
+	os.execute("hypridle &")
 end)
 hl.bind("CTRL + ALT + P", hl.dsp.exec_cmd("wlogout --protocol layer-shell -b 2"))
 hl.bind("CTRL + ALT + L", hl.dsp.exec_cmd("hyprlock"))

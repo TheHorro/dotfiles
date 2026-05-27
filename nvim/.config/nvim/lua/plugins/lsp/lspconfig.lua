@@ -188,20 +188,20 @@ return {
 
     vim.lsp.enable({ "lua_ls", "pyright", "ruff", "texlab", "ltex_plus", "clangd" })
 
-    ---------------------------------------------------------------------------
-    -- Block stylua from starting as a language server
-    ---------------------------------------------------------------------------
-    vim.api.nvim_create_autocmd("LspAttach", {
-      callback = function(args)
-        local client = vim.lsp.get_client_by_id(args.data.client_id)
-        if not client then
-          return
-        end
+		---------------------------------------------------------------------------
+		-- Block stylua from starting as a language server
+		---------------------------------------------------------------------------
+		vim.api.nvim_create_autocmd({ "LspAttach" }, {
+			callback = function(args)
+				local client = vim.lsp.get_client_by_id(args.data.client_id)
+				if not client then
+					return
+				end
 
-        if client.name == "stylua" then
-          vim.lsp.stop_client(client.id)
-        end
-      end,
-    })
-  end,
+				if client.name == "stylua" then
+					client:stop()
+				end
+			end,
+		})
+	end,
 }
