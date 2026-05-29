@@ -12,10 +12,15 @@
 ## installation
 
 [GNU Stow](https://www.gnu.org/software/stow/) is required
-add all modules with `stow .` or just single modules with `stow <module-name>`
+add modules to local config with `stow <module-name>`
+using `stow .` adds them to the `~` directory, not the required one
 
 ## nvim
+check `:checkhealth` for additional required tools
 
-mostly cloned from https://github.com/Sin-cy/dotfiles
+## tmux
+Install plugins: `CTRL + B` + `I`
 
-change comming(TM)
+- [TPM](https://github.com/tmux-plugins/tpm)
+- [list of plugins](https://github.com/tmux-plugins/list)
+
