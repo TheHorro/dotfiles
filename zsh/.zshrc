@@ -98,21 +98,5 @@ fi
 # direnv hook (lädt .envrc beim cd)
 eval "$(direnv hook zsh)"
 
-# Ctrl+L: clear screen + fastfetch
-_clear_with_fastfetch() {
-  reset
-  fastfetch
-  echo " "
-  zle reset-prompt
-}
-
-zvm_after_init() {
-  zle -N _clear_with_fastfetch
-  bindkey '^L' _clear_with_fastfetch
-}
-
-# zle -N _clear_with_fastfetch
-# bindkey '^L' _clear_with_fastfetch
-
 clear
 
