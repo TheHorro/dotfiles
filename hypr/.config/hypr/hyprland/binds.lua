@@ -68,10 +68,10 @@ for key, dir in pairs(dirs) do
 end
 
 -- resize window
-hl.bind(mainMod .. "SHIFT + H", hl.dsp.window.resize({ x = -50, y = 0, relative = true }), { repeating = true })
-hl.bind(mainMod .. "SHIFT + J", hl.dsp.window.resize({ x = 0, y = -50, relative = true }), { repeating = true })
-hl.bind(mainMod .. "SHIFT + K", hl.dsp.window.resize({ x = 0, y = 50, relative = true }), { repeating = true })
-hl.bind(mainMod .. "SHIFT + L", hl.dsp.window.resize({ x = 50, y = 0, relative = true }), { repeating = true })
+hl.bind(mainMod .. "SHIFT + H", hl.dsp.window.resize({ x = -10, y = 0, relative = true }), { repeating = true })
+hl.bind(mainMod .. "SHIFT + J", hl.dsp.window.resize({ x = 0, y = -10, relative = true }), { repeating = true })
+hl.bind(mainMod .. "SHIFT + K", hl.dsp.window.resize({ x = 0, y = 10, relative = true }), { repeating = true })
+hl.bind(mainMod .. "SHIFT + L", hl.dsp.window.resize({ x = 10, y = 0, relative = true }), { repeating = true })
 
 -- Move/resize windows with mainMod + LMB/RMB and dragging
 hl.bind(mainMod .. "mouse:272", hl.dsp.window.drag(), { mouse = true })

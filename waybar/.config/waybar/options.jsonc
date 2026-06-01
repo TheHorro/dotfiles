@@ -18,8 +18,8 @@
     "active-only": true,
     "all-outputs": false,
     "on-click": "activate",
-    "on-scroll-up": "hyprctl dispatch split-cycleworkspaces -1",
-    "on-scroll-down": "hyprctl dispatch split-cycleworkspaces +1",
+    "on-scroll-up": "hyprctl dispatch 'hl.dsp.focus({ workspace = \"e+1\"})'",
+    "on-scroll-down": "hyprctl dispatch 'hl.dsp.focus({ workspace = \"e-1\"})'",
     "show-special": false,
     "persistent-workspaces": {
       "eDP-1": [1, 2, 3, 4, 5],
@@ -32,7 +32,7 @@
       "empty": " ",
       "default": "󰊠 ",
       "urgent": " ",
-      //"visible": " ", // focused workspace on other monitors
+      "visible": "󰮯 ", // focused workspace on other monitors
     },
     "all-outputs": false,
   },

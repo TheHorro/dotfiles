@@ -1,0 +1,9 @@
+{
+  "version": 1.1,
+  "atDirectives": [
+    {
+      "name": "@define-color",
+      "description": "GTK3/4 color variable definition. Usage: @define-color name value;"
+    }
+  ]
+}

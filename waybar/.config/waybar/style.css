@@ -85,6 +85,7 @@ tooltip {
   padding: 4px 4px;
   transition: all 0.1s cubic-bezier(0.55, -0.68, 0.48, 1.682);
 }
+
 #workspaces button.focused {
   background: #bbccdd;
   color: #b9f27c;

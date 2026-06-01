@@ -1,14 +1,12 @@
 return {
 	{
-		"nvim-treesitter/nvim-treesitter",
-		branch = "main",
+		"neovim-treesitter/nvim-treesitter",
+		dependencies = { "neovim-treesitter/treesitter-parser-registry" },
 		lazy = false,
 		build = ":TSUpdate",
-		-- event = { "BufReadPost", "BufNewFile" },
 		config = function()
-			require("nvim-treesitter").setup({
-				install_dir = vim.fn.stdpath("data") .. "/site",
-			})
+			local ts = require("nvim-treesitter")
+
 			local parsers = {
 				"bash",
 				"css",
@@ -33,14 +31,40 @@ return {
 				"vimdoc",
 				"xml",
 				"yaml",
+				"zsh",
 			}
+
 			vim.api.nvim_create_autocmd("User", {
 				pattern = "LazyDone",
 				once = true,
 				callback = function()
-					require("nvim-treesitter").install(parsers)
+					ts.install(parsers)
 				end,
 			})
+			ts.highlight = true
+
+			local ft_patterns = {}
+			for _, parser in ipairs(parsers) do
+				for _, ft in ipairs(vim.treesitter.language.get_filetypes(parser)) do
+					table.insert(ft_patterns, ft)
+				end
+			end
+
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = ft_patterns,
+				callback = function()
+					vim.treesitter.start() -- highlighting
+					vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()" -- folds
+					vim.wo.foldmethod = "expr"
+					vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()" -- indentation
+				end,
+			})
+		end,
+	},
+	{
+		"vim-python/python-syntax",
+		config = function()
+			vim.g.python_highlight_all = 1
 		end,
 	},
 

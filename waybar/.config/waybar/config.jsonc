@@ -9,6 +9,7 @@
       "custom/music",
       "pulseaudio#sound",
       "pulseaudio#microphone",
+      "idle_inhibitor",
       "custom/swaync",
     ],
   },
