@@ -59,7 +59,7 @@ return {
 		})
 
 		-- texlab
-		lspcfg.texlab = {
+		lspcfg("texlab", {
 			autostart = false,
 			cmd = { "texlab" },
 			on_attach = on_attach,
@@ -74,10 +74,10 @@ return {
 					diagnosticsDelay = 300,
 				},
 			},
-		}
+		})
 
 		-- LTeX
-		lspcfg.ltex_plus = {
+		lspcfg("ltex_plus", {
 			autostart = false,
 			cmd = { "ltex-ls-plus" },
 			filetypes = { "bib", "gitcommit", "org", "plaintex", "rst", "rnoweb", "tex", "pandoc", "quarto", "rmd" },
@@ -110,9 +110,9 @@ return {
 					})
 				end
 			end,
-		}
+		})
 
-		lspcfg.pyright = {
+		lspcfg("pyright", {
 			autostart = false,
 			cmd = { "pyright-langserver", "--stdio" },
 			on_attach = on_attach,
@@ -120,23 +120,18 @@ return {
 			settings = {
 				python = {
 					-- Conda ml-Umgebung fix eingetragen
-					pythonPath = vim.fn.expand("~/miniforge3/envs/ml/bin/python"),
 					analysis = {
 						autoSearchPaths = true,
 						useLibraryCodeForTypes = true,
 						typeCheckingMode = "basic",
-						-- Damit Pyright die installierten Pakete aus ml findet
-						extraPaths = {
-							vim.fn.expand("~/miniforge3/envs/ml/lib/python3.12/site-packages"),
-						},
 					},
 				},
 			},
-		}
+		})
 
 		-- ruff (Linter + Formatter, ersetzt flake8/black/isort)
 		-- installieren via: yay -S python-ruff (oder: pip install ruff in ml-env)
-		lspcfg.ruff = {
+		lspcfg("ruff", {
 			autostart = false,
 			cmd = { "ruff", "server" },
 			on_attach = function(client, bufnr)
@@ -154,9 +149,9 @@ return {
 					},
 				},
 			},
-		}
+		})
 
-		lspcfg.clangd = {
+		lspcfg("clangd", {
 			cmd = { "clangd" },
 			filetypes = { "c", "cpp" },
 			root_markers = {
@@ -169,9 +164,9 @@ return {
 			},
 			on_attach = on_attach,
 			capabilities = capabilities,
-		}
+		})
 
-		lspcfg.cssls = {
+		lspcfg("cssls", {
 			on_attach = on_attach,
 			capabilities = capabilities,
 			settings = {
@@ -181,32 +176,14 @@ return {
 						unknownAtRules = "ignore", -- silences @define-color errors
 					},
 					customData = {
-						vim.fn.expand("~/.config/nvim/custom-data/css.json"),
+						vim.fn.expand(os.getenv("HOME") .. "/.config/nvim/custom-data/css.json"),
 					},
 				},
 			},
-		}
-
-		---------------------------------------------------------------------------
-		-- FileType → LSP autostart map
-		---------------------------------------------------------------------------
-		-- local ft_map = {
-		-- 	lua = { "lua_ls" },
-		-- 	python = { "pyright", "ruff" },
-		-- 	tex = { "texlab", "ltex_plus" },
-		-- 	latex = { "texlab", "ltex_plus" },
-		-- 	plaintex = { "texlab", "ltex_plus" },
-		-- 	markdown = { "texlab" },
-		-- 	bib = { "ltex_plus" },
-		-- 	c = { "clangd" },
-		-- 	cpp = { "clangd" },
-		-- }
+		})
 
 		vim.lsp.enable({ "lua_ls", "pyright", "ruff", "texlab", "ltex_plus", "clangd", "cssls" })
 
-		---------------------------------------------------------------------------
-		-- Block stylua from starting as a language server
-		---------------------------------------------------------------------------
 		vim.api.nvim_create_autocmd({ "LspAttach" }, {
 			callback = function(args)
 				local client = vim.lsp.get_client_by_id(args.data.client_id)
