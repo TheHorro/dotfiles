@@ -171,6 +171,22 @@ return {
 			capabilities = capabilities,
 		}
 
+		lspcfg.cssls = {
+			on_attach = on_attach,
+			capabilities = capabilities,
+			settings = {
+				css = {
+					validate = true,
+					lint = {
+						unknownAtRules = "ignore", -- silences @define-color errors
+					},
+					customData = {
+						vim.fn.expand("~/.config/nvim/custom-data/css.json"),
+					},
+				},
+			},
+		}
+
 		---------------------------------------------------------------------------
 		-- FileType → LSP autostart map
 		---------------------------------------------------------------------------
@@ -186,7 +202,7 @@ return {
 		-- 	cpp = { "clangd" },
 		-- }
 
-		vim.lsp.enable({ "lua_ls", "pyright", "ruff", "texlab", "ltex_plus", "clangd" })
+		vim.lsp.enable({ "lua_ls", "pyright", "ruff", "texlab", "ltex_plus", "clangd", "cssls" })
 
 		---------------------------------------------------------------------------
 		-- Block stylua from starting as a language server
