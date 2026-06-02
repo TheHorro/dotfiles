@@ -29,37 +29,39 @@ return {
       capabilities = blink.get_lsp_capabilities(capabilities)
     end
 
-    ---------------------------------------------------------------------------
-    -- specific Server configs
-    ---------------------------------------------------------------------------
-    -- lua_ls
-    -- installs by AUR: `yay -S lua-language-server` as Mason has version issues of libs bc of Arch
-    lspcfg.lua_ls = vim.tbl_deep_extend("force", {
-      autostart = false,
-      cmd = { "lua-language-server" },
-      settings = {
-        Lua = {
-          runtime = { version = "LuaJIT" },
-          diagnostics = {
-            globals = { "vim", "require", "pcall" },
-            ignoredPatterns = { "Unused local" },
-          },
-          workspace = {
-            checkThirdParty = false,
-            library = {
-              vim.fn.expand("$VIMRUNTIME/lua"),
-              vim.fn.stdpath("config") .. "/lua",
-            },
-          },
-        },
-      },
-    }, {
-      on_attach = on_attach,
-      capabilities = capabilities,
-    })
+		---------------------------------------------------------------------------
+		-- specific Server configs
+		---------------------------------------------------------------------------
+		-- lua_ls
+		-- installs by AUR: `yay -S lua-language-server` as Mason has version issues of libs bc of Arch
+		vim.lsp.config("lua_ls", {
+			vim.tbl_deep_extend("force", {
+				autostart = false,
+				cmd = { "lua-language-server" },
+				settings = {
+					Lua = {
+						runtime = { version = "LuaJIT" },
+						diagnostics = {
+							globals = { "vim", "require", "pcall" },
+							ignoredPatterns = { "Unused local" },
+						},
+						workspace = {
+							checkThirdParty = false,
+							library = {
+								vim.fn.expand("$VIMRUNTIME/lua"),
+								vim.fn.stdpath("config") .. "/lua",
+							},
+						},
+					},
+				},
+			}, {
+				on_attach = on_attach,
+				capabilities = capabilities,
+			}),
+		})
 
 		-- texlab
-		lspcfg("texlab", {
+		vim.lsp.config("texlab", {
 			autostart = false,
 			cmd = { "texlab" },
 			on_attach = on_attach,
@@ -77,7 +79,7 @@ return {
 		})
 
 		-- LTeX
-		lspcfg("ltex_plus", {
+		vim.lsp.config("ltex_plus", {
 			autostart = false,
 			cmd = { "ltex-ls-plus" },
 			filetypes = { "bib", "gitcommit", "org", "plaintex", "rst", "rnoweb", "tex", "pandoc", "quarto", "rmd" },
@@ -112,7 +114,7 @@ return {
 			end,
 		})
 
-		lspcfg("pyright", {
+		vim.lsp.config("pyright", {
 			autostart = false,
 			cmd = { "pyright-langserver", "--stdio" },
 			on_attach = on_attach,
@@ -131,7 +133,7 @@ return {
 
 		-- ruff (Linter + Formatter, ersetzt flake8/black/isort)
 		-- installieren via: yay -S python-ruff (oder: pip install ruff in ml-env)
-		lspcfg("ruff", {
+		vim.lsp.config("ruff", {
 			autostart = false,
 			cmd = { "ruff", "server" },
 			on_attach = function(client, bufnr)
@@ -151,7 +153,7 @@ return {
 			},
 		})
 
-		lspcfg("clangd", {
+		vim.lsp.config("clangd", {
 			cmd = { "clangd" },
 			filetypes = { "c", "cpp" },
 			root_markers = {
@@ -166,7 +168,7 @@ return {
 			capabilities = capabilities,
 		})
 
-		lspcfg("cssls", {
+		vim.lsp.config("cssls", {
 			on_attach = on_attach,
 			capabilities = capabilities,
 			settings = {
