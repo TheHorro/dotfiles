@@ -1,6 +1,6 @@
 -----------------------------------------------------------
 -- UI Enhancement Plugins
--- 
+--
 -- This module loads plugins that enhance the UI experience:
 -- - colorscheme.lua: Gruvbox theme configuration
 -- - lualine.lua: Status line configuration
@@ -15,12 +15,12 @@
 
 -- Helper function to require a module with error handling
 local function safe_require(module)
-  local ok, result = pcall(require, module)
-  if not ok then
-    vim.notify("Failed to load plugin module: " .. module, vim.log.levels.WARN)
-    return {}
-  end
-  return result
+	local ok, result = pcall(require, module)
+	if not ok then
+		vim.notify("Failed to load plugin module: " .. module, vim.log.levels.WARN)
+		return {}
+	end
+	return result
 end
 
 -- Load modules
@@ -38,16 +38,15 @@ local colorize_module = safe_require("plugins.ui.colorize")
 
 -- Return plugin specs
 return {
-  colorscheme_module,
-  lualine_module,
-  bufferline_module,
-  -- neo_tree_module,
-  web_devicons_module,
-  sessions_module,
-  -- incline_module,
-  smear_module,
-  todo_module,
-  -- indent_module,
-  colorize_module,
+	colorscheme_module,
+	lualine_module,
+	bufferline_module,
+	-- neo_tree_module,
+	web_devicons_module,
+	sessions_module,
+	-- incline_module,
+	smear_module,
+	todo_module,
+	-- indent_module,
+	colorize_module,
 }
- 

@@ -34,7 +34,8 @@ return {
 		---------------------------------------------------------------------------
 		-- lua_ls
 		-- installs by AUR: `yay -S lua-language-server` as Mason has version issues of libs bc of Arch
-		vim.lsp.config("lua_ls", {
+		vim.lsp.config(
+			"lua_ls",
 			vim.tbl_deep_extend("force", {
 				autostart = false,
 				cmd = { "lua-language-server" },
@@ -57,8 +58,8 @@ return {
 			}, {
 				on_attach = on_attach,
 				capabilities = capabilities,
-			}),
-		})
+			})
+		)
 
 		-- texlab
 		vim.lsp.config("texlab", {
