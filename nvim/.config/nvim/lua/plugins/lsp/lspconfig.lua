@@ -3,8 +3,6 @@ return {
 	event = { "BufReadPre", "BufNewFile" },
 
 	config = function()
-		local lspcfg = vim.lsp.config
-
 		vim.diagnostic.config({
 			virtual_text = false,
 			signs = {
@@ -92,27 +90,27 @@ return {
 					enabled = { "latex", "tex", "bib" },
 				},
 			},
-			on_init = function(client)
-				vim.schedule(function()
-					local ltex_ok, ltex_extra = pcall(require, "ltex_extra")
-					if ltex_ok then
-						ltex_extra.setup({
-							load_langs = { "de-DE" },
-							path = vim.fn.getcwd() .. "/.ltex", -- Absolute path ensures it finds it
-							server_name = "ltex_plus",
-						})
-					end
-				end)
-			end,
-			on_attach = function(client, bufnr)
-				local ltex_ok, ltex_extra = pcall(require, "ltex_extra")
-				if ltex_ok then
-					ltex_extra.setup({
-						load_langs = { "de-DE" },
-						path = vim.fn.getcwd() .. "/.ltex",
-					})
-				end
-			end,
+			-- on_init = function(client)
+			-- 	vim.schedule(function()
+			-- 		local ltex_ok, ltex_extra = pcall(require, "ltex_extra")
+			-- 		if ltex_ok then
+			-- 			ltex_extra.setup({
+			-- 				load_langs = { "de-DE" },
+			-- 				path = vim.fn.getcwd() .. "/.ltex", -- Absolute path ensures it finds it
+			-- 				server_name = "ltex_plus",
+			-- 			})
+			-- 		end
+			-- 	end)
+			-- end,
+			-- on_attach = function(client, bufnr)
+			-- 	local ltex_ok, ltex_extra = pcall(require, "ltex_extra")
+			-- 	if ltex_ok then
+			-- 		ltex_extra.setup({
+			-- 			load_langs = { "de-DE" },
+			-- 			path = vim.fn.getcwd() .. "/.ltex",
+			-- 		})
+			-- 	end
+			-- end,
 		})
 
 		vim.lsp.config("pyright", {
@@ -196,6 +194,15 @@ return {
 
 				if client.name == "stylua" then
 					client:stop()
+				elseif client.name == "ltex_plus" then
+					local ltex_ok, ltex_extra = pcall(require, "ltex_extra")
+					if not ltex_ok then
+						return
+					end
+					ltex_extra.setup({
+						loac_langs = { "de-DE", "en-US" },
+						path = vim.fn.getcwd() .. "/.ltex",
+					})
 				end
 			end,
 		})

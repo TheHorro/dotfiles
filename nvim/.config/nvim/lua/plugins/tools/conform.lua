@@ -67,7 +67,7 @@ return {
 				prepend_args = { "-i", "2", "-ci" }, -- 2-space indent, case-indent
 			},
 			black = {
-				prepend_args = { "--line-length", "88" },
+				prepend_args = { "--line-length", "100" },
 			},
 			isort = {
 				prepend_args = { "--profile", "black" },

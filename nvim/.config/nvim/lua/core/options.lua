@@ -121,6 +121,26 @@ for k, v in pairs(options) do
 	vim.opt[k] = v
 end
 
+require("vim._core.ui2").enable({
+	enable = true,
+	msg = {
+		targets = "msg", -- 'cmd' = show in cmdline, 'msg' = separate floating window
+		cmd = {
+			height = 0.5, -- max expanded height
+		},
+		dialog = {
+			height = 0.5,
+		},
+		msg = {
+			height = 0.5,
+			timeout = 4000, -- ms a message stays visible
+		},
+		pager = {
+			height = 0.5,
+		},
+	},
+})
+
 -- Auto-command for disabling tagjump in markdown
 vim.api.nvim_create_autocmd({ "FileType" }, {
 	pattern = { "markdown", "lectic.markdown" },
