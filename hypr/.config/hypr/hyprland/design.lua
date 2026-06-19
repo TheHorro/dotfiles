@@ -11,7 +11,8 @@ hl.config({
 		},
 		resize_on_border = false,
 		allow_tearing = true,
-		layout = "dwindle",
+		-- layout = "dwindle",
+		layout = "master",
 	},
 
 	-- Decoration
@@ -55,7 +56,11 @@ hl.config({
 
 	-- Master layout
 	master = {
-		new_status = "master",
+		mfact = 0.50,
+		new_status = "inherit",
+		orientation = "center",
+		slave_count_for_center_master = 2,
+		center_master_fallback = "left",
 	},
 
 	-- Misc

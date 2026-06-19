@@ -76,6 +76,7 @@ hl.env("XCOMPOSEFILE", "~/.XCompose")
 hl.env("HYPRCURSOR_SIZE", "24")
 
 hl.on("hyprland.start", function()
+	hl.exec_cmd("systemctl --user start hyprland-session.target")
 	hl.exec_cmd("systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
 	hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY ")
 	hl.exec_cmd("gnome-keyring-daemon --start --components=secrets")
@@ -90,4 +91,16 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("nm-applet")
 	hl.exec_cmd("wl-paste --type text --watch cliphist store")
 	hl.exec_cmd("wl-paste --type image --watch cliphist store")
+	if branch == "main" then
+		hl.exec_cmd("vesktop", { workspace = 11 })
+		hl.exec_cmd("steam", { workspace = 11 })
+	end
+end)
+
+hl.on("hyprland.shutdown", function()
+	os.execute("kill -9 $(pidof waybar rofi hyprpaper swaync swayosd-server hypridle)")
+	os.execute("systemctl --user stop hyprland-session.target && sleep 0.1")
+	-- uses a blocking exec function and sleeps a bit to give things time to close
+	-- you might also want to kill troublesome/crashing non-systemd background services here:
+	-- os.execute("pkill wallpaperthing; systemctl --user stop hyprland-session.target && sleep 0.1")
 end)
