@@ -57,7 +57,18 @@ end)
 hl.bind("CTRL + ALT + P", hl.dsp.exec_cmd("wlogout --protocol layer-shell -b 2"))
 hl.bind("CTRL + ALT + L", hl.dsp.exec_cmd("hyprlock"))
 
-hl.bind(mainMod .. "SHIFT + T", hl.dsp.layout("togglesplit"))
+hl.bind(mainMod .. "SHIFT + T", function()
+	local layout = hl.get_active_workspace().tiled_layout
+	if layout ~= nil then
+		if layout == "dwindle" then
+			hl.dispatch(hl.dsp.layout("togglesplit"))
+		else
+			-- hl.notification.create({ text = "Test", duration = 1000 })
+			hl.dispatch(hl.dsp.layout("swapwithmaster"))
+		end
+	end
+end)
+
 hl.bind(mainMod .. "CTRL + T", hl.dsp.layout("swapsplit"))
 
 local dirs = { h = "left", j = "down", k = "up", l = "right" }

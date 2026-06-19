@@ -127,7 +127,7 @@ return {
 							max_total_buffer_size = 1000000,
 							use_cache = true,
 							get_bufnrs = function()
-								return vim.spi.nvim_list_bufs()
+								return vim.api.nvim_list_bufs()
 							end,
 						},
 					},
