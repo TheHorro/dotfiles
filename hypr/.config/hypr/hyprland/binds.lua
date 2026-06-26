@@ -1,4 +1,5 @@
 local mainMod = "SUPER + "
+local utils = require("hyprland.utils")
 
 -- Application bindings
 local terminal = "ghostty"
@@ -40,19 +41,9 @@ hl.bind(
 )
 hl.bind(mainMod .. "SPACE", hl.dsp.window.float({ action = "toggle" })) -- toggle float screen
 
-hl.bind(mainMod .. "SHIFT + S", hl.dsp.exec_cmd("hyprscreen screenshot area"))
+hl.bind(mainMod .. "SHIFT + S", hl.dsp.exec_cmd('grim -g "$(slurp)" - | wl-copy'))
 hl.bind(mainMod .. "SHIFT + R", function()
-	-- local wallpaper = os.getenv("HOME") .. "/.config/hypr/wallpapers/green-room.jpg"
-
-	os.execute("kill -9 $(pidof waybar rofi hyprpaper swaync swayosd-server hypridle)")
-
-	-- os.execute("matugen image " .. wallpaper)
-
-	os.execute("sleep 1 && waybar &")
-	os.execute("swaync > /dev/null 2>&1 &")
-	os.execute("swayosd-server &")
-	os.execute("hyprpaper &")
-	os.execute("hypridle &")
+	utils.reload_config()
 end)
 hl.bind("CTRL + ALT + P", hl.dsp.exec_cmd("wlogout --protocol layer-shell -b 2"))
 hl.bind("CTRL + ALT + L", hl.dsp.exec_cmd("hyprlock"))
@@ -115,7 +106,6 @@ for i = 1, 10 do
 	end)
 end
 
--- local swayosdcmd = "swayosd-client --monitor " .. hl.get_active_monitor().name
 local maxvolume = "150"
 
 -- media control
@@ -169,7 +159,16 @@ hl.bind("XF86AudioLowerVolume", function()
 		)
 	)
 end, { repeating = true, locked = true, desc = "Volume down" })
-hl.bind("XF86AudioMicMute", function()
+
+-- microphone
+hl.bind("CTRL + XF86AudioRaiseVolume", function()
+	hl.dispatch(hl.dsp.exec_cmd("swayosd-client --monitor " .. hl.get_active_monitor().name .. " --input-volume +5"))
+end, { repeating = true, locked = true, desc = "Mic-Volume up" })
+hl.bind("CTRL + XF86AudioLowerVolume", function()
+	hl.dispatch(hl.dsp.exec_cmd("swayosd-client --monitor " .. hl.get_active_monitor().name .. " --input-volume -5"))
+end, { repeating = true, locked = true, desc = "Mic-Volume down" })
+
+hl.bind("CTRL + XF86AudioMute", function()
 	hl.dispatch(
 		hl.dsp.exec_cmd("swayosd-client --monitor " .. hl.get_active_monitor().name .. " --input-volume mute-toggle")
 	)
@@ -179,3 +178,8 @@ hl.bind("XF86AudioMute", function()
 		hl.dsp.exec_cmd("swayosd-client --monitor " .. hl.get_active_monitor().name .. " --output-volume mute-toggle")
 	)
 end, { locked = true, desc = "Toggle Audio" })
+
+hl.bind(mainMod .. "X", function()
+	hl.exec_cmd('notify-send "' .. utils.wallpaper .. '"')
+	hl.dispatch(hl.dsp.exec_cmd("swaybg -i " .. utils.wallpaper .. " -m fill"))
+end)
