@@ -1,4 +1,5 @@
 local mainMod = "SUPER + "
+local utils = require("hyprland.utils")
 
 -- Application bindings
 local terminal = "ghostty"
@@ -40,19 +41,9 @@ hl.bind(
 )
 hl.bind(mainMod .. "SPACE", hl.dsp.window.float({ action = "toggle" })) -- toggle float screen
 
-hl.bind(mainMod .. "SHIFT + S", hl.dsp.exec_cmd("hyprscreen screenshot area"))
+hl.bind(mainMod .. "SHIFT + S", hl.dsp.exec_cmd('grim -g "$(slurp)" - | wl-copy'))
 hl.bind(mainMod .. "SHIFT + R", function()
-	-- local wallpaper = os.getenv("HOME") .. "/.config/hypr/wallpapers/green-room.jpg"
-
-	os.execute("kill -9 $(pidof waybar rofi hyprpaper swaync swayosd-server hypridle)")
-
-	-- os.execute("matugen image " .. wallpaper)
-
-	os.execute("sleep 1 && waybar &")
-	os.execute("swaync > /dev/null 2>&1 &")
-	os.execute("swayosd-server &")
-	os.execute("hyprpaper &")
-	os.execute("hypridle &")
+	utils.reload_config()
 end)
 hl.bind("CTRL + ALT + P", hl.dsp.exec_cmd("wlogout --protocol layer-shell -b 2"))
 hl.bind("CTRL + ALT + L", hl.dsp.exec_cmd("hyprlock"))
@@ -91,31 +82,17 @@ hl.bind(mainMod .. "mouse:273", hl.dsp.window.resize(), { mouse = true })
 -- select workspace
 
 for i = 1, 10 do
-	local key = i % 10 -- i = 10 -> key = 0
-	hl.bind(mainMod .. tostring(key), function()
-		local curMon = hl.get_active_monitor()
-		if curMon ~= nil then
-			if curMon.name == "DP-3" then
-				hl.dispatch(hl.dsp.focus({ workspace = i + 10 }))
-			else
-				hl.dispatch(hl.dsp.focus({ workspace = i }))
-			end
-		end
+	hl.bind(mainMod .. (i % 10), function()
+		return hl.dispatch(hl.dsp.focus({ workspace = i + hl.get_active_monitor().id * 10 }))
 	end)
-
-	hl.bind(mainMod .. " SHIFT + " .. tostring(key), function()
-		local curMon = hl.get_active_monitor()
-		if curMon ~= nil then
-			if curMon.name == "DP-3" then
-				hl.dispatch(hl.dsp.window.move({ workspace = i + 10, follow = false }))
-			else
-				hl.dispatch(hl.dsp.window.move({ workspace = i, follow = false }))
-			end
-		end
+	hl.bind(mainMod .. " SHIFT + " .. (i % 10), function()
+		return hl.dispatch(hl.dsp.window.move({ workspace = i + hl.get_active_monitor().id * 10, follow = false }))
 	end)
 end
 
--- local swayosdcmd = "swayosd-client --monitor " .. hl.get_active_monitor().name
+hl.bind(mainMod .. "mouse_up", hl.dsp.focus({ workspace = "e+1" }))
+hl.bind(mainMod .. "mouse_down", hl.dsp.focus({ workspace = "e-1" }))
+
 local maxvolume = "150"
 
 -- media control
@@ -169,7 +146,16 @@ hl.bind("XF86AudioLowerVolume", function()
 		)
 	)
 end, { repeating = true, locked = true, desc = "Volume down" })
-hl.bind("XF86AudioMicMute", function()
+
+-- microphone
+hl.bind("CTRL + XF86AudioRaiseVolume", function()
+	hl.dispatch(hl.dsp.exec_cmd("swayosd-client --monitor " .. hl.get_active_monitor().name .. " --input-volume +5"))
+end, { repeating = true, locked = true, desc = "Mic-Volume up" })
+hl.bind("CTRL + XF86AudioLowerVolume", function()
+	hl.dispatch(hl.dsp.exec_cmd("swayosd-client --monitor " .. hl.get_active_monitor().name .. " --input-volume -5"))
+end, { repeating = true, locked = true, desc = "Mic-Volume down" })
+
+hl.bind("CTRL + XF86AudioMute", function()
 	hl.dispatch(
 		hl.dsp.exec_cmd("swayosd-client --monitor " .. hl.get_active_monitor().name .. " --input-volume mute-toggle")
 	)
@@ -179,3 +165,20 @@ hl.bind("XF86AudioMute", function()
 		hl.dsp.exec_cmd("swayosd-client --monitor " .. hl.get_active_monitor().name .. " --output-volume mute-toggle")
 	)
 end, { locked = true, desc = "Toggle Audio" })
+
+hl.bind(mainMod .. "X", function()
+	hl.exec_cmd('notify-send "' .. hl.get_active_monitor().id .. '"')
+end)
+
+-- Lua config (0.55+): toggle second monitor with MOD+F2
+local SECOND = "DP-3" -- change to your output name (run: hyprctl monitors)
+
+hl.bind(mainMod .. "F2", function()
+	if hl.get_monitor(SECOND) ~= nil then
+		hl.monitor({ output = SECOND, disabled = true })
+		hl.dsp.exec_cmd("hyprctl dispatch dpmsoff " .. SECOND)
+	else
+		hl.monitor({ output = SECOND, disabled = false })
+		hl.dsp.exec_cmd("hyprctl dispatch dpmson " .. SECOND)
+	end
+end)

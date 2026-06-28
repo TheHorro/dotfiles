@@ -146,6 +146,10 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 	pattern = { "markdown", "lectic.markdown" },
 	callback = function()
 		vim.opt_local.tagfunc = ""
+
+		vim.opt_local.tabstop = 2
+		vim.opt_local.softtabstop = 2
+		vim.opt_local.shiftwidth = 2
 	end,
 })
 
@@ -160,8 +164,8 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
 	pattern = { "*" },
 	callback = function()
 		-- Use custom fold utility or fall back to global function
-		local ok, fold_utils = pcall(require, "util.fold")
-		if ok and fold_utils and fold_utils.load_folding_state then
+		local fold_ok, fold_utils = pcall(require, "util.fold")
+		if fold_ok and fold_utils and fold_utils.load_folding_state then
 			fold_utils.load_folding_state()
 		elseif _G.LoadFoldingState then
 			_G.LoadFoldingState()
@@ -174,8 +178,8 @@ vim.api.nvim_create_autocmd("VimEnter", {
 	callback = function()
 		vim.defer_fn(function()
 			-- Use custom URL utility or fall back to global function
-			local ok, url_utils = pcall(require, "util.url")
-			if ok and url_utils and url_utils.setup_url_mappings then
+			local url_ok, url_utils = pcall(require, "util.url")
+			if url_ok and url_utils and url_utils.setup_url_mappings then
 				url_utils.setup_url_mappings()
 			elseif _G.SetupUrlMappings then
 				_G.SetupUrlMappings()

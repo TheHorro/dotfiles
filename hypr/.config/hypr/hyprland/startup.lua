@@ -1,42 +1,49 @@
 local utils = require("hyprland.utils")
 -- monitor options
-local monitors = {
-	{
-		output = "*",
-		mode = "preferred",
-		position = "auto",
-		transform = 1,
-	},
-	{
-		output = "DP-2",
-		mode = "3440x1440@165.0",
-		position = "0x1440",
-		scale = 1,
-		bitdepth = 10,
-		cm = "srgb",
-	},
-	{
-		output = "DP-3",
-		mode = "2560x1440@165.0",
-		position = "440x0",
-		scale = 1,
-		bitdepth = 10,
-		cm = "srgb",
-		transform = 2,
-	},
-	{
-		output = "eDP-1",
-		mode = "2560x1600@60.0",
-		position = "0x0",
-		scale = "1.0",
-		bitdepth = 10,
-		cm = "srgb",
-	},
-}
+--
+-- local monitors = {
+-- 	{
+-- 		output = "*",
+-- 		mode = "preferred",
+-- 		position = "auto",
+-- 		transform = 1,
+-- 	},
+-- 	{
+-- 		output = "eDP-1",
+-- 		mode = "2560x1600@60.0",
+-- 		position = "0x0",
+-- 		scale = "1.0",
+-- 		bitdepth = 10,
+-- 		cm = "srgb",
+-- 	},
+-- }
 
-for _, m in ipairs(monitors) do
-	hl.monitor(m)
-end
+-- for _, m in ipairs(monitors) do
+-- 	hl.monitor(m)
+-- end
+hl.monitor({
+	output = "DP-2",
+	mode = "3440x1440@165.0",
+	position = "0x1440",
+	scale = 1,
+	bitdepth = 10,
+	cm = "srgb",
+	vrr = 1,
+	supports_hdr = -1,
+})
+
+hl.monitor({
+	output = "DP-3",
+	-- disabled = true,
+	mode = "2560x1440@165.0",
+	position = "440x0",
+	scale = 1,
+	bitdepth = 10,
+	cm = "srgb",
+	transform = 2,
+	vrr = 1,
+	supports_hdr = -1,
+})
 
 local branch = utils.get_branch_name()
 if branch == "laptop" then
@@ -81,7 +88,8 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY ")
 	hl.exec_cmd("gnome-keyring-daemon --start --components=secrets")
 	hl.exec_cmd("systemctl --user start hyprpolkitagent")
-	hl.exec_cmd("hyprpaper")
+	-- hl.exec_cmd("hyprpaper")
+	hl.exec_cmd("swaybg  -i " .. utils.wallpaper .. " -m fill")
 	hl.exec_cmd("hypridle")
 	hl.exec_cmd("swayosd-server")
 	hl.exec_cmd("waybar")
@@ -93,7 +101,8 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("wl-paste --type image --watch cliphist store")
 	if branch == "main" then
 		hl.exec_cmd("vesktop", { workspace = 11 })
-		hl.exec_cmd("steam", { workspace = 11 })
+		hl.exec_cmd("steam -silent", { workspace = 11 })
+		hl.exec_cmd("tidal-hifi", { workspace = 11 })
 	end
 end)
 

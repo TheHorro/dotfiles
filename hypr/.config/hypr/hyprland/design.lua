@@ -71,6 +71,7 @@ hl.config({
 		font_family = "CaskaydiaCove Nerd Font",
 		mouse_move_enables_dpms = true,
 		key_press_enables_dpms = true,
+		vrr = 1,
 	},
 })
 
