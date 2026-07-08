@@ -10,7 +10,6 @@
   min-height: 0;
   border: none;
   border-radius: 0;
-  /* padding: 0; */
   margin: 0;
   padding-top: 0px;
   padding-bottom: 0px;
@@ -30,7 +29,7 @@
 }
 
 window#waybar {
-  background-color: @background-alpha;
+  background-color: alpha(@background, 0.3);
   color: @primary;
   /* border-radius: 6px; */
 }
@@ -42,7 +41,7 @@ window#waybar > box {
   /* padding-bottom: 2px; */
   margin-top: 0px;
   margin-top: 0px;
-  background-color: @background-alpha;
+  background-color: alpha(@background, 0.3);
 }
 
 window#waybar.hidden {
@@ -51,7 +50,7 @@ window#waybar.hidden {
 
 tooltip {
   background: @background;
-  border-radius: 10px;
+  border-radius: 0px;
   border: 1px solid @background;
 }
 
@@ -124,11 +123,19 @@ tooltip {
 #custom-swaync,
 #custom-power {
   background-color: alpha(@background, 0.9);
-  padding: 2px 6px; /* top/bottom 4px (compact), left/right 6px */
+  padding: 0px 6px; /* top/bottom 4px (compact), left/right 6px */
   margin: 0px 0px 0px 0px;
   border-radius: 9px;
   border: 1px solid @background;
   transition: all 0.3s ease;
+}
+
+#clock {
+  /* background-color:; */
+  color: @secondary;
+  border-color: @primary;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 #custom-updater {

@@ -1,6 +1,6 @@
 local M = {}
 
-M.wallpaper = os.getenv("HOME") .. "/.config/hypr/wallpapers/green-room.jpg"
+M.wallpaper = os.getenv("HOME") .. "/.config/hypr/wallpapers/cabin.jpg"
 
 M.get_branch_name = function()
 	local handle = io.popen("git -C " .. os.getenv("HOME") .. "/dotfiles" .. " branch --show-current 2>/dev/null")
@@ -18,7 +18,8 @@ local restart_app = function(app)
 end
 
 M.reload_config = function()
-	hl.exec_cmd("killall -SIGUSR2 waybar")
+	-- hl.exec_cmd("killall -SIGUSR2 waybar")
+	restart_app("waybar")
 	restart_app("swayosd-server")
 	restart_app("hypridle")
 	restart_app("swaync")
