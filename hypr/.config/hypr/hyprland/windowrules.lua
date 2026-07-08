@@ -32,9 +32,15 @@ hl.window_rule({
 	opacity = "1.0 override 1.0 override",
 })
 
+hl.window_rule({
+	match = { class = "^([vV]esktop|[tT]idal)$" },
+	tile = true,
+	workspace = 11,
+})
+
 -- Steam
 hl.window_rule({
-	match = { class = "^([sS]team|[vV]esktop|[tT]idal)$", title = "^steam$" },
+	match = { class = "^([sS]team)$" },
 	tile = true,
 	workspace = 11,
 	opacity = "1.0 override 1.0 override",
