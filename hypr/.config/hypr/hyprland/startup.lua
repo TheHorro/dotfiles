@@ -1,4 +1,16 @@
+-- local utils = require("hyprland.utils")
 local utils = require("hyprland.utils")
+local uname = utils.uname()
+
+hl.monitor({
+	output = "*",
+	mode = "preferred",
+	position = "auto",
+	transform = 1,
+})
+
+-- local _, utils = pcall(require, "hyprland.utils")
+
 -- monitor options
 --
 -- local monitors = {
@@ -21,42 +33,54 @@ local utils = require("hyprland.utils")
 -- for _, m in ipairs(monitors) do
 -- 	hl.monitor(m)
 -- end
-hl.monitor({
-	output = "DP-2",
-	mode = "3440x1440@165.0",
-	position = "0x1440",
-	scale = 1,
-	bitdepth = 10,
-	cm = "srgb",
-	vrr = 1,
-	supports_hdr = -1,
-})
+if uname == "Horro-arch" then
+	hl.monitor({
+		output = "DP-2",
+		mode = "3440x1440@165.0",
+		position = "0x1440",
+		scale = 1,
+		bitdepth = 10,
+		cm = "srgb",
+		vrr = 1,
+		supports_hdr = -1,
+	})
 
-hl.monitor({
-	output = "DP-3",
-	-- disabled = true,
-	mode = "2560x1440@165.0",
-	position = "440x0",
-	scale = 1,
-	bitdepth = 10,
-	cm = "srgb",
-	transform = 2,
-	vrr = 1,
-	supports_hdr = -1,
-})
-
-local branch = utils.get_branch_name()
-if branch == "laptop" then
-	for i = 1, 10 do
-		hl.workspace_rule({ workspace = tostring(i), monitor = "eDP-1" })
-		hl.workspace_rule({ workspace = tostring(i + 10), monitor = "HDMI-A-1" })
-	end
-elseif branch == "main" then
+	hl.monitor({
+		output = "DP-3",
+		-- disabled = true,
+		mode = "2560x1440@165.0",
+		position = "440x0",
+		scale = 1,
+		bitdepth = 10,
+		cm = "srgb",
+		transform = 2,
+		vrr = 1,
+		supports_hdr = -1,
+	})
 	for i = 1, 10 do
 		hl.workspace_rule({ workspace = tostring(i), monitor = "DP-2" })
 		hl.workspace_rule({ workspace = tostring(i + 10), monitor = "DP-3" })
 	end
+elseif uname == "TH-Laptop" then
+	hl.monitor({
+		output = "eDP-1",
+		mode = "2560x1600@60.0",
+		position = "0x0",
+		scale = "1.0",
+		bitdepth = 10,
+		cm = "srgb",
+	})
+	for i = 1, 10 do
+		hl.workspace_rule({ workspace = tostring(i), monitor = "eDP-1" })
+		hl.workspace_rule({ workspace = tostring(i + 10), monitor = "HDMI-A-1" })
+	end
 end
+
+-- on initial loading, the monitors aren't added yet
+hl.on("monitor.added", utils.setupMonitor)
+
+-- on reloading, the monitors are already added
+utils.setupMonitors(hl.get_monitors())
 
 -- Toolkit Backend
 hl.env("GDK_BACKEND", "wayland,x11,*")
@@ -99,7 +123,7 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("nm-applet")
 	hl.exec_cmd("wl-paste --type text --watch cliphist store")
 	hl.exec_cmd("wl-paste --type image --watch cliphist store")
-	if branch == "main" then
+	if uname == "Horro-arch" then
 		hl.exec_cmd("vesktop", { workspace = 11 })
 		hl.exec_cmd("steam -silent", { workspace = 11 })
 		hl.exec_cmd("tidal-hifi", { workspace = 11 })

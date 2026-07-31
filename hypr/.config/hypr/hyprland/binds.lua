@@ -79,15 +79,9 @@ hl.bind(mainMod .. "SHIFT + L", hl.dsp.window.resize({ x = 10, y = 0, relative =
 hl.bind(mainMod .. "mouse:272", hl.dsp.window.drag(), { mouse = true })
 hl.bind(mainMod .. "mouse:273", hl.dsp.window.resize(), { mouse = true })
 
--- select workspace
-
-for i = 1, 10 do
-	hl.bind(mainMod .. (i % 10), function()
-		return hl.dispatch(hl.dsp.focus({ workspace = i + hl.get_active_monitor().id * 10 }))
-	end)
-	hl.bind(mainMod .. " SHIFT + " .. (i % 10), function()
-		return hl.dispatch(hl.dsp.window.move({ workspace = i + hl.get_active_monitor().id * 10, follow = false }))
-	end)
+for i, key in ipairs(utils.workspace_keys) do
+	hl.bind("SUPER + " .. key, hl.dsp.focus({ workspace = "m~" .. i }))
+	hl.bind("SUPER + SHIFT + " .. key, hl.dsp.window.move({ workspace = "m~" .. i, follow = false }))
 end
 
 hl.bind(mainMod .. "mouse_up", hl.dsp.focus({ workspace = "e+1" }))
@@ -167,7 +161,7 @@ hl.bind("XF86AudioMute", function()
 end, { locked = true, desc = "Toggle Audio" })
 
 hl.bind(mainMod .. "X", function()
-	hl.exec_cmd('notify-send "' .. hl.get_active_monitor().id .. '"')
+	hl.exec_cmd('notify-send "' .. hl.get_active_workspace().name .. '"')
 end)
 
 -- Lua config (0.55+): toggle second monitor with MOD+F2

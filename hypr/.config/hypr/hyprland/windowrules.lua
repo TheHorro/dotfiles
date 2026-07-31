@@ -41,9 +41,13 @@ hl.window_rule({
 -- Steam
 hl.window_rule({
 	match = { class = "^([sS]team)$" },
-	tile = true,
 	workspace = 11,
 	opacity = "1.0 override 1.0 override",
+})
+hl.window_rule({
+	match = { class = "^([sS]team)$", title = "negative:^([sS]team|notificationtoasts.*)" },
+	float = true,
+	size = { 600, 800 },
 })
 hl.window_rule({
 	match = { class = "^steam$", title = "^Friends List$" },
@@ -67,6 +71,22 @@ hl.window_rule({
 	size = { 800, 600 },
 })
 
+hl.window_rule({
+	match = { class = "qalculate-gtk" },
+	float = true,
+	center = true,
+})
+
+hl.window_rule({
+	match = {
+		-- initial_title = ".*(_crx_nngceckbapebfimnlniiiahkandclblb|Bitwarden).*",
+		title = ".*([Bb]itwarden|Paypal).*",
+	},
+	float = true,
+	center = true,
+	size = { 500, 800 },
+})
+
 -- Fullscreen screensaver
 hl.window_rule({ match = { class = "^Screensaver$" }, fullscreen = true })
 
@@ -83,7 +103,7 @@ hl.window_rule({
 	move = { 99999, 99999 },
 })
 
--- CS2: immediate (tearing allowed)
+-- CS2: immediate (tearing allowed
 hl.window_rule({
 	match = { class = "^(cs2|[eE]lden [rR]ing)" },
 	immediate = true,
@@ -97,5 +117,17 @@ hl.window_rule({
 	render_unfocused = true,
 })
 
+hl.window_rule({
+	match = { title = "OpenCv.*" },
+	workspace = 12,
+})
+
 -- Layer rule: no animation for hyprshot selection
 hl.layer_rule({ match = { namespace = "selection" }, no_anim = true })
+
+hl.on("window.title", function(win)
+	if win.title == "Bitwarden" then
+		hl.dispatch(hl.dsp.window.float(win))
+		hl.dispatch(hl.dsp.window.resize({ x = 500, y = 800, window = win }))
+	end
+end)
