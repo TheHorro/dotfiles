@@ -59,7 +59,7 @@ hl.config({
 		mfact = 0.50,
 		new_status = "inherit",
 		orientation = "center",
-		slave_count_for_center_master = 3,
+		slave_count_for_center_master = 2,
 		center_master_fallback = "left",
 	},
 

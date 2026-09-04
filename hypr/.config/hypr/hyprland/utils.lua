@@ -35,7 +35,6 @@ M.reload_config = function()
 	restart_app("swayosd-server")
 	restart_app("hypridle")
 	restart_app("swaync")
-	hl.exec_cmd("kill -9 $(pidof swaybg); swaybg -i " .. M.wallpaper .. " -m fill &")
 end
 
 M.workspace_keys = { "code:10", "code:11", "code:12", "code:13" }
