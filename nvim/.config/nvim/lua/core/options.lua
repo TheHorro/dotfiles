@@ -109,11 +109,13 @@ local options = {
 	foldlevel = 0,
 	-- Performance optimizations
 	lazyredraw = true, -- Reduce redraw frequency
-	synmaxcol = 200, -- Limit syntax highlighting for better performance
+	synmaxcol = 500, -- Limit syntax highlighting for better performance
 	redrawtime = 1500, -- Limit redraw time for better performance
 	history = 500, -- Limit history size
 	jumpoptions = "stack", -- Optimize jump list
 	shada = "!,'100,<50,s10,h", -- Optimize shada (session) storage foldlevel = 99,       -- Open all folds by default
+	exrc = true, -- allow local
+	secure = true,
 }
 
 -- Apply all options
