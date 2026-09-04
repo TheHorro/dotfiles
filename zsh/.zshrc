@@ -1,4 +1,4 @@
-export PATH="$PATH:/bin/Swiftpoint X1 Control Panel 3.0.7.20:$HOME/.local/bin"
+export PATH="$PATH:/bin/Swiftpoint X1 Control Panel 3.0.7.20:$HOME/.local/bin:$HOME/.cargo/bin"
 export ROCM_PATH=/opt/rocm
 export HSA_OVERRIDE_GFX_VERSION=10.3.0
 
