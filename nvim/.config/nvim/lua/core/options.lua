@@ -205,3 +205,17 @@ vim.api.nvim_create_autocmd("FileType", {
 		vim.cmd("syntax sync minlines=2000")
 	end,
 })
+
+-- disable colorcolumn and snacks-scope for txt, tex and md
+local group = vim.api.nvim_create_augroup("NoColorColumnForProse", {
+	clear = true,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+	group = group,
+	pattern = { "tex", "plaintex", "markdown", "text" },
+	callback = function(args)
+		vim.opt_local.colorcolumn = ""
+		vim.b[args.buf].snacks_scope = false
+	end,
+})

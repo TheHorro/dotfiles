@@ -19,12 +19,23 @@ return {
 			severity_sort = true,
 		})
 
-		local on_attach = function(client, bufnr) end
-
 		local capabilities = vim.lsp.protocol.make_client_capabilities()
 		local ok, blink = pcall(require, "blink.cmp")
 		if ok then
 			capabilities = blink.get_lsp_capabilities(capabilities)
+		end
+
+		local function root_with_lang(bufnr, on_dir)
+			bufnr = bufnr or vim.api.nvim_get_current_buf()
+			local root = vim.fs.root(bufnr, { ".git", ".ltex", "main.tex" })
+			if root then
+				local f = io.open(root .. "/.ltex-lang", "r")
+				if f then
+					vim.b[bufnr].ltex_language = vim.trim(f:read("l") or "")
+					f:close()
+				end
+			end
+			on_dir(root)
 		end
 
 		---------------------------------------------------------------------------
@@ -53,7 +64,6 @@ return {
 					},
 				},
 			}, {
-				on_attach = on_attach,
 				capabilities = capabilities,
 			})
 		)
@@ -61,7 +71,6 @@ return {
 		-- texlab
 		vim.lsp.config("texlab", {
 			cmd = { "texlab" },
-			on_attach = on_attach,
 			capabilities = capabilities,
 			settings = {
 				texlab = {
@@ -74,19 +83,6 @@ return {
 				},
 			},
 		})
-
-		local function root_with_lang(bufnr, on_dir)
-			bufnr = bufnr or vim.api.nvim_get_current_buf()
-			local root = vim.fs.root(bufnr, { ".git", ".ltex", "main.tex" })
-			if root then
-				local f = io.open(root .. "/.ltex-lang", "r")
-				if f then
-					vim.b[bufnr].ltex_language = vim.trim(f:read("l") or "")
-					f:close()
-				end
-			end
-			on_dir(root)
-		end
 
 		-- LTeX
 		vim.lsp.config("ltex_plus", {
@@ -103,21 +99,23 @@ return {
 			},
 			on_attach = function(client, bufnr)
 				local lang = vim.b[bufnr].ltex_language
-				if lang ~= "" and lang and lang ~= client.config.settings.ltex.language then
+				if lang and lang ~= "" then
 					client.config.settings.ltex.language = lang
 				end
+				if vim.g.ltex_extra_initialized then
+					return
+				end
+				vim.g.ltex_extra_initialized = true
 				require("ltex_extra").setup({
 					load_langs = { client.config.settings.ltex.language },
 					path = client.config.root_dir .. "/.ltex", -- vim.fs.dirname(vim.api.nvim_buf_get_name(bufnr)), -- or your root, see below
 					init_check = true,
 				})
-				client:notify("workspace/didChangeConfiguration", { settings = client.config.settings })
 			end,
 		})
 
 		vim.lsp.config("pyright", {
 			cmd = { "pyright-langserver", "--stdio" },
-			on_attach = on_attach,
 			capabilities = capabilities,
 			settings = {
 				python = {
@@ -139,7 +137,6 @@ return {
 				-- Ruff übernimmt Formatting, Pyright nur Type-Checking
 				-- Hover-Infos kommen von Pyright, nicht Ruff
 				client.server_capabilities.hoverProvider = false
-				on_attach(client, bufnr)
 			end,
 			capabilities = capabilities,
 			init_options = {
@@ -163,12 +160,10 @@ return {
 				"compile_flags.txt",
 				".git",
 			},
-			on_attach = on_attach,
 			capabilities = capabilities,
 		})
 
 		vim.lsp.config("cssls", {
-			on_attach = on_attach,
 			capabilities = capabilities,
 			settings = {
 				css = {
@@ -194,16 +189,6 @@ return {
 
 				if client.name == "stylua" then
 					client:stop()
-					-- elseif client.name == "ltex_plus" then
-					-- 	local ltex_ok, ltex_extra = pcall(require, "ltex_extra")
-					-- 	if not ltex_ok then
-					-- 		client:stop()
-					-- 		return
-					-- 	end
-					-- 	ltex_extra.setup({
-					-- 		load_langs = { "en-US", "de-DE" },
-					-- 		path = vim.fn.getcwd() .. "/.ltex",
-					-- 	})
 				end
 			end,
 		})
