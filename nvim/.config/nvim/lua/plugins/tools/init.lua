@@ -71,6 +71,7 @@ local yanky_module         = safe_require("plugins.tools.yanky")
 local luasnip_module       = safe_require("plugins.tools.luasnip")
 local trouble_module       = safe_require("plugins.tools.trouble")
 local conform_module       = safe_require("plugins.tools.conform")
+local remote_module       = safe_require("plugins.tools.remote-nvim")
 -- local worktree_module      = safe_require("plugins.tools.worktree")
 
 -- Create array of valid plugin specs
@@ -95,6 +96,7 @@ add_if_valid(yanky_module)
 add_if_valid(luasnip_module)
 add_if_valid(trouble_module)
 add_if_valid(conform_module)
+add_if_valid(remote_module)
 
 
 -- Git worktree management

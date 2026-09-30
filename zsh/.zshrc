@@ -1,6 +1,8 @@
-export PATH="$PATH:/bin/Swiftpoint X1 Control Panel 3.0.7.20:$HOME/.local/bin"
+export PATH="$PATH:/bin/Swiftpoint X1 Control Panel 3.0.7.20:$HOME/.local/bin:$HOME/.cargo/bin"
 export ROCM_PATH=/opt/rocm
 export HSA_OVERRIDE_GFX_VERSION=10.3.0
+# set global Qt Font variable (fixes OpenCV requiring QtFont)
+export QT_QPA_FONTDIR=/usr/share/fonts/TTF
 
 # Set the directory we want to store zinit and plugins
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"

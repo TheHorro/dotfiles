@@ -109,11 +109,13 @@ local options = {
 	foldlevel = 0,
 	-- Performance optimizations
 	lazyredraw = true, -- Reduce redraw frequency
-	synmaxcol = 200, -- Limit syntax highlighting for better performance
+	synmaxcol = 500, -- Limit syntax highlighting for better performance
 	redrawtime = 1500, -- Limit redraw time for better performance
 	history = 500, -- Limit history size
 	jumpoptions = "stack", -- Optimize jump list
 	shada = "!,'100,<50,s10,h", -- Optimize shada (session) storage foldlevel = 99,       -- Open all folds by default
+	exrc = true, -- allow local
+	secure = true,
 }
 
 -- Apply all options
@@ -201,5 +203,19 @@ vim.api.nvim_create_autocmd("FileType", {
 		vim.opt_local.synmaxcol = 0 -- 0 means "no limit"
 		-- Fix syntax highlighting on long/wrapped lines
 		vim.cmd("syntax sync minlines=2000")
+	end,
+})
+
+-- disable colorcolumn and snacks-scope for txt, tex and md
+local group = vim.api.nvim_create_augroup("NoColorColumnForProse", {
+	clear = true,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+	group = group,
+	pattern = { "tex", "plaintex", "markdown", "text" },
+	callback = function(args)
+		vim.opt_local.colorcolumn = ""
+		vim.b[args.buf].snacks_scope = false
 	end,
 })

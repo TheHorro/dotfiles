@@ -1,13 +1,13 @@
 -- local utils = require("hyprland.utils")
 local utils = require("hyprland.utils")
 local uname = utils.uname()
-
-hl.monitor({
-	output = "*",
-	mode = "preferred",
-	position = "auto",
-	transform = 1,
-})
+--
+-- hl.monitor({
+-- 	output = "*",
+-- 	mode = "preferred",
+-- 	position = "auto",
+-- 	transform = 1,
+-- })
 
 -- local _, utils = pcall(require, "hyprland.utils")
 
@@ -35,13 +35,13 @@ hl.monitor({
 -- end
 if uname == "Horro-arch" then
 	hl.monitor({
-		output = "DP-2",
+		output = "DP-1",
 		mode = "3440x1440@165.0",
 		position = "0x1440",
 		scale = 1,
 		bitdepth = 10,
 		cm = "srgb",
-		vrr = 1,
+		vrr = 0,
 		supports_hdr = -1,
 	})
 
@@ -58,7 +58,7 @@ if uname == "Horro-arch" then
 		supports_hdr = -1,
 	})
 	for i = 1, 10 do
-		hl.workspace_rule({ workspace = tostring(i), monitor = "DP-2" })
+		hl.workspace_rule({ workspace = tostring(i), monitor = "DP-1" })
 		hl.workspace_rule({ workspace = tostring(i + 10), monitor = "DP-3" })
 	end
 elseif uname == "TH-Laptop" then
@@ -112,8 +112,8 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY ")
 	hl.exec_cmd("gnome-keyring-daemon --start --components=secrets")
 	hl.exec_cmd("systemctl --user start hyprpolkitagent")
-	-- hl.exec_cmd("hyprpaper")
-	hl.exec_cmd("swaybg  -i " .. utils.wallpaper .. " -m fill")
+	hl.exec_cmd("awww-daemon")
+	hl.exec_cmd("sleep 0.5 && awww img " .. utils.wallpaper .. " --resize crop --transition-type none")
 	hl.exec_cmd("hypridle")
 	hl.exec_cmd("swayosd-server")
 	hl.exec_cmd("waybar")

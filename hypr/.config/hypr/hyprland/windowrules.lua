@@ -77,16 +77,6 @@ hl.window_rule({
 	center = true,
 })
 
-hl.window_rule({
-	match = {
-		-- initial_title = ".*(_crx_nngceckbapebfimnlniiiahkandclblb|Bitwarden).*",
-		title = ".*([Bb]itwarden|Paypal).*",
-	},
-	float = true,
-	center = true,
-	size = { 500, 800 },
-})
-
 -- Fullscreen screensaver
 hl.window_rule({ match = { class = "^Screensaver$" }, fullscreen = true })
 
@@ -107,7 +97,7 @@ hl.window_rule({
 hl.window_rule({
 	match = { class = "^(cs2|[eE]lden [rR]ing)" },
 	immediate = true,
-	fullscreen_state = "2",
+	fullscreen_state = "3",
 	content = "game",
 	opacity = "1.0 override 1.0 override",
 	focus_on_activate = true,
@@ -125,9 +115,39 @@ hl.window_rule({
 -- Layer rule: no animation for hyprshot selection
 hl.layer_rule({ match = { namespace = "selection" }, no_anim = true })
 
-hl.on("window.title", function(win)
-	if win.title == "Bitwarden" then
-		hl.dispatch(hl.dsp.window.float(win))
-		hl.dispatch(hl.dsp.window.resize({ x = 500, y = 800, window = win }))
+hl.window_rule({
+	name = "Bitwarden/Paypal",
+	match = {
+		title = ".*([Bb]itwarden|Paypal).*",
+	},
+	float = true,
+	center = true,
+	size = { 500, 800 },
+})
+
+hl.on("window.open", function(w)
+	if not w.class:match("[Bb]rave.*") then
+		hl.dispatch(hl.dsp.exec_cmd("notify-send 'class'"))
+		return
+	elseif not w.initial_title:match("^(_crx_nn.*)") then
+		hl.dispatch(hl.dsp.exec_cmd("notify-send 'title'"))
+		return
 	end
+
+	hl.dispatch(hl.dsp.window.float({ action = "set", window = w }))
+
+	local sub
+	sub = hl.on("window.title", function(tw)
+		if tw.address ~= w.address then
+			return
+		end
+		sub:remove()
+		if tw.class:lower():match("^brave-.*") then
+			hl.dispatch(hl.dsp.window.resize({ x = 500, y = 800, window = tw }))
+			hl.dispatch(hl.dsp.window.center({ window = tw }))
+			hl.dispatch(hl.dsp.focus({ window = tw }))
+		else
+			hl.dispatch(hl.dsp.window.float({ action = "unset", window = tw }))
+		end
+	end)
 end)
