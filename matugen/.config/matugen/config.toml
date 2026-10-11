@@ -1,7 +1,7 @@
 [config]
 fallback_color = "#ffbf9b"
 contrast = 1.0
-
+reload_apps = false
 
 # [config.wallpaper]
 # command = "swww"
@@ -18,15 +18,18 @@ post_hook   = 'hyprctl reload'
 input_path  = '~/.config/matugen/templates/hyprland-colors.conf'
 output_path = '~/.config/hypr/colors.conf'
 
-
 [templates.ghostty]
 input_path  = '~/.config/matugen/templates/ghostty-colors'
 output_path = '~/.config/ghostty/themes/matugen'
 
+[templates.quickshell]
+input_path = "~/.config/matugen/templates/quickshell.json"
+output_path = "~/.config/quickshell/generated/colors.json"
+
 [templates.swaync]
 input_path  = '~/.config/matugen/templates/swaync.css'
 output_path = '~/.config/swaync/colors.css'
-post_hook   = 'swaync-client -rs'
+# post_hook   = 'swaync-client -rs'
 
 [templates.swayosd]
 input_path  = '~/.config/matugen/templates/swayosd.css'
@@ -35,7 +38,7 @@ output_path = '~/.config/swayosd/colors.css'
 [templates.waybar]
 input_path  = '~/.config/matugen/templates/colors-all.css'
 output_path = '~/.config/waybar/colors.css'
-post_hook   = 'pkill -SIGUSR2 waybar'
+# post_hook   = 'pkill -SIGUSR2 waybar'
 
 [templates.wlogout]
 input_path  = '~/.config/matugen/templates/colors-all.css'

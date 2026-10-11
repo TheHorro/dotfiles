@@ -178,7 +178,22 @@ return {
 			},
 		})
 
-		vim.lsp.enable({ "lua_ls", "pyright", "ruff", "texlab", "ltex_plus", "clangd", "cssls" })
+		vim.lsp.config("qmlls", {
+			cmd = { "/usr/lib/qt6/bin/qmlls", "-E" },
+			root_markers = { ".qmlls.ini", "shell.qml", ".git" },
+			handlers = {
+				["textDocument/publishDiagnostics"] = function(err, result, ctx)
+					if result and result.diagnostics then
+						result.diagnostics = vim.tbl_filter(function(d)
+							return not (d.message:match("import") and d.message:match("qs%."))
+						end, result.diagnostics)
+					end
+					vim.lsp.diagnostic.on_publish_diagnostics(err, result, ctx)
+				end,
+			},
+		})
+
+		vim.lsp.enable({ "lua_ls", "pyright", "ruff", "texlab", "ltex_plus", "clangd", "cssls", "qmlls" })
 
 		vim.api.nvim_create_autocmd({ "LspAttach" }, {
 			callback = function(args)

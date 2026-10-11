@@ -1,38 +1,6 @@
--- local utils = require("hyprland.utils")
 local utils = require("hyprland.utils")
 local uname = utils.uname()
---
--- hl.monitor({
--- 	output = "*",
--- 	mode = "preferred",
--- 	position = "auto",
--- 	transform = 1,
--- })
 
--- local _, utils = pcall(require, "hyprland.utils")
-
--- monitor options
---
--- local monitors = {
--- 	{
--- 		output = "*",
--- 		mode = "preferred",
--- 		position = "auto",
--- 		transform = 1,
--- 	},
--- 	{
--- 		output = "eDP-1",
--- 		mode = "2560x1600@60.0",
--- 		position = "0x0",
--- 		scale = "1.0",
--- 		bitdepth = 10,
--- 		cm = "srgb",
--- 	},
--- }
-
--- for _, m in ipairs(monitors) do
--- 	hl.monitor(m)
--- end
 if uname == "Horro-arch" then
 	hl.monitor({
 		output = "DP-1",
@@ -116,8 +84,9 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("sleep 0.5 && awww img " .. utils.wallpaper .. " --resize crop --transition-type none")
 	hl.exec_cmd("hypridle")
 	hl.exec_cmd("swayosd-server")
-	hl.exec_cmd("waybar")
-	hl.exec_cmd("swaync")
+	-- hl.exec_cmd("waybar")
+	-- hl.exec_cmd("swaync")
+	hl.exec_cmd("qs")
 	hl.exec_cmd("xwaylandvideobridge")
 	hl.exec_cmd("nextcloud --background")
 	hl.exec_cmd("nm-applet")

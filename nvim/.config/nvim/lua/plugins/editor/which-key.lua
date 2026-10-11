@@ -429,7 +429,7 @@ return {
 				icon = "󰌹",
 			},
 			{ "<leader>iR", "<cmd>lua vim.lsp.buf.rename()<CR>", desc = "rename", icon = "󰑕" },
-			{ "<leader>is", "<cmd>LspRestart<CR>", desc = "restart lsp", icon = "󰜉" },
+			{ "<leader>is", "<cmd>lsp restart<CR>", desc = "restart lsp", icon = "󰜉" },
 			{
 				"<leader>it",
 				function()

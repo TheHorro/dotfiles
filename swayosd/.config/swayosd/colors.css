@@ -1,20 +1,20 @@
 :root {
     /* ── Primary ──────────────────────────── */
-    --primary:              #dbf4ff;
+    --primary:              #eef7a0;
     --on-primary:           #000000;
-    --primary-container:    #84cde8;
+    --primary-container:    #c0c977;
     --on-primary-container: #000000;
 
     /* ── Secondary ────────────────────────── */
-    --secondary:              #dcf4fe;
+    --secondary:              #f1f3ce;
     --on-secondary:           #000000;
-    --secondary-container:    #afc6d0;
+    --secondary-container:    #c3c5a3;
     --on-secondary-container: #000000;
 
     /* ── Tertiary ─────────────────────────── */
-    --tertiary:              #f0eeff;
+    --tertiary:              #cbfaea;
     --on-tertiary:           #000000;
-    --tertiary-container:    #bfbfe7;
+    --tertiary-container:    #9eccbd;
     --on-tertiary-container: #000000;
 
     /* ── Error ────────────────────────────── */
@@ -24,28 +24,28 @@
     --on-error-container: #000000;
 
     /* ── Surface ──────────────────────────── */
-    --surface:                #0f1416;
+    --surface:                #13140d;
     --on-surface:             #ffffff;
-    --surface-variant:        #40484c;
+    --surface-variant:        #47483b;
     --on-surface-variant:     #ffffff;
-    --surface-container:      #2c3134;
-    --surface-container-high: #373c3f;
-    --surface-container-low:  #1b2023;
-    --surface-bright:         #4b5153;
-    --surface-dim:            #0f1416;
+    --surface-container:      #313128;
+    --surface-container-high: #3c3c33;
+    --surface-container-low:  #202018;
+    --surface-bright:         #515147;
+    --surface-dim:            #13140d;
 
     /* ── Background ───────────────────────── */
-    --background:    #0f1416;
-    --on-background: #dee3e6;
+    --background:    #13140d;
+    --on-background: #e5e3d6;
 
     /* ── Outline ──────────────────────────── */
-    --outline:         #e9f1f6;
-    --outline-variant: #bcc4c8;
+    --outline:         #f2f1df;
+    --outline-variant: #c4c3b3;
 
     /* ── Misc ─────────────────────────────── */
     --shadow:           #000000;
     --scrim:            #000000;
-    --inverse-surface:  #dee3e6;
+    --inverse-surface:  #e5e3d6;
     --inverse-on-surface: #000000;
-    --inverse-primary:  #004f62;
+    --inverse-primary:  #454c06;
 }

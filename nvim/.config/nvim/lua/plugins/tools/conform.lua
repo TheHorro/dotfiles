@@ -29,6 +29,8 @@ return {
 			yaml = { "prettierd", "prettier", stop_after_first = true },
 			markdown = { "prettierd", "prettier", stop_after_first = true },
 			graphql = { "prettierd", "prettier", stop_after_first = true },
+			-- Qt / Quickshell
+			qml = { "qmlformat" },
 
 			-- Systems / scripting
 			lua = { "stylua" },
@@ -51,12 +53,12 @@ return {
 			--   vim.g.disable_autoformat = true
 			--   vim.b[bufnr].disable_autoformat = true
 			if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
-				return
+				return nil
 			end
 
 			-- For hyprlang (and any ft with no formatter), fall back to LSP
 			return {
-				timeout_ms = 500,
+				timeout_ms = 2000,
 				lsp_format = "fallback",
 			}
 		end,
@@ -72,6 +74,12 @@ return {
 			isort = {
 				prepend_args = { "--profile", "black" },
 			},
+			qmlformat = {
+				command = "/usr/lib/qt6/bin/qmlformat",
+				args = { "-i", "$FILENAME" },
+				stdin = false,
+			},
+
 			hypr_indent = {
 				format = function(_, _, lines, callback)
 					local result = {}

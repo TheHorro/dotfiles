@@ -24,6 +24,8 @@ return {
 				"markdown",
 				"markdown_inline",
 				"python",
+				"qmljs",
+				"qmldir",
 				"rust",
 				"toml",
 				"typst",

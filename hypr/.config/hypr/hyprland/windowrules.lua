@@ -127,10 +127,8 @@ hl.window_rule({
 
 hl.on("window.open", function(w)
 	if not w.class:match("[Bb]rave.*") then
-		hl.dispatch(hl.dsp.exec_cmd("notify-send 'class'"))
 		return
-	elseif not w.initial_title:match("^(_crx_nn.*)") then
-		hl.dispatch(hl.dsp.exec_cmd("notify-send 'title'"))
+	elseif not w.initial_title:match("^(_crx_nn.*)") and not w.initial_title:match("^Untitled - Brave") then
 		return
 	end
 
@@ -142,7 +140,7 @@ hl.on("window.open", function(w)
 			return
 		end
 		sub:remove()
-		if tw.class:lower():match("^brave-.*") then
+		if tw.class:lower():match("^(brave-.*)") or tw.title:match("PayPal") then
 			hl.dispatch(hl.dsp.window.resize({ x = 500, y = 800, window = tw }))
 			hl.dispatch(hl.dsp.window.center({ window = tw }))
 			hl.dispatch(hl.dsp.focus({ window = tw }))

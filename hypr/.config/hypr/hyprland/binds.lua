@@ -27,7 +27,7 @@ hl.bind(mainMod .. "SHIFT + Q", function()
 	hl.dispatch(hl.dsp.exec_cmd("kill -9 " .. hl.get_active_window().pid))
 end, { desc = "kill focused window" })
 
-hl.bind(mainMod .. "SHIFT + N", hl.dsp.exec_cmd("swaync-client -t -sw"), { desc = "Open swayNc-Notification Panel" })
+hl.bind(mainMod .. "SHIFT + N", hl.dsp.exec_cmd("qs ipc call controlCenter toggle"), { desc = "Open ControlCenter" })
 
 hl.bind(mainMod .. "CTRL + ALT + M", hl.dsp.exit(), { description = "Exit Hyprland" })
 
@@ -45,8 +45,9 @@ hl.bind(mainMod .. "SHIFT + S", hl.dsp.exec_cmd('grim -g "$(slurp)" - | wl-copy'
 hl.bind(mainMod .. "SHIFT + R", function()
 	utils.reload_config()
 end)
-hl.bind("CTRL + ALT + P", hl.dsp.exec_cmd("wlogout --protocol layer-shell -b 2"))
-hl.bind("CTRL + ALT + L", hl.dsp.exec_cmd("hyprlock"))
+hl.bind("CTRL + ALT + P", hl.dsp.exec_cmd("qs ipc call sessionMenu toggle")) --   wlogout --protocol layer-shell -b 2
+hl.bind("CTRL + ALT + L", hl.dsp.exec_cmd("loginctl lock-session"))
+-- hl.dsp.exec_cmd("hyprlock"))
 
 hl.bind(mainMod .. "SHIFT + T", function()
 	local layout = hl.get_active_workspace().tiled_layout
@@ -87,82 +88,134 @@ end
 hl.bind(mainMod .. "mouse_up", hl.dsp.focus({ workspace = "e+1" }))
 hl.bind(mainMod .. "mouse_down", hl.dsp.focus({ workspace = "e-1" }))
 
-local maxvolume = "150"
-
 -- media control
-hl.bind("XF86AudioPause", function()
-	hl.dispatch(
-		hl.dsp.exec_cmd("swayosd-client --monitor " .. hl.get_active_monitor().name .. " --playerctl play-pause")
-	)
-end, { locked = true, desc = "toggle PlayPause" })
-
-hl.bind("XF86AudioPlay", function()
-	hl.dispatch(
-		hl.dsp.exec_cmd("swayosd-client --monitor " .. hl.get_active_monitor().name .. " --playerctl play-pause")
-	)
-end, { locked = true, desc = "toggle PlayPause" })
-hl.bind("XF86AudioNext", function()
-	hl.dispatch(hl.dsp.exec_cmd("swayosd-client --monitor " .. hl.get_active_monitor().name .. " --playerctl next"))
-end, { locked = true, desc = "Next Track" })
-hl.bind("XF86AudioPrev", function()
-	hl.dispatch(hl.dsp.exec_cmd("swayosd-client --monitor " .. hl.get_active_monitor().name .. " --playerctl previous"))
-end, { locked = true, desc = "Previous Track" })
-hl.bind("XF86Audiostop", function()
-	hl.dispatch(hl.dsp.exec_cmd("swayosd-client --monitor " .. hl.get_active_monitor().name .. " --playerctl stop"))
-end, { locked = true, desc = "Stop Media" })
+hl.bind(
+	"XF86AudioPause",
+	hl.dsp.exec_cmd("qs ipc call osd media playpause"),
+	{ locked = true, desc = "toggle PlayPause" }
+)
+hl.bind(
+	"XF86AudioPlay",
+	hl.dsp.exec_cmd("qs ipc call osd media playpause"),
+	{ locked = true, desc = "toggle PlayPause" }
+)
+hl.bind("XF86AudioNext", hl.dsp.exec_cmd("qs ipc call osd media next"), { locked = true, desc = "Next Track" })
+hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("qs ipc call osd media previous"), { locked = true, desc = "Previous Track" })
+hl.bind("XF86Audiostop", hl.dsp.exec_cmd("qs ipc call osd media stop"), { locked = true, desc = "Stop Media" })
 
 -- brightness
-hl.bind("XF86monbrightnessup", function()
-	hl.dispatch(hl.dsp.exec_cmd("swayosd-client --monitor " .. hl.get_active_monitor().name .. " --brightness +5"))
-end, { repeating = true, locked = true, desc = "Brightness up" })
-hl.bind("XF86monbrightnessdown", function()
-	hl.dispatch(hl.dsp.exec_cmd("swayosd-client --monitor " .. hl.get_active_monitor().name .. " --brightness -5"))
-end, { repeating = true, locked = true, desc = "Brightness down" })
+hl.bind(
+	"XF86monbrightnessup",
+	hl.dsp.exec_cmd("qs ipc call osd brightness up"),
+	{ repeating = true, locked = true, desc = "Brightness up" }
+)
+hl.bind(
+	"XF86monbrightnessdown",
+	hl.dsp.exec_cmd("qs ipc call osd brightness down"),
+	{ repeating = true, locked = true, desc = "Brightness down" }
+)
 
+local maxvolume = "100"
 -- volume
-hl.bind("XF86AudioRaiseVolume", function()
-	hl.dispatch(
-		hl.dsp.exec_cmd(
-			"swayosd-client --monitor "
-				.. hl.get_active_monitor().name
-				.. " --output-volume +5 --max-volume "
-				.. maxvolume
-		)
-	)
-end, { repeating = true, locked = true, desc = "Volume up" })
-hl.bind("XF86AudioLowerVolume", function()
-	hl.dispatch(
-		hl.dsp.exec_cmd(
-			"swayosd-client --monitor "
-				.. hl.get_active_monitor().name
-				.. " --output-volume -5 --max-volume "
-				.. maxvolume
-		)
-	)
-end, { repeating = true, locked = true, desc = "Volume down" })
+hl.bind(
+	"XF86AudioRaiseVolume",
+	hl.dsp.exec_cmd("qs ipc call osd volume up " .. maxvolume),
+	{ repeating = true, locked = true, desc = "Volume up" }
+)
+hl.bind(
+	"XF86AudioLowerVolume",
+	hl.dsp.exec_cmd("qs ipc call osd volume down " .. maxvolume),
+	{ repeating = true, locked = true, desc = "Volume down" }
+)
+hl.bind(
+	"XF86AudioMute",
+	hl.dsp.exec_cmd("qs ipc call osd volume mute " .. maxvolume),
+	{ locked = true, desc = "Toggle Audio" }
+)
 
 -- microphone
-hl.bind("CTRL + XF86AudioRaiseVolume", function()
-	hl.dispatch(hl.dsp.exec_cmd("swayosd-client --monitor " .. hl.get_active_monitor().name .. " --input-volume +5"))
-end, { repeating = true, locked = true, desc = "Mic-Volume up" })
-hl.bind("CTRL + XF86AudioLowerVolume", function()
-	hl.dispatch(hl.dsp.exec_cmd("swayosd-client --monitor " .. hl.get_active_monitor().name .. " --input-volume -5"))
-end, { repeating = true, locked = true, desc = "Mic-Volume down" })
+hl.bind(
+	"CTRL + XF86AudioRaiseVolume",
+	hl.dsp.exec_cmd("qs ipc call osd mic up"),
+	{ repeating = true, locked = true, desc = "Mic-Volume up" }
+)
+hl.bind(
+	"CTRL + XF86AudioLowerVolume",
+	hl.dsp.exec_cmd("qs ipc call osd mic down"),
+	{ repeating = true, locked = true, desc = "Mic-Volume down" }
+)
+hl.bind("CTRL + XF86AudioMute", hl.dsp.exec_cmd("qs ipc call osd mic mute"), { locked = true, desc = "Toggle Mic" })
 
-hl.bind("CTRL + XF86AudioMute", function()
-	hl.dispatch(
-		hl.dsp.exec_cmd("swayosd-client --monitor " .. hl.get_active_monitor().name .. " --input-volume mute-toggle")
-	)
-end, { locked = true, desc = "Toggle Mic" })
-hl.bind("XF86AudioMute", function()
-	hl.dispatch(
-		hl.dsp.exec_cmd("swayosd-client --monitor " .. hl.get_active_monitor().name .. " --output-volume mute-toggle")
-	)
-end, { locked = true, desc = "Toggle Audio" })
-
-hl.bind(mainMod .. "X", function()
-	hl.exec_cmd('notify-send "' .. hl.get_active_workspace().name .. '"')
-end)
+-- -- media control
+-- hl.bind("XF86AudioPause", function()
+-- 	hl.dispatch(
+-- 		hl.dsp.exec_cmd("swayosd-client --monitor " .. hl.get_active_monitor().name .. " --playerctl play-pause")
+-- 	)
+-- end, { locked = true, desc = "toggle PlayPause" })
+--
+-- hl.bind("XF86AudioPlay", function()
+-- 	hl.dispatch(
+-- 		hl.dsp.exec_cmd("swayosd-client --monitor " .. hl.get_active_monitor().name .. " --playerctl play-pause")
+-- 	)
+-- end, { locked = true, desc = "toggle PlayPause" })
+-- hl.bind("XF86AudioNext", function()
+-- 	hl.dispatch(hl.dsp.exec_cmd("swayosd-client --monitor " .. hl.get_active_monitor().name .. " --playerctl next"))
+-- end, { locked = true, desc = "Next Track" })
+-- hl.bind("XF86AudioPrev", function()
+-- 	hl.dispatch(hl.dsp.exec_cmd("swayosd-client --monitor " .. hl.get_active_monitor().name .. " --playerctl previous"))
+-- end, { locked = true, desc = "Previous Track" })
+-- hl.bind("XF86Audiostop", function()
+-- 	hl.dispatch(hl.dsp.exec_cmd("swayosd-client --monitor " .. hl.get_active_monitor().name .. " --playerctl stop"))
+-- end, { locked = true, desc = "Stop Media" })
+--
+-- -- brightness
+-- hl.bind("XF86monbrightnessup", function()
+-- 	hl.dispatch(hl.dsp.exec_cmd("swayosd-client --monitor " .. hl.get_active_monitor().name .. " --brightness +5"))
+-- end, { repeating = true, locked = true, desc = "Brightness up" })
+-- hl.bind("XF86monbrightnessdown", function()
+-- 	hl.dispatch(hl.dsp.exec_cmd("swayosd-client --monitor " .. hl.get_active_monitor().name .. " --brightness -5"))
+-- end, { repeating = true, locked = true, desc = "Brightness down" })
+--
+-- -- volume
+-- hl.bind("XF86AudioRaiseVolume", function()
+-- 	hl.dispatch(
+-- 		hl.dsp.exec_cmd(
+-- 			"swayosd-client --monitor "
+-- 				.. hl.get_active_monitor().name
+-- 				.. " --output-volume +5 --max-volume "
+-- 				.. maxvolume
+-- 		)
+-- 	)
+-- end, { repeating = true, locked = true, desc = "Volume up" })
+-- hl.bind("XF86AudioLowerVolume", function()
+-- 	hl.dispatch(
+-- 		hl.dsp.exec_cmd(
+-- 			"swayosd-client --monitor "
+-- 				.. hl.get_active_monitor().name
+-- 				.. " --output-volume -5 --max-volume "
+-- 				.. maxvolume
+-- 		)
+-- 	)
+-- end, { repeating = true, locked = true, desc = "Volume down" })
+--
+-- -- microphone
+-- hl.bind("CTRL + XF86AudioRaiseVolume", function()
+-- 	hl.dispatch(hl.dsp.exec_cmd("swayosd-client --monitor " .. hl.get_active_monitor().name .. " --input-volume +5"))
+-- end, { repeating = true, locked = true, desc = "Mic-Volume up" })
+-- hl.bind("CTRL + XF86AudioLowerVolume", function()
+-- 	hl.dispatch(hl.dsp.exec_cmd("swayosd-client --monitor " .. hl.get_active_monitor().name .. " --input-volume -5"))
+-- end, { repeating = true, locked = true, desc = "Mic-Volume down" })
+--
+-- hl.bind("CTRL + XF86AudioMute", function()
+-- 	hl.dispatch(
+-- 		hl.dsp.exec_cmd("swayosd-client --monitor " .. hl.get_active_monitor().name .. " --input-volume mute-toggle")
+-- 	)
+-- end, { locked = true, desc = "Toggle Mic" })
+-- hl.bind("XF86AudioMute", function()
+-- 	hl.dispatch(
+-- 		hl.dsp.exec_cmd("swayosd-client --monitor " .. hl.get_active_monitor().name .. " --output-volume mute-toggle")
+-- 	)
+-- end, { locked = true, desc = "Toggle Audio" })
 
 -- Lua config (0.55+): toggle second monitor with MOD+F2
 local SECOND = "DP-3" -- change to your output name (run: hyprctl monitors)

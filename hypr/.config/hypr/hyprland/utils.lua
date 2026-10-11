@@ -31,10 +31,11 @@ end
 
 M.reload_config = function()
 	-- hl.exec_cmd("killall -SIGUSR2 waybar")
-	restart_app("waybar")
+	-- restart_app("waybar")
 	restart_app("swayosd-server")
 	restart_app("hypridle")
-	restart_app("swaync")
+	-- restart_app("swaync")
+	restart_app("qs")
 end
 
 M.workspace_keys = { "code:10", "code:11", "code:12", "code:13" }
