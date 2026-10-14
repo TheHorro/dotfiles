@@ -29,7 +29,7 @@ Scope {
   // 5 min: lock
   IdleMonitor {
     enabled: root.enabled
-    timeout: 300
+    timeout: 600
     onIsIdleChanged: if (isIdle)
                        root.sh("loginctl lock-session")
   }

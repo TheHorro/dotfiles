@@ -34,6 +34,7 @@ Scope {
                                                    clockModule.naturalHeight,
                                                    audioOutputModule.naturalHeight,
                                                    audioInputModule.naturalHeight,
+                                                   batteryModule.naturalHeight,
                                                    idleModule.naturalHeight,
                                                    notificationModule.naturalHeight)
 
@@ -45,6 +46,7 @@ Scope {
       // focusable: false
 
       anchors {
+
         top: true
         left: true
         right: true
@@ -186,6 +188,18 @@ Scope {
             moduleRadius: root.moduleRadius
 
             AudioInput {}
+          }
+          ModuleContainer {
+            id: batteryModule
+            minHeight: panel.moduleHeight
+            padding: root.modulePadding
+            verticalPadding: root.verticalPadding
+            moduleRadius: root.moduleRadius
+            contentActive: battery.available
+
+            Battery {
+              id: battery
+            }
           }
 
           ModuleContainer {
