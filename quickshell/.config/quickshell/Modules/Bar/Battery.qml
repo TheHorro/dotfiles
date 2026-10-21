@@ -7,7 +7,7 @@ Item {
 
   property bool showPercent: true
   property int lowThreshold: 20
-  property string iconFont: Options.fontFamilyOptions.fontFamily
+  property string iconFont: Options.fontFamily
   property int iconPixelSize: Options.iconSize
   property int textPixelSize: Options.textSize
   property int spacing: 6

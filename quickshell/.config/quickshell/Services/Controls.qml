@@ -9,7 +9,6 @@ Singleton {
 
   property bool wifi: false
   property bool nightLight: false
-  property bool caffeine: false
   property real brightness: 0
   property string uptime: ""
 
@@ -34,6 +33,7 @@ Singleton {
     reloadableId: "controls"
     property bool caffeine: false
   }
+  property alias caffeine: persist.caffeine
 
   function refresh() {
     wifiProc.running = true

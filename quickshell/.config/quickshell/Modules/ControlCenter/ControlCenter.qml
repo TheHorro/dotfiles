@@ -248,6 +248,7 @@ Scope {
                            root.sink.audio.muted = !muted
         }
         SliderRow {
+          visible: Device.brightnessCrtl
           icon: ""
           value: Controls.brightness
           onMoved: v => Controls.setBrightness(v)

@@ -52,12 +52,6 @@ Scope {
         right: true
       }
 
-      // exclusiveZone: root.height
-      IdleInhibitor {
-        window: panel
-        enabled: IdleState.inhibit
-      }
-
       Item {
         anchors.fill: parent
         anchors.leftMargin: root.horizontalPadding
@@ -191,6 +185,7 @@ Scope {
           }
           ModuleContainer {
             id: batteryModule
+            visible: Device.hasBattery
             minHeight: panel.moduleHeight
             padding: root.modulePadding
             verticalPadding: root.verticalPadding

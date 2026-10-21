@@ -1,19 +1,20 @@
 import QtQuick
 import Quickshell
 import Quickshell.Wayland
+import qs.Services
 
 Scope {
   id: root
 
-  property bool enabled: true
+  readonly property bool active: !Controls.caffeine
 
   function sh(cmd) {
     Quickshell.execDetached(["sh", "-c", cmd])
   }
 
-  // 2.5 min: dim screen, keyboard backlight off
+  // dim screen, keyboard backlight off
   IdleMonitor {
-    enabled: root.enabled
+    enabled: root.active
     timeout: 150
     onIsIdleChanged: {
       if (isIdle) {
@@ -26,17 +27,17 @@ Scope {
     }
   }
 
-  // 5 min: lock
+  // lock
   IdleMonitor {
-    enabled: root.enabled
+    enabled: root.active
     timeout: 600
     onIsIdleChanged: if (isIdle)
                        root.sh("loginctl lock-session")
   }
 
-  // 10 min: screen off
+  // screen off
   IdleMonitor {
-    enabled: root.enabled
+    enabled: root.active
     timeout: 600
     onIsIdleChanged: {
       if (isIdle)
