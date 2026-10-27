@@ -85,8 +85,8 @@ for i, key in ipairs(utils.workspace_keys) do
 	hl.bind("SUPER + SHIFT + " .. key, hl.dsp.window.move({ workspace = "m~" .. i, follow = false }))
 end
 
-hl.bind(mainMod .. "mouse_up", hl.dsp.focus({ workspace = "e+1" }))
-hl.bind(mainMod .. "mouse_down", hl.dsp.focus({ workspace = "e-1" }))
+hl.bind(mainMod .. "mouse_up", hl.dsp.focus({ workspace = "m+1" }))
+hl.bind(mainMod .. "mouse_down", hl.dsp.focus({ workspace = "m-1" }))
 
 -- media control
 hl.bind(

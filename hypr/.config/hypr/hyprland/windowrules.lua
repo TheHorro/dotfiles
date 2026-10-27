@@ -71,20 +71,6 @@ hl.window_rule({
 	move = { 99999, 99999 },
 })
 
--- CS2: immediate (tearing allowed
-hl.window_rule({
-	match = { class = "^(cs2|[eE]lden [rR]ing)" },
-	immediate = true,
-	fullscreen_state = "3",
-	content = "game",
-	opacity = "1.0 override 1.0 override",
-	focus_on_activate = true,
-	no_anim = true,
-	no_blur = true,
-	no_dim = true,
-	render_unfocused = true,
-})
-
 if utils.uname() == "Horro-arch" then
 	hl.window_rule({
 		match = { class = "^([vV]esktop|[tT]idal)$" },
@@ -113,6 +99,20 @@ if utils.uname() == "Horro-arch" then
 	hl.window_rule({
 		match = { title = "OpenCv.*" },
 		workspace = 12,
+	})
+
+	-- CS2: immediate (tearing allowed
+	hl.window_rule({
+		match = { class = "^(cs2|[eE]lden [rR]ing|steam_app_[0-9].+)" },
+		immediate = true,
+		fullscreen_state = "3",
+		content = "game",
+		opacity = "1.0 override 1.0 override",
+		focus_on_activate = true,
+		no_anim = true,
+		no_blur = true,
+		no_dim = true,
+		render_unfocused = true,
 	})
 end
 
