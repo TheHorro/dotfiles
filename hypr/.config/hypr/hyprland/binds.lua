@@ -16,15 +16,21 @@ hl.bind(mainMod .. "M", hl.dsp.exec_cmd(music), { desc = "Music Player" })
 hl.bind(mainMod .. "O", hl.dsp.exec_cmd("obsidian -disable-gpu"), { desc = "Obsidian" })
 hl.bind(mainMod .. "SLASH", hl.dsp.exec_cmd(pwManager), { desc = "PasswordManager" })
 
-hl.bind(
-	mainMod .. "D",
-	hl.dsp.exec_cmd("pkill rofi || true && rofi -show drun -drun-match-fields name -modi drun,filebrowser,run,window"),
-	{ desc = "Main Menu (APP Launcher)" }
+-- hl.bind(
+--   mainMod .. "D",
+--   hl.dsp.exec_cmd("pkill rofi || true && rofi -show drun -drun-match-fields name -modi drun,filebrowser,run,window"),
+--   { desc = "Main Menu (APP Launcher)" }
+-- )
+hl.bind(mainMod .. "D",
+  hl.dsp.exec_cmd("qs ipc call launcher toggle"),
+  { desc = "Main Menu (APP Launcher)" }
 )
-hl.bind("CTRL + ALT + Delete", hl.dsp.exit(), { desc = "exit Hyprland" }) -- hl.dsp.exec_cmd("hyprctl dispatch exit 0")
+
+hl.bind("CTRL + ALT + Delete", hl.dsp.exit(), { desc = "exit Hyprland" })
+-- hl.dsp.exec_cmd("hyprctl dispatch exit 0")
 hl.bind(mainMod .. "Q", hl.dsp.window.close(), { desc = "close focused window" })
 hl.bind(mainMod .. "SHIFT + Q", function()
-	hl.dispatch(hl.dsp.exec_cmd("kill -9 " .. hl.get_active_window().pid))
+  hl.dispatch(hl.dsp.exec_cmd("kill -9 " .. hl.get_active_window().pid))
 end, { desc = "kill focused window" })
 
 hl.bind(mainMod .. "SHIFT + N", hl.dsp.exec_cmd("qs ipc call controlCenter toggle"), { desc = "Open ControlCenter" })
@@ -32,42 +38,65 @@ hl.bind(mainMod .. "SHIFT + N", hl.dsp.exec_cmd("qs ipc call controlCenter toggl
 hl.bind(mainMod .. "CTRL + ALT + M", hl.dsp.exit(), { description = "Exit Hyprland" })
 
 hl.bind(
-	mainMod .. "SHIFT + F",
-	hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle", desc = "toggle read fullscreen" })
+  mainMod .. "SHIFT + F",
+  hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle", desc = "toggle read fullscreen" })
 )
 hl.bind(
-	mainMod .. "CTRL + F",
-	hl.dsp.window.fullscreen({ mode = "maximized", action = "toggle", desc = "toggle fake fullscreen" })
+  mainMod .. "CTRL + F",
+  hl.dsp.window.fullscreen({ mode = "maximized", action = "toggle", desc = "toggle fake fullscreen" })
 )
 hl.bind(mainMod .. "SPACE", hl.dsp.window.float({ action = "toggle" })) -- toggle float screen
 
-hl.bind(mainMod .. "SHIFT + S", hl.dsp.exec_cmd('grim -g "$(slurp)" - | wl-copy'))
+hl.bind(mainMod .. "SHIFT + S", function()
+  local file = os.getenv("HOME") .. '/Pictures/Screenshots/image_' .. os.date("%Y-%m-%d_%H-%M-%S") .. '.png'
+  local grim = 'grim -g "$(slurp) || exit 0" "' .. file .. '" || exit 1'
+  local copy = 'wl-copy --type image/png < "' .. file .. '" || exit 1'
+  hl.dsp.exec_cmd(grim .. copy .. [[
+      action="$(notify-send \
+        --app-name="Screenshot" \
+        --icon="$file" \
+        --expire-time=5000 \
+        --hint=string:x-canonical-private-synchronous:shot-notify \
+        --action="edit=Edit" \
+        "Screenshot saved" "Saved and copied to clipboard")"
+
+    if [ "$action" = "edit" ]; then
+        gimp -f "$file"
+    fi
+]])
+end
+)
+
+hl.bind(mainMod .. "SHIFT + S",
+  hl.dsp.exec_cmd(
+    'file="$HOME/Pictures/Screenshots/image_$(date +%Y-%m-%d_%H-%M-%S).png" && grim -g "$(slurp)" "$file" && wl-copy --type image/png < "$file"'))
+
 hl.bind(mainMod .. "SHIFT + R", function()
-	utils.reload_config()
+  utils.reload_config()
 end)
 hl.bind("CTRL + ALT + P", hl.dsp.exec_cmd("qs ipc call sessionMenu toggle")) --   wlogout --protocol layer-shell -b 2
 hl.bind("CTRL + ALT + L", hl.dsp.exec_cmd("loginctl lock-session"))
 -- hl.dsp.exec_cmd("hyprlock"))
 
 hl.bind(mainMod .. "SHIFT + T", function()
-	local layout = hl.get_active_workspace().tiled_layout
-	if layout ~= nil then
-		if layout == "dwindle" then
-			hl.dispatch(hl.dsp.layout("togglesplit"))
-		else
-			-- hl.notification.create({ text = "Test", duration = 1000 })
-			hl.dispatch(hl.dsp.layout("swapwithmaster"))
-		end
-	end
+  local layout = hl.get_active_workspace().tiled_layout
+  if layout ~= nil then
+    if layout == "dwindle" then
+      hl.dispatch(hl.dsp.layout("togglesplit"))
+    else
+      -- hl.notification.create({ text = "Test", duration = 1000 })
+      hl.dispatch(hl.dsp.layout("swapwithmaster"))
+    end
+  end
 end)
 
 hl.bind(mainMod .. "CTRL + T", hl.dsp.layout("swapsplit"))
 
 local dirs = { h = "left", j = "down", k = "up", l = "right" }
 for key, dir in pairs(dirs) do
-	hl.bind(mainMod .. key, hl.dsp.focus({ direction = dir }), { desc = "change focus" })
-	hl.bind(mainMod .. "CTRL + " .. key, hl.dsp.window.move({ direction = dir }), { desc = "move window" })
-	hl.bind(mainMod .. "ALT + " .. key, hl.dsp.window.swap({ direction = dir }), { desc = "swap window" })
+  hl.bind(mainMod .. key, hl.dsp.focus({ direction = dir }), { desc = "change focus" })
+  hl.bind(mainMod .. "CTRL + " .. key, hl.dsp.window.move({ direction = dir }), { desc = "move window" })
+  hl.bind(mainMod .. "ALT + " .. key, hl.dsp.window.swap({ direction = dir }), { desc = "swap window" })
 end
 
 -- resize window
@@ -81,8 +110,8 @@ hl.bind(mainMod .. "mouse:272", hl.dsp.window.drag(), { mouse = true })
 hl.bind(mainMod .. "mouse:273", hl.dsp.window.resize(), { mouse = true })
 
 for i, key in ipairs(utils.workspace_keys) do
-	hl.bind("SUPER + " .. key, hl.dsp.focus({ workspace = "m~" .. i }))
-	hl.bind("SUPER + SHIFT + " .. key, hl.dsp.window.move({ workspace = "m~" .. i, follow = false }))
+  hl.bind("SUPER + " .. key, hl.dsp.focus({ workspace = "m~" .. i }))
+  hl.bind("SUPER + SHIFT + " .. key, hl.dsp.window.move({ workspace = "m~" .. i, follow = false }))
 end
 
 hl.bind(mainMod .. "mouse_up", hl.dsp.focus({ workspace = "e+1" }))
@@ -90,14 +119,14 @@ hl.bind(mainMod .. "mouse_down", hl.dsp.focus({ workspace = "e-1" }))
 
 -- media control
 hl.bind(
-	"XF86AudioPause",
-	hl.dsp.exec_cmd("qs ipc call osd media playpause"),
-	{ locked = true, desc = "toggle PlayPause" }
+  "XF86AudioPause",
+  hl.dsp.exec_cmd("qs ipc call osd media playpause"),
+  { locked = true, desc = "toggle PlayPause" }
 )
 hl.bind(
-	"XF86AudioPlay",
-	hl.dsp.exec_cmd("qs ipc call osd media playpause"),
-	{ locked = true, desc = "toggle PlayPause" }
+  "XF86AudioPlay",
+  hl.dsp.exec_cmd("qs ipc call osd media playpause"),
+  { locked = true, desc = "toggle PlayPause" }
 )
 hl.bind("XF86AudioNext", hl.dsp.exec_cmd("qs ipc call osd media next"), { locked = true, desc = "Next Track" })
 hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("qs ipc call osd media previous"), { locked = true, desc = "Previous Track" })
@@ -105,47 +134,53 @@ hl.bind("XF86Audiostop", hl.dsp.exec_cmd("qs ipc call osd media stop"), { locked
 
 -- brightness
 hl.bind(
-	"XF86monbrightnessup",
-	hl.dsp.exec_cmd("qs ipc call osd brightness up"),
-	{ repeating = true, locked = true, desc = "Brightness up" }
+  "XF86monbrightnessup",
+  hl.dsp.exec_cmd("qs ipc call osd brightness up"),
+  { repeating = true, locked = true, desc = "Brightness up" }
 )
 hl.bind(
-	"XF86monbrightnessdown",
-	hl.dsp.exec_cmd("qs ipc call osd brightness down"),
-	{ repeating = true, locked = true, desc = "Brightness down" }
+  "XF86monbrightnessdown",
+  hl.dsp.exec_cmd("qs ipc call osd brightness down"),
+  { repeating = true, locked = true, desc = "Brightness down" }
 )
 
 local maxvolume = "100"
 -- volume
 hl.bind(
-	"XF86AudioRaiseVolume",
-	hl.dsp.exec_cmd("qs ipc call osd volume up " .. maxvolume),
-	{ repeating = true, locked = true, desc = "Volume up" }
+  "XF86AudioRaiseVolume",
+  hl.dsp.exec_cmd("qs ipc call osd volume up " .. maxvolume),
+  { repeating = true, locked = true, desc = "Volume up" }
 )
 hl.bind(
-	"XF86AudioLowerVolume",
-	hl.dsp.exec_cmd("qs ipc call osd volume down " .. maxvolume),
-	{ repeating = true, locked = true, desc = "Volume down" }
+  "XF86AudioLowerVolume",
+  hl.dsp.exec_cmd("qs ipc call osd volume down " .. maxvolume),
+  { repeating = true, locked = true, desc = "Volume down" }
 )
 hl.bind(
-	"XF86AudioMute",
-	hl.dsp.exec_cmd("qs ipc call osd volume mute " .. maxvolume),
-	{ locked = true, desc = "Toggle Audio" }
+  "XF86AudioMute",
+  hl.dsp.exec_cmd("qs ipc call osd volume mute " .. maxvolume),
+  { locked = true, desc = "Toggle Audio" }
 )
 
 -- microphone
 hl.bind(
-	"CTRL + XF86AudioRaiseVolume",
-	hl.dsp.exec_cmd("qs ipc call osd mic up"),
-	{ repeating = true, locked = true, desc = "Mic-Volume up" }
+  "CTRL + XF86AudioRaiseVolume",
+  hl.dsp.exec_cmd("qs ipc call osd mic up"),
+  { repeating = true, locked = true, desc = "Mic-Volume up" }
 )
 hl.bind(
-	"CTRL + XF86AudioLowerVolume",
-	hl.dsp.exec_cmd("qs ipc call osd mic down"),
-	{ repeating = true, locked = true, desc = "Mic-Volume down" }
+  "CTRL + XF86AudioLowerVolume",
+  hl.dsp.exec_cmd("qs ipc call osd mic down"),
+  { repeating = true, locked = true, desc = "Mic-Volume down" }
 )
 hl.bind("CTRL + XF86AudioMute", hl.dsp.exec_cmd("qs ipc call osd mic mute"), { locked = true, desc = "Toggle Mic" })
 
+hl.bind("XF86KbdBrightnessUp", hl.dsp.exec_cmd("qs ipc call osd kbdBacklight up"), { repeating = true, locked = true })
+
+hl.bind("XF86KbdBrightnessDown", hl.dsp.exec_cmd("qs ipc call osd kbdBacklight down"),
+  { repeating = true, locked = true })
+hl.bind("XF86KbdLightOnOff", hl.dsp.exec_cmd("qs ipc call osd kbdBacklight cycle"),
+  { repeating = true, locked = true })
 -- -- media control
 -- hl.bind("XF86AudioPause", function()
 -- 	hl.dispatch(
@@ -221,11 +256,11 @@ hl.bind("CTRL + XF86AudioMute", hl.dsp.exec_cmd("qs ipc call osd mic mute"), { l
 local SECOND = "DP-3" -- change to your output name (run: hyprctl monitors)
 
 hl.bind(mainMod .. "F2", function()
-	if hl.get_monitor(SECOND) ~= nil then
-		hl.monitor({ output = SECOND, disabled = true })
-		hl.dsp.exec_cmd("hyprctl dispatch dpmsoff " .. SECOND)
-	else
-		hl.monitor({ output = SECOND, disabled = false })
-		hl.dsp.exec_cmd("hyprctl dispatch dpmson " .. SECOND)
-	end
+  if hl.get_monitor(SECOND) ~= nil then
+    hl.monitor({ output = SECOND, disabled = true })
+    hl.dsp.exec_cmd("hyprctl dispatch dpmsoff " .. SECOND)
+  else
+    hl.monitor({ output = SECOND, disabled = false })
+    hl.dsp.exec_cmd("hyprctl dispatch dpmson " .. SECOND)
+  end
 end)

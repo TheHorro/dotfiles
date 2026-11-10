@@ -1,78 +1,78 @@
 local colors = require("colors")
 
 hl.config({
-	general = {
-		gaps_in = 1,
-		gaps_out = 4,
-		border_size = 2,
-		col = {
-			active_border = { colors = { colors.primary_hex } },
-			inactive_border = { colors = { colors.background_hex } },
-		},
-		resize_on_border = false,
-		allow_tearing = true,
-		-- layout = "dwindle",
-		layout = "master",
-	},
+  general = {
+    gaps_in = 1,
+    gaps_out = 1,
+    border_size = 2,
+    col = {
+      active_border = { colors = { colors.primary_hex } },
+      inactive_border = { colors = { colors.background_hex } },
+    },
+    resize_on_border = false,
+    allow_tearing = true,
+    -- layout = "dwindle",
+    layout = "master",
+  },
 
-	-- Decoration
-	decoration = {
-		rounding = 0,
+  -- Decoration
+  decoration = {
+    rounding = 0,
 
-		shadow = {
-			enabled = true,
-			range = 2,
-			render_power = 3,
-			color = colors.shadow_hex,
-		},
+    shadow = {
+      enabled = true,
+      range = 2,
+      render_power = 3,
+      color = colors.shadow_hex,
+    },
 
-		blur = {
-			enabled = true,
-			size = 10,
-			passes = 1,
-			vibrancy = 0.1696,
-		},
-	},
+    blur = {
+      enabled = true,
+      size = 10,
+      passes = 1,
+      vibrancy = 0.1696,
+    },
+  },
 
-	-- Animations (global toggle)
-	animations = {
-		enabled = true,
-	},
+  -- Animations (global toggle)
+  animations = {
+    enabled = true,
+  },
 
-	-- Dwindle layout
-	dwindle = {
-		force_split = 0,
-		preserve_split = false,
-		smart_split = false,
-		smart_resizing = true,
-		permanent_direction_override = false,
-		special_scale_factor = 1,
-		split_width_multiplier = 1.0,
-		use_active_for_splits = true,
-		default_split_ratio = 1.0,
-		split_bias = 0,
-		precise_mouse_move = false,
-	},
+  -- Dwindle layout
+  dwindle = {
+    force_split = 0,
+    preserve_split = false,
+    smart_split = false,
+    smart_resizing = true,
+    permanent_direction_override = false,
+    -- special_scale_factor = 1,
+    split_width_multiplier = 1.0,
+    use_active_for_splits = true,
+    default_split_ratio = 1.0,
+    split_bias = 0,
+    precise_mouse_move = false,
+  },
 
-	-- Master layout
-	master = {
-		mfact = 0.50,
-		new_status = "inherit",
-		orientation = "center",
-		slave_count_for_center_master = 2,
-		center_master_fallback = "left",
-	},
+  -- Master layout
+  master = {
+    mfact = 0.50,
+    new_status = "inherit",
+    orientation = "center",
+    slave_count_for_center_master = 2,
+    center_master_fallback = "left",
+  },
 
-	-- Misc
-	misc = {
-		disable_hyprland_logo = true,
-		disable_splash_rendering = true,
-		focus_on_activate = true,
-		font_family = "CaskaydiaCove Nerd Font",
-		mouse_move_enables_dpms = true,
-		key_press_enables_dpms = true,
-		vrr = 1,
-	},
+  -- Misc
+  misc = {
+    disable_hyprland_logo = true,
+    disable_splash_rendering = true,
+    focus_on_activate = true,
+    font_family = "CaskaydiaCove Nerd Font",
+    mouse_move_enables_dpms = true,
+    key_press_enables_dpms = true,
+    vrr = 1,
+  },
 })
 
 -- Bezier curves
