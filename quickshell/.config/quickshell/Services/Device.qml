@@ -13,7 +13,7 @@ Singleton {
 
   // per-host overrides for anything hardware can't tell you
   readonly property var profiles: ({
-                                     "th-laptop": {
+                                     "TH-Laptop": {
                                        barHeight: 24,
                                        brightnessCrtl: true
                                      },

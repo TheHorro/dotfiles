@@ -10,6 +10,7 @@ import qs.Modules.Osd
 import qs.Modules.ControlCenter
 import qs.Modules.Notifications
 import qs.Modules.SessionMenu
+import qs.Modules.Launcher
 
 ShellRoot {
   Bar {}
@@ -26,4 +27,5 @@ ShellRoot {
     onOpenCenter: controlCenter.open = true
   }
   SessionMenu {}
+  Launcher {}
 }

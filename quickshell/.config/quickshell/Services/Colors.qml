@@ -23,12 +23,14 @@ Singleton {
                                        surface: "#101418",
                                        onSurface: "#e1e2e8",
                                        surfaceContainer: "#1c2025",
+                                       surfaceVariant: "#1c2025",
                                        surfaceBright: "#515147",
                                        surfaceContainerHigh: "#272a2f",
                                        surfaceContainerHighest: "#30343a",
                                        outline: "#8b919a",
                                        outlineVariant: "#43474e",
-                                       inversePrimary: "#000000"
+                                       inversePrimary: "#000000",
+                                       onSurfaceVariant: "#000000"
                                      },
                                      shell: {
                                        background: "#101418",

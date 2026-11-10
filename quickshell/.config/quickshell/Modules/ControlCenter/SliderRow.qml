@@ -9,6 +9,7 @@ Item {
   property bool dimmed: false
   signal moved(real v)
   signal iconClicked
+  signal rightClicked
 
   Layout.fillWidth: true
   implicitHeight: 40
@@ -64,5 +65,9 @@ Item {
           setFrom(m.x)
       }
     }
+  }
+  TapHandler {
+    acceptedButtons: Qt.RightButton
+    onTapped: root.rightClicked()
   }
 }

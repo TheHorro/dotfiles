@@ -14,7 +14,7 @@ Scope {
 
   property bool open: false
   property int tab: 0   // 0 = notifications, 1 = mixer
-  property string subPanel: ""     // "", "wifi" or "bluetooth"
+  property string subPanel: ""     // "", "wifi", "bluetooth" or "audio"
 
   IpcHandler {
     target: "controlCenter"
@@ -217,6 +217,7 @@ Scope {
             active: Controls.caffeine
             onClicked: Controls.caffeine = !Controls.caffeine
           }
+
           ToggleTile {
             readonly property bool muted: root.source?.audio?.muted ?? false
             icon: muted ? "󰍭" : ""
@@ -224,6 +225,7 @@ Scope {
             active: muted
             onClicked: if (root.source?.audio)
                          root.source.audio.muted = !muted
+            onRightClicked: root.subPanel = root.subPanel === "audio" ? "" : "audio"
           }
         }
         WifiPanel {
@@ -232,6 +234,9 @@ Scope {
 
         BluetoothPanel {
           visible: root.subPanel === "bluetooth"
+        }
+        AudioPanel {
+          visible: root.subPanel === "audio"
         }
 
         // Sliders
@@ -246,9 +251,10 @@ Scope {
           }
           onIconClicked: if (root.sink?.audio)
                            root.sink.audio.muted = !muted
+          onRightClicked: root.subPanel = root.subPanel === "audio" ? "" : "audio"
         }
         SliderRow {
-          visible: Device.brightnessCrtl
+          visible: Device.profiles[Device.hostname].brightnessCrtl
           icon: ""
           value: Controls.brightness
           onMoved: v => Controls.setBrightness(v)

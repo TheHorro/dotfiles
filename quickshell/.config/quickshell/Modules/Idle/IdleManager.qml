@@ -18,7 +18,7 @@ Scope {
     timeout: 150
     onIsIdleChanged: {
       if (isIdle) {
-        root.sh("brightnessctl -s set 10")
+        root.sh("brightnessctl -s set 25")
         root.sh("brightnessctl -sd rgb:kbd_backlight set 0")
       } else {
         root.sh("brightnessctl -r")

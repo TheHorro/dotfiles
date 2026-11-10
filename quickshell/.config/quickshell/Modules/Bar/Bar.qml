@@ -2,15 +2,14 @@ pragma ComponentBehavior: Bound
 
 import QtQuick
 import Quickshell
-import Quickshell.Wayland
 import qs.Services
 import qs.Components
 
 Scope {
   id: root
 
-  property int minHeight: 28
-  property int verticalMargin: 2
+  property int minHeight: 20
+  property int verticalMargin: 4
   property int horizontalPadding: 3
   property int verticalPadding: 2
   property int moduleSpacing: 5
@@ -27,18 +26,19 @@ Scope {
       screen: modelData
       color: "transparent"
       readonly property int moduleHeight: Math.max(workspaceModule.naturalHeight,
-                                                   trayModule.naturalHeight,
-                                                   diskModule.naturalHeight,
-                                                   hardwareModule.naturalHeight,
-                                                   networkModule.naturalHeight,
+                                                   trayModule.visible ? trayModule.naturalHeight : 0,
+                                                   // diskModule.naturalHeight,
+                                                   // hardwareModule.naturalHeight,
+                                                   // networkModule.naturalHeight,
                                                    clockModule.naturalHeight,
                                                    audioOutputModule.naturalHeight,
                                                    audioInputModule.naturalHeight,
-                                                   batteryModule.naturalHeight,
+                                                   batteryModule.visible
+                                                   ? batteryModule.naturalHeight : 0,
                                                    idleModule.naturalHeight,
                                                    notificationModule.naturalHeight)
 
-      implicitHeight: Math.max(root.minHeight, moduleHeight + root.verticalMargin * 2)
+      implicitHeight: moduleHeight + root.verticalMargin
 
       exclusiveZone: implicitHeight
 
@@ -46,13 +46,13 @@ Scope {
       // focusable: false
 
       anchors {
-
         top: true
         left: true
         right: true
       }
 
       Item {
+        id: barItem
         anchors.fill: parent
         anchors.leftMargin: root.horizontalPadding
         anchors.rightMargin: root.horizontalPadding
@@ -62,49 +62,14 @@ Scope {
           id: leftRow
           anchors {
             left: parent.left
-            verticalCenter: parent.verticalCenter
+            top: parent.top
+            bottom: parent.bottom
+            // verticalCenter: parent.verticalCenter
           }
-          spacing: root.moduleSpacing
-
-          ModuleContainer {
-            id: diskModule
-            minHeight: panel.moduleHeight
-            padding: root.modulePadding
-            verticalPadding: root.verticalPadding
-            moduleRadius: root.moduleRadius
-
-            DiskStats {}
-          }
-
-          ModuleContainer {
-            id: hardwareModule
-            minHeight: panel.moduleHeight
-            padding: root.modulePadding
-            verticalPadding: root.verticalPadding
-            moduleRadius: root.moduleRadius
-
-            HardwareStats {}
-          }
-
-          ModuleContainer {
-            id: networkModule
-            minHeight: panel.moduleHeight
-            padding: root.modulePadding
-            verticalPadding: root.verticalPadding
-            moduleRadius: root.moduleRadius
-
-            NetworkStats {}
-          }
-        }
-
-        Row {
-          id: centerLeftRow
-          anchors.right: clockModule.left
-          anchors.rightMargin: root.moduleSpacing
-
           spacing: root.moduleSpacing
           ModuleContainer {
             id: workspaceModule
+            height: barItem.height
 
             minHeight: panel.moduleHeight
             padding: root.modulePadding
@@ -118,30 +83,11 @@ Scope {
               showNumbers: true
             }
           }
-        }
 
-        ModuleContainer {
-          id: clockModule
-          anchors.centerIn: parent
-
-          padding: root.modulePadding
-          moduleRadius: root.moduleRadius
-          minHeight: panel.moduleHeight
-          verticalPadding: root.verticalPadding
-
-          Clock {
-            dateFormat: "ddd, dd MMM"
-            timeFormat: "HH:mm:ss"
-          }
-        }
-        Row {
-          id: centerRightRow
-
-          spacing: root.moduleSpacing
-          anchors.left: clockModule.right
-          anchors.leftMargin: root.moduleSpacing
           ModuleContainer {
             id: trayModule
+            height: barItem.height
+
             minHeight: panel.moduleHeight
             padding: root.modulePadding
             verticalPadding: root.verticalPadding
@@ -154,18 +100,78 @@ Scope {
               barWindow: panel
             }
           }
+
+          // ModuleContainer {
+          //   id: diskModule
+          //   minHeight: panel.moduleHeight
+          //   padding: root.modulePadding
+          //   verticalPadding: root.verticalPadding
+          //   moduleRadius: root.moduleRadius
+          //
+          //   DiskStats {}
+          // }
+          //
+          // ModuleContainer {
+          //   id: hardwareModule
+          //   minHeight: panel.moduleHeight
+          //   padding: root.modulePadding
+          //   verticalPadding: root.verticalPadding
+          //   moduleRadius: root.moduleRadius
+          //
+          //   HardwareStats {}
+          // }
+          //
+          // ModuleContainer {
+          //   id: networkModule
+          //   minHeight: panel.moduleHeight
+          //   padding: root.modulePadding
+          //   verticalPadding: root.verticalPadding
+          //   moduleRadius: root.moduleRadius
+          //
+          //   NetworkStats {}
+          // }
         }
+
+        ModuleContainer {
+          id: clockModule
+          anchors.centerIn: parent
+
+          padding: root.modulePadding
+          moduleRadius: root.moduleRadius
+          height: barItem.height
+
+          minHeight: panel.moduleHeight
+          verticalPadding: root.verticalPadding
+
+          Clock {
+            dateFormat: "ddd, dd MMM"
+            timeFormat: "HH:mm:ss"
+          }
+        }
+
+        // Row {
+        //   id: centerRightRow
+        //
+        //   spacing: root.moduleSpacing
+        //   anchors.left: clockModule.right
+        //   anchors.leftMargin: root.moduleSpacing
+        // }
 
         Row {
           id: rightRow
           anchors {
             right: parent.right
-            verticalCenter: parent.verticalCenter
+            // verticalCenter: parent.verticalCenter
+
+            top: parent.top
+            bottom: parent.bottom
           }
 
           spacing: root.moduleSpacing
           ModuleContainer {
             id: audioOutputModule
+            height: barItem.height
+
             minHeight: panel.moduleHeight
             padding: root.modulePadding
             verticalPadding: root.verticalPadding
@@ -177,6 +183,8 @@ Scope {
           ModuleContainer {
             id: audioInputModule
             minHeight: panel.moduleHeight
+            height: barItem.height
+
             padding: root.modulePadding
             verticalPadding: root.verticalPadding
             moduleRadius: root.moduleRadius
@@ -187,6 +195,8 @@ Scope {
             id: batteryModule
             visible: Device.hasBattery
             minHeight: panel.moduleHeight
+            height: barItem.height
+
             padding: root.modulePadding
             verticalPadding: root.verticalPadding
             moduleRadius: root.moduleRadius
@@ -200,6 +210,8 @@ Scope {
           ModuleContainer {
             id: idleModule
             minHeight: panel.moduleHeight
+            height: barItem.height
+
             padding: root.modulePadding
             verticalPadding: root.verticalPadding
             moduleRadius: root.moduleRadius
@@ -209,6 +221,8 @@ Scope {
           ModuleContainer {
             id: notificationModule
             padding: root.modulePadding
+            height: barItem.height
+
             moduleRadius: root.moduleRadius
             minHeight: panel.moduleHeight
             verticalPadding: root.verticalPadding

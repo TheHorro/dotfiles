@@ -25,7 +25,7 @@ Rectangle {
                                        + verticalPadding * 2
 
   implicitWidth: (contentItem.module ? contentItem.module.implicitWidth : 0) + padding * 2
-  implicitHeight: Math.max(naturalHeight, minHeight)
+  implicitHeight: naturalHeight
 
   width: implicitWidth
   height: implicitHeight

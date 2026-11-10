@@ -2,19 +2,19 @@
   "mode": "dark",
 
   "md3": {
-    "primary": "#eef7a0",
+    "primary": "#dcf4ff",
     "onPrimary": "#000000",
-    "primaryContainer": "#c0c977",
+    "primaryContainer": "#85cce9",
     "onPrimaryContainer": "#000000",
 
-    "secondary": "#f1f3ce",
+    "secondary": "#dcf4ff",
     "onSecondary": "#000000",
-    "secondaryContainer": "#c3c5a3",
+    "secondaryContainer": "#afc6d1",
     "onSecondaryContainer": "#000000",
 
-    "tertiary": "#cbfaea",
+    "tertiary": "#f1eeff",
     "onTertiary": "#000000",
-    "tertiaryContainer": "#9eccbd",
+    "tertiaryContainer": "#c0bfe7",
     "onTertiaryContainer": "#000000",
 
     "error": "#ffece9",
@@ -22,86 +22,86 @@
     "errorContainer": "#ffaea4",
     "onErrorContainer": "#000000",
 
-    "background": "#13140d",
-    "onBackground": "#e5e3d6",
+    "background": "#0f1416",
+    "onBackground": "#dee3e6",
 
-    "surface": "#13140d",
+    "surface": "#0f1416",
     "onSurface": "#ffffff",
-    "surfaceVariant": "#47483b",
+    "surfaceVariant": "#40484c",
     "onSurfaceVariant": "#ffffff",
 
-    "surfaceDim": "#13140d",
-    "surfaceBright": "#515147",
+    "surfaceDim": "#0f1416",
+    "surfaceBright": "#4b5154",
 
     "surfaceContainerLowest": "#000000",
-    "surfaceContainerLow": "#202018",
-    "surfaceContainer": "#313128",
-    "surfaceContainerHigh": "#3c3c33",
-    "surfaceContainerHighest": "#47473e",
+    "surfaceContainerLow": "#1b2023",
+    "surfaceContainer": "#2c3134",
+    "surfaceContainerHigh": "#373c3f",
+    "surfaceContainerHighest": "#42484a",
 
-    "outline": "#f2f1df",
-    "outlineVariant": "#c4c3b3",
+    "outline": "#e9f1f6",
+    "outlineVariant": "#bcc4c8",
 
-    "inverseSurface": "#e5e3d6",
+    "inverseSurface": "#dee3e6",
     "inverseOnSurface": "#000000",
-    "inversePrimary": "#454c06",
+    "inversePrimary": "#004f63",
 
     "scrim": "#000000",
     "shadow": "#000000"
   },
 
   "shell": {
-    "background": "#13140d",
-    "foreground": "#e5e3d6",
+    "background": "#0f1416",
+    "foreground": "#dee3e6",
 
-    "bar": "#313128",
-    "panel": "#3c3c33",
-    "popup": "#47473e",
+    "bar": "#2c3134",
+    "panel": "#373c3f",
+    "popup": "#42484a",
     "overlay": "#000000",
 
-    "card": "#202018",
-    "cardHover": "#313128",
-    "cardActive": "#3c3c33",
+    "card": "#1b2023",
+    "cardHover": "#2c3134",
+    "cardActive": "#373c3f",
 
-    "accent": "#eef7a0",
+    "accent": "#dcf4ff",
     "accentForeground": "#000000",
-    "accentMuted": "#c0c977",
+    "accentMuted": "#85cce9",
     "accentMutedForeground": "#000000",
 
     "text": "#ffffff",
     "textMuted": "#ffffff",
-    "textDisabled": "#f2f1df",
+    "textDisabled": "#e9f1f6",
 
-    "border": "#c4c3b3",
-    "borderStrong": "#f2f1df",
+    "border": "#bcc4c8",
+    "borderStrong": "#e9f1f6",
 
-    "success": "#cbfaea",
-    "warning": "#f1f3ce",
+    "success": "#f1eeff",
+    "warning": "#dcf4ff",
     "danger": "#ffece9",
     "dangerForeground": "#000000"
   },
 
   "terminal": {
-    "background": "#13140d",
+    "background": "#0f1416",
     "foreground": "#ffffff",
-    "cursor": "#eef7a0",
+    "cursor": "#dcf4ff",
 
     "black": "#000000",
     "red": "#ffece9",
-    "green": "#cbfaea",
-    "yellow": "#f1f3ce",
-    "blue": "#eef7a0",
-    "magenta": "#c3c5a3",
-    "cyan": "#9eccbd",
+    "green": "#f1eeff",
+    "yellow": "#dcf4ff",
+    "blue": "#dcf4ff",
+    "magenta": "#afc6d1",
+    "cyan": "#c0bfe7",
     "white": "#ffffff",
 
-    "brightBlack": "#f2f1df",
+    "brightBlack": "#e9f1f6",
     "brightRed": "#ffaea4",
     "brightGreen": "#000000",
     "brightYellow": "#000000",
     "brightBlue": "#000000",
-    "brightMagenta": "#454c06",
+    "brightMagenta": "#004f63",
     "brightCyan": "#000000",
-    "brightWhite": "#515147"
+    "brightWhite": "#4b5154"
   }
 }
